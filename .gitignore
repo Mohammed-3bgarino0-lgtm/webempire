@@ -8,8 +8,9 @@ apps/mobile/node_modules
 apps/mobile/.expo
 apps/mobile/dist
 *.tsbuildinfo
+next-env.d.ts
+backup-media-tools-*/
 WEB_EMPIRE_ZERO_v*.zip
 WEB_EMPIRE_V*_APPLY_CODESPACE.sh
 supabase/.temp/
 .vercel
-next-env.d.ts
