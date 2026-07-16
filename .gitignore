@@ -12,3 +12,4 @@ WEB_EMPIRE_ZERO_v*.zip
 WEB_EMPIRE_V*_APPLY_CODESPACE.sh
 supabase/.temp/
 .vercel
+next-env.d.ts
