@@ -144,6 +144,17 @@ export default async function LocaleLayout({
         ) : null}
       </head>
       <body>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-2H0DD95M9W"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-2H0DD95M9W');`}
+        </Script>
         <div
           className="public-shell"
           style={style}
