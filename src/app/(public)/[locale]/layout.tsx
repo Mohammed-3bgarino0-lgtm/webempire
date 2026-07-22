@@ -21,6 +21,14 @@ import {
   getUiMessages,
 } from "@/localization/repository";
 
+function relationRecord(value: unknown): Record<string, unknown> {
+  if (Array.isArray(value)) {
+    const first = value[0];
+    return first && typeof first === "object" ? (first as Record<string, unknown>) : {};
+  }
+  return value && typeof value === "object" ? (value as Record<string, unknown>) : {};
+}
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-latin",
@@ -100,6 +108,21 @@ export default async function LocaleLayout({
   ]);
 
   const style = appearanceCssVariables(appearance) as CSSProperties;
+  const { data: subscription } = user
+    ? await supabase
+        .from("user_subscriptions")
+        .select("expires_at, plans(slug, price_sar)")
+        .eq("user_id", user.id)
+        .eq("status", "active")
+        .maybeSingle()
+    : { data: null };
+  const subscribedPlan = relationRecord(subscription?.plans);
+  const subscriptionIsCurrent =
+    !subscription?.expires_at || new Date(subscription.expires_at).getTime() > Date.now();
+  const hasPaidSubscription =
+    subscriptionIsCurrent &&
+    subscribedPlan.slug !== "free" &&
+    Number(subscribedPlan.price_sar ?? 0) > 0;
 
   return (
     <html
@@ -111,12 +134,14 @@ export default async function LocaleLayout({
       >
       <head>
         <meta name="google-adsense-account" content="ca-pub-4001237202734263" />
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4001237202734263"
-          crossOrigin="anonymous"
-          strategy="beforeInteractive"
-        />
+        {!hasPaidSubscription ? (
+          <Script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4001237202734263"
+            crossOrigin="anonymous"
+            strategy="beforeInteractive"
+          />
+        ) : null}
       </head>
       <body>
         <div
