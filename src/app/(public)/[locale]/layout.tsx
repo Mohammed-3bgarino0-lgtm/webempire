@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import { Inter, Tajawal } from "next/font/google";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 
 import "@/app/globals.css";
 import "@/app/editorial.css";
@@ -108,6 +109,15 @@ export default async function LocaleLayout({
           locale.direction === "rtl" ? tajawal.className : inter.className
         }`}
       >
+      <head>
+        <meta name="google-adsense-account" content="ca-pub-4001237202734263" />
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4001237202734263"
+          crossOrigin="anonymous"
+          strategy="beforeInteractive"
+        />
+      </head>
       <body>
         <div
           className="public-shell"
