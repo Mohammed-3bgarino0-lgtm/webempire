@@ -7,13 +7,16 @@
     "icon": "./assets/images/icon.png",
     "scheme": "webempire",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "runtimeVersion": {
       "policy": "appVersion"
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "site.webempire.app"
+      "bundleIdentifier": "site.webempire.app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSFaceIDUsageDescription": "يستخدم إمبراطورية الويب Face ID لحماية جلسة حسابك."
+      }
     },
     "android": {
       "package": "site.webempire.app",
@@ -52,7 +55,9 @@
           "faceIDPermission": "Allow Web Empire to securely access your session."
         }
       ],
-      "expo-localization"
+      "expo-localization",
+      "expo-status-bar",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true,
