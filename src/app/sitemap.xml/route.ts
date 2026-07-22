@@ -1,5 +1,6 @@
 import { publicEnv } from "@/lib/env";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getBlogPosts } from "@/repositories/blog";
 
 function escapeXml(value: string): string {
   return value
@@ -12,9 +13,10 @@ function escapeXml(value: string): string {
 
 export async function GET() {
   const supabase = await createSupabaseServerClient();
-  const [{ data: locales }, { data: tools }] = await Promise.all([
+  const [{ data: locales }, { data: tools }, { posts: blogPosts }] = await Promise.all([
     supabase.from("locales").select("code").eq("is_active", true).order("sort_order"),
     supabase.from("tools").select("slug, updated_at").eq("is_active", true).order("sort_order"),
+    getBlogPosts(1, 10000),
   ]);
 
   const entries: Array<{ url: string; lastmod?: string }> = [];
@@ -31,6 +33,14 @@ export async function GET() {
         lastmod: tool.updated_at ?? undefined,
       });
     }
+  }
+
+  entries.push({ url: `${publicEnv.siteUrl}/ar/blog` });
+  for (const post of blogPosts) {
+    entries.push({
+      url: `${publicEnv.siteUrl}/ar/blog/${post.slug}`,
+      lastmod: post.publish_date,
+    });
   }
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries
