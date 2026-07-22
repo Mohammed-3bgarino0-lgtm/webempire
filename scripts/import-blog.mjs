@@ -16,7 +16,9 @@ const folders = (await fs.readdir(articlesDir, { withFileTypes: true }))
   .map((entry) => entry.name)
   .sort();
 
-const index = [];
+const indexPath = path.join(contentRoot, "index.json");
+const existingIndex = JSON.parse(await fs.readFile(indexPath, "utf8").catch(() => "[]"));
+const indexById = new Map(existingIndex.map((post) => [post.id, post]));
 for (const [position, folder] of folders.entries()) {
   const articleDir = path.join(articlesDir, folder);
   const metadata = JSON.parse(await fs.readFile(path.join(articleDir, "metadata.json"), "utf8"));
@@ -47,7 +49,7 @@ for (const [position, folder] of folders.entries()) {
     cover_alt: metadata.cover_alt,
     word_count: metadata.word_count,
   };
-  index.push(summary);
+  indexById.set(summary.id, summary);
 
   const post = {
     ...summary,
@@ -60,5 +62,6 @@ for (const [position, folder] of folders.entries()) {
   if ((position + 1) % 100 === 0) console.log(`Prepared ${position + 1}/${folders.length}`);
 }
 
-await fs.writeFile(path.join(contentRoot, "index.json"), JSON.stringify(index), "utf8");
-console.log(`Blog package prepared: ${index.length} articles.`);
+const index = [...indexById.values()].sort((a, b) => a.id - b.id);
+await fs.writeFile(indexPath, JSON.stringify(index), "utf8");
+console.log(`Blog package prepared: ${index.length} total articles.`);

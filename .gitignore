@@ -16,3 +16,4 @@ supabase/.temp/
 .vercel
 .env.import
 _blog_package/
+_blog_package_2/
