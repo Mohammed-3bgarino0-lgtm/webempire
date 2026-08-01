@@ -1,0 +1,21 @@
+{
+  "version": "1.0",
+  "source": "image(72).png",
+  "approved_identity": "Stylized W mark with subtle crown geometry",
+  "colors": {
+    "deep_navy": "#07111F",
+    "primary_navy": "#0B192B",
+    "brand_blue": "#1677FF",
+    "background": "#F6F8FB",
+    "graphite": "#1D1D1F",
+    "white": "#FFFFFF"
+  },
+  "usage": {
+    "ios_icon": "app-icon-ios-1024.png",
+    "android_foreground": "android-icon-foreground-1024.png",
+    "android_monochrome": "android-icon-monochrome-1024.png",
+    "splash": "splash-mark-transparent-1024.png",
+    "light_background_logo": "web-empire-horizontal-navy-blue-2048.png",
+    "dark_background_logo": "web-empire-horizontal-white-blue-2048.png"
+  }
+}
