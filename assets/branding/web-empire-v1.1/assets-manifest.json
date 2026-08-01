@@ -1,7 +1,8 @@
 {
-  "version": "1.0",
-  "source": "image(72).png",
-  "approved_identity": "Stylized W mark with subtle crown geometry",
+  "version": "1.1",
+  "all_brand_assets_transparent": true,
+  "opaque_exception": "app-icon-ios-store-opaque-1024.png",
+  "reason": "iOS store icon requires a filled square background; use app-icon-source-transparent-1024.png as the transparent master.",
   "colors": {
     "deep_navy": "#07111F",
     "primary_navy": "#0B192B",
@@ -11,11 +12,13 @@
     "white": "#FFFFFF"
   },
   "usage": {
-    "ios_icon": "app-icon-ios-1024.png",
-    "android_foreground": "android-icon-foreground-1024.png",
-    "android_monochrome": "android-icon-monochrome-1024.png",
+    "ios_store_icon": "app-icon-ios-store-opaque-1024.png",
+    "transparent_app_icon_source": "app-icon-source-transparent-1024.png",
+    "android_foreground": "android-adaptive-foreground-transparent-1024.png",
+    "android_monochrome": "android-monochrome-transparent-1024.png",
     "splash": "splash-mark-transparent-1024.png",
-    "light_background_logo": "web-empire-horizontal-navy-blue-2048.png",
-    "dark_background_logo": "web-empire-horizontal-white-blue-2048.png"
+    "light_background_logo": "web-empire-horizontal-navy-blue-transparent-2048.png",
+    "dark_background_logo": "web-empire-horizontal-white-blue-transparent-2048.png",
+    "watermark": "web-empire-watermark-transparent-1600.webp"
   }
 }
