@@ -1,31 +1,29 @@
-حزمة الهوية — إمبراطورية الويب V1
+# إمبراطورية الويب — أصول الهوية V1.1
 
-المصدر:
-- تم استخراج الشعار من النسخة المعتمدة دون إعادة رسم أو تغيير الفكرة.
-- تم تنظيف الشفافية، إزالة النقاط الشاردة، إضافة مساحة أمان، وتصدير مقاسات التطبيق.
+جميع ملفات الشعار والرمز والعلامة المائية داخل هذه الحزمة بخلفية شفافة.
 
-الاستخدام:
-1) app-icon-ios-1024.png
-   أيقونة iOS النهائية، بخلفية كحلية غير شفافة.
+## الاستثناء الوحيد
 
-2) android-icon-foreground-1024.png
-   الطبقة الأمامية الشفافة لأيقونة Android Adaptive.
+`app-icon-ios-store-opaque-1024.png`
 
-3) android-icon-monochrome-1024.png
-   النسخة الأحادية لأيقونات Android المدعومة.
+هذه نسخة متجر iOS بخلفية كحلية ثابتة، لأن أيقونة المتجر يجب أن تكون مربعًا ممتلئًا.
+للمصدر الشفاف استخدم:
 
-4) splash-mark-transparent-1024.png
-   رمز شاشة البداية على خلفية كحلية.
+`app-icon-source-transparent-1024.png`
 
-5) web-empire-horizontal-navy-blue-2048.png
-   الشعار الأفقي للخلفيات البيضاء والفاتحة.
+## الاستخدام
 
-6) web-empire-horizontal-white-blue-2048.png
-   الشعار الأفقي للخلفيات الداكنة.
+- خلفية فاتحة: `web-empire-horizontal-navy-blue-transparent-2048.png`
+- خلفية داكنة: `web-empire-horizontal-white-blue-transparent-2048.png`
+- رمز التطبيق الشفاف: `app-icon-source-transparent-1024.png`
+- Android Foreground: `android-adaptive-foreground-transparent-1024.png`
+- Android Monochrome: `android-monochrome-transparent-1024.png`
+- Splash: `splash-mark-transparent-1024.png`
+- Watermark: `web-empire-watermark-transparent-1600.webp`
 
-7) web-empire-watermark-1600.webp
-   علامة مائية خفيفة لخلفيات الشاشات.
+## ملاحظات التنفيذ
 
-ملاحظة:
-- لا تُستخدم صورة شاشة كاملة كواجهة تطبيق.
-- الأصول هنا للعلامة والزخرفة فقط، بينما الأزرار والبطاقات والنصوص تُبنى بالكود.
+- لا تستخدم صورة شاشة كاملة كواجهة تطبيق.
+- الأصول مخصصة للشعار والزخرفة فقط.
+- الأزرار والبطاقات والنصوص وحقول الإدخال تُبنى بالكود.
+- حافظ على مساحة الأمان الموجودة داخل الملفات ولا تقص الحواف مرة أخرى.
