@@ -1,0 +1,597 @@
+/*
+ * Web Empire — Apple-inspired public identity layer
+ *
+ * This file intentionally loads after the legacy public styles. It unifies the
+ * public experience without changing application logic, data flows, or admin UI.
+ */
+
+:root {
+  --apple-ink: #1d1d1f;
+  --apple-ink-soft: #424245;
+  --apple-muted: #6e6e73;
+  --apple-blue: #0071e3;
+  --apple-blue-hover: #0077ed;
+  --apple-blue-soft: rgba(0, 113, 227, 0.1);
+  --apple-green: #34c759;
+  --apple-orange: #ff9f0a;
+  --apple-red: #ff3b30;
+  --apple-canvas: #ffffff;
+  --apple-surface: #f5f5f7;
+  --apple-surface-strong: #fbfbfd;
+  --apple-line: #d2d2d7;
+  --apple-line-soft: rgba(0, 0, 0, 0.08);
+  --apple-radius-sm: 12px;
+  --apple-radius-md: 18px;
+  --apple-radius-lg: 28px;
+  --apple-radius-xl: 36px;
+  --apple-shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.045);
+  --apple-shadow-md: 0 16px 46px rgba(0, 0, 0, 0.075);
+  --apple-shadow-lg: 0 28px 80px rgba(0, 0, 0, 0.1);
+  --apple-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --apple-font-latin: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Segoe UI", sans-serif;
+  --apple-font-arabic: "SF Arabic", "Tajawal", "Segoe UI", Tahoma, Arial, sans-serif;
+
+  /* Bridge legacy tokens to the new identity. */
+  --we-black: var(--apple-ink);
+  --we-muted: var(--apple-muted);
+  --we-line: var(--apple-line-soft);
+  --we-soft: var(--apple-surface);
+  --we-white: var(--apple-canvas);
+  --we-violet: var(--apple-blue);
+  --we-violet-2: var(--apple-blue-hover);
+  --we-gold: var(--apple-ink-soft);
+  --we-gold-2: var(--apple-blue);
+  --we-cyan: var(--apple-blue);
+  --we-radius: var(--apple-radius-lg);
+  --we-shadow: var(--apple-shadow-md);
+}
+
+.public-shell {
+  min-height: 100vh;
+  overflow-x: clip;
+  background: var(--apple-canvas) !important;
+  color: var(--apple-ink) !important;
+  font-family: var(--apple-font-latin);
+  letter-spacing: -0.01em;
+}
+
+html[dir="rtl"] .public-shell {
+  font-family: var(--apple-font-arabic);
+  letter-spacing: 0;
+}
+
+.public-shell ::selection {
+  color: #fff;
+  background: var(--apple-blue);
+}
+
+.public-shell a,
+.public-shell button,
+.public-shell input,
+.public-shell textarea,
+.public-shell select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Header */
+.public-shell .light-empire-header {
+  padding-block: 8px;
+  border-bottom: 1px solid var(--apple-line-soft) !important;
+  background: rgba(255, 255, 255, 0.78) !important;
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+.public-shell .light-empire-header-inner {
+  min-height: 56px;
+  gap: 24px;
+  padding-inline: 16px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.public-shell .light-empire-brand-logo {
+  width: auto;
+  max-width: 168px;
+  height: 38px;
+  object-fit: contain;
+}
+
+.public-shell .light-empire-nav {
+  gap: clamp(18px, 2vw, 32px);
+  color: var(--apple-ink);
+  font-size: 0.84rem;
+  font-weight: 500;
+}
+
+.public-shell .light-empire-nav a,
+.public-shell .light-empire-login,
+.public-shell .light-empire-start,
+.public-shell .we-button-primary,
+.public-shell .we-button-ghost {
+  transition:
+    color 220ms var(--apple-ease),
+    background-color 220ms var(--apple-ease),
+    border-color 220ms var(--apple-ease),
+    box-shadow 220ms var(--apple-ease),
+    transform 220ms var(--apple-ease),
+    opacity 220ms var(--apple-ease);
+}
+
+.public-shell .light-empire-nav a:hover,
+.public-shell .light-empire-nav a[aria-current="page"] {
+  color: var(--apple-blue);
+}
+
+.public-shell .light-empire-actions {
+  gap: 8px;
+}
+
+.public-shell .light-empire-login,
+.public-shell .light-empire-start {
+  min-height: 36px;
+  padding-inline: 16px;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.public-shell .light-empire-login {
+  color: var(--apple-ink);
+  border: 0;
+  background: transparent;
+}
+
+.public-shell .light-empire-login:hover {
+  background: var(--apple-surface);
+}
+
+.public-shell .light-empire-start,
+.public-shell .we-button-primary {
+  color: #fff;
+  background: var(--apple-blue);
+  box-shadow: none;
+}
+
+.public-shell .light-empire-start:hover,
+.public-shell .we-button-primary:hover {
+  background: var(--apple-blue-hover);
+  transform: translateY(-1px);
+}
+
+/* Global public canvas */
+.public-shell .we-page,
+.public-shell .we-tools-page,
+.public-shell .we-pricing-page,
+.public-shell .we-auth-page,
+.public-shell .we-blog-page,
+.public-shell .we-blog-article-page {
+  background: var(--apple-canvas) !important;
+  color: var(--apple-ink);
+}
+
+.public-shell .we-container {
+  width: min(1180px, calc(100% - 40px));
+}
+
+.public-shell .we-section {
+  padding-block: clamp(42px, 6vw, 82px);
+}
+
+.public-shell h1,
+.public-shell h2,
+.public-shell h3,
+.public-shell strong {
+  color: var(--apple-ink);
+}
+
+.public-shell p,
+.public-shell small {
+  color: var(--apple-muted);
+}
+
+/* Hero */
+.public-shell .we-hero {
+  padding: clamp(56px, 8vw, 112px) 0 48px;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(0, 113, 227, 0.09), transparent 34%),
+    linear-gradient(180deg, #ffffff 0%, #fbfbfd 100%);
+}
+
+.public-shell .we-hero-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(380px, 0.9fr);
+  gap: clamp(36px, 7vw, 92px);
+}
+
+.public-shell .we-hero-copy {
+  text-align: start;
+}
+
+.public-shell .we-hero-copy h1,
+.public-shell .we-tools-title h1,
+.public-shell .we-auth-copy h1,
+.public-shell .we-pricing-title h1 {
+  max-width: 820px;
+  color: var(--apple-ink);
+  font-size: clamp(3.2rem, 7vw, 6.8rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.065em;
+}
+
+html[dir="rtl"] .public-shell .we-hero-copy h1,
+html[dir="rtl"] .public-shell .we-tools-title h1,
+html[dir="rtl"] .public-shell .we-auth-copy h1,
+html[dir="rtl"] .public-shell .we-pricing-title h1 {
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+.public-shell .we-gradient-text {
+  color: var(--apple-ink);
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+
+.public-shell .we-hero-copy p,
+.public-shell .we-tools-title p,
+.public-shell .we-auth-copy p,
+.public-shell .we-pricing-title p {
+  max-width: 650px;
+  color: var(--apple-muted);
+  font-size: clamp(1.08rem, 1.8vw, 1.35rem);
+  line-height: 1.6;
+}
+
+.public-shell .we-hero-actions {
+  justify-content: flex-start;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+html[dir="rtl"] .public-shell .we-hero-actions {
+  justify-content: flex-start;
+}
+
+.public-shell .we-button-primary,
+.public-shell .we-button-ghost {
+  min-height: 46px;
+  padding-inline: 23px;
+  border-radius: 999px;
+  font-size: 0.96rem;
+  font-weight: 600;
+}
+
+.public-shell .we-button-ghost {
+  color: var(--apple-blue);
+  border: 0;
+  background: transparent;
+}
+
+.public-shell .we-button-ghost:hover {
+  background: var(--apple-blue-soft);
+}
+
+.public-shell .we-hero-visual {
+  min-height: 360px;
+  border-radius: var(--apple-radius-xl);
+  background: linear-gradient(145deg, #f5f5f7, #ffffff);
+  box-shadow: inset 0 0 0 1px var(--apple-line-soft);
+}
+
+.public-shell .we-hero-visual img {
+  width: min(92%, 660px);
+  filter: drop-shadow(0 28px 48px rgba(0, 0, 0, 0.1));
+}
+
+/* Search and trust metrics */
+.public-shell .we-search {
+  min-height: 58px;
+  margin-top: 34px;
+  padding-inline: 18px;
+  border: 1px solid var(--apple-line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--apple-shadow-sm);
+  color: var(--apple-muted);
+}
+
+.public-shell .we-search:focus-within {
+  border-color: var(--apple-blue);
+  box-shadow: 0 0 0 4px var(--apple-blue-soft);
+}
+
+.public-shell .we-stats {
+  margin-top: 28px;
+  border: 0;
+  border-radius: var(--apple-radius-lg);
+  background: var(--apple-surface);
+  box-shadow: none;
+}
+
+.public-shell .we-stats div {
+  min-height: 88px;
+  border-inline-start-color: var(--apple-line-soft);
+}
+
+.public-shell .we-stats strong {
+  color: var(--apple-ink);
+  font-size: 1.18rem;
+  font-weight: 650;
+}
+
+/* Cards */
+.public-shell .we-tool-card,
+.public-shell .we-category-card,
+.public-shell .we-dashboard-card,
+.public-shell .we-pricing-panel,
+.public-shell .we-cta-strip,
+.public-shell .we-tools-sidebar,
+.public-shell .we-tool-list-card,
+.public-shell .we-auth-card,
+.public-shell .we-auth-visual-card,
+.public-shell .we-price-card,
+.public-shell .we-compare-card,
+.public-shell .we-blog-card,
+.public-shell .we-blog-related {
+  border: 1px solid var(--apple-line-soft);
+  border-radius: var(--apple-radius-lg);
+  background: var(--apple-surface-strong);
+  box-shadow: none;
+  transition:
+    transform 300ms var(--apple-ease),
+    box-shadow 300ms var(--apple-ease),
+    border-color 300ms var(--apple-ease),
+    background-color 300ms var(--apple-ease);
+}
+
+.public-shell .we-tool-card:hover,
+.public-shell .we-category-card:hover,
+.public-shell .we-tool-list-card:hover,
+.public-shell .we-price-card:hover,
+.public-shell .we-blog-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 113, 227, 0.22);
+  background: #fff;
+  box-shadow: var(--apple-shadow-md);
+}
+
+.public-shell .we-tool-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.public-shell .we-tool-card {
+  min-height: 220px;
+  padding: 26px;
+}
+
+.public-shell .we-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  color: var(--apple-blue);
+  background: var(--apple-blue-soft);
+  font-size: 1.3rem;
+}
+
+.public-shell .we-tool-card h3,
+.public-shell .we-tool-list-card h3 {
+  margin-top: 20px;
+  font-size: 1.08rem;
+  font-weight: 650;
+}
+
+.public-shell .we-tool-card p,
+.public-shell .we-tool-list-card p,
+.public-shell .we-category-card p {
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.public-shell .we-card-link {
+  color: var(--apple-blue);
+  font-weight: 600;
+}
+
+.public-shell .we-category-row {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.public-shell .we-category-card {
+  min-height: 94px;
+  color: var(--apple-ink);
+  font-weight: 600;
+}
+
+.public-shell .we-bottom-grid {
+  gap: 22px;
+}
+
+.public-shell .we-dashboard-card,
+.public-shell .we-pricing-panel {
+  padding: 30px;
+  background: var(--apple-surface);
+}
+
+.public-shell .we-pricing-mini a {
+  border-color: var(--apple-line-soft);
+  border-radius: var(--apple-radius-md);
+  background: #fff;
+}
+
+.public-shell .we-pricing-mini strong {
+  color: var(--apple-ink);
+}
+
+.public-shell .we-cta-strip {
+  min-height: 124px;
+  margin-block: 34px 72px;
+  padding: 28px 34px;
+  border-color: transparent;
+  background: var(--apple-surface);
+}
+
+/* Forms and controls */
+.public-shell input,
+.public-shell textarea,
+.public-shell select {
+  border-color: var(--apple-line) !important;
+  border-radius: var(--apple-radius-sm) !important;
+  background: #fff !important;
+  color: var(--apple-ink) !important;
+  box-shadow: none !important;
+  transition: border-color 180ms var(--apple-ease), box-shadow 180ms var(--apple-ease);
+}
+
+.public-shell input:focus,
+.public-shell textarea:focus,
+.public-shell select:focus {
+  outline: none;
+  border-color: var(--apple-blue) !important;
+  box-shadow: 0 0 0 4px var(--apple-blue-soft) !important;
+}
+
+.public-shell button:focus-visible,
+.public-shell a:focus-visible {
+  outline: 2px solid var(--apple-blue);
+  outline-offset: 3px;
+}
+
+/* Footer */
+.public-shell footer {
+  border-top: 1px solid var(--apple-line-soft);
+  background: var(--apple-surface) !important;
+  color: var(--apple-ink) !important;
+}
+
+/* Responsive behavior */
+@media (max-width: 1100px) {
+  .public-shell .light-empire-nav {
+    gap: 16px;
+    font-size: 0.8rem;
+  }
+
+  .public-shell .we-tool-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 920px) {
+  .public-shell .light-empire-header-inner {
+    grid-template-columns: 1fr auto;
+  }
+
+  .public-shell .light-empire-nav {
+    display: none;
+  }
+
+  .public-shell .we-hero-grid,
+  .public-shell .we-bottom-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .public-shell .we-hero-copy {
+    order: -1;
+  }
+
+  .public-shell .we-hero-visual {
+    min-height: 300px;
+  }
+
+  .public-shell .we-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .public-shell .we-category-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .public-shell .we-container {
+    width: min(100% - 28px, 1180px);
+  }
+
+  .public-shell .light-empire-header {
+    padding-block: 5px;
+  }
+
+  .public-shell .light-empire-header-inner {
+    min-height: 52px;
+    padding-inline: 8px;
+  }
+
+  .public-shell .light-empire-brand-logo {
+    max-width: 132px;
+    height: 32px;
+  }
+
+  .public-shell .light-empire-login,
+  .public-shell .light-empire-actions > :first-child {
+    display: none;
+  }
+
+  .public-shell .light-empire-start {
+    min-height: 34px;
+    padding-inline: 13px;
+  }
+
+  .public-shell .we-hero {
+    padding-top: 54px;
+  }
+
+  .public-shell .we-hero-copy h1,
+  .public-shell .we-tools-title h1,
+  .public-shell .we-auth-copy h1,
+  .public-shell .we-pricing-title h1 {
+    font-size: clamp(2.7rem, 15vw, 4.4rem);
+  }
+
+  .public-shell .we-hero-actions,
+  .public-shell .we-cta-strip {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .public-shell .we-button-primary,
+  .public-shell .we-button-ghost {
+    width: 100%;
+  }
+
+  .public-shell .we-hero-visual {
+    min-height: 240px;
+  }
+
+  .public-shell .we-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .public-shell .we-stats div {
+    border-bottom: 1px solid var(--apple-line-soft);
+  }
+
+  .public-shell .we-tool-grid,
+  .public-shell .we-category-row,
+  .public-shell .we-pricing-mini {
+    grid-template-columns: 1fr;
+  }
+
+  .public-shell .we-tool-card {
+    min-height: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .public-shell *,
+  .public-shell *::before,
+  .public-shell *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
