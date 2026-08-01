@@ -9,6 +9,7 @@ import "@/app/editorial.css";
 import "@/app/empire-brand.css";
 import "@/app/empire-command.css";
 import "@/app/web-empire-light.css";
+import "@/app/apple-inspired.css";
 import { appearanceCssVariables, getAppearanceSettings } from "@/appearance/repository";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
