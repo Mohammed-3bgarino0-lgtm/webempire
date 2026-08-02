@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 
 type IconName =
   | "crown"
@@ -232,6 +232,17 @@ export function AdminShell({
   const roleLabel = roleLabels[adminRole] ?? "مدير النظام";
   const avatarLetter = adminName.trim().charAt(0) || "م";
 
+  useEffect(() => {
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setMobileOpen(false);
+      }
+    }
+
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, []);
+
   return (
     <div
       className={`adminv3-layout ${collapsed ? "is-collapsed" : ""}`}
@@ -244,7 +255,7 @@ export function AdminShell({
         onClick={() => setMobileOpen(false)}
       />
 
-      <aside className="adminv3-sidebar" aria-label="التنقل الإداري">
+      <aside id="admin-navigation" className="adminv3-sidebar" aria-label="التنقل الإداري">
         <div className="adminv3-brand-row">
           <Link href="/admin" className="adminv3-brand" onClick={() => setMobileOpen(false)}>
             <span className="adminv3-brand-mark">
@@ -313,7 +324,9 @@ export function AdminShell({
             <button
               type="button"
               className="adminv3-icon-button adminv3-mobile-menu"
-              aria-label="فتح القائمة"
+              aria-label={mobileOpen ? "إغلاق القائمة" : "فتح القائمة"}
+              aria-controls="admin-navigation"
+              aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((current) => !current)}
             >
               <Icon name="menu" />

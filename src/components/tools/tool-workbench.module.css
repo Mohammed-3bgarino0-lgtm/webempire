@@ -716,3 +716,148 @@
   .formActions,.resultActions { grid-template-columns: 1fr; }
 }
 /* WEB_EMPIRE_V1_2_TOOL_WORKBENCH_POLISH_END */
+
+/* WEB_EMPIRE_FINAL_01_TOOL_WORKBENCH_START */
+.station {
+  width: 100%;
+  min-width: 0;
+  container-type: inline-size;
+  container-name: tool-workbench;
+}
+
+.grid,
+.inputPanel,
+.resultPanel,
+.resultPanelInner,
+.panelHead,
+.form,
+.fields,
+.field,
+.formActions,
+.result,
+.resultHero,
+.details,
+.resultActions,
+.raw,
+.raw pre {
+  min-width: 0;
+}
+
+.field input,
+.field select,
+.field textarea {
+  max-width: 100%;
+  font-size: max(16px, 1rem);
+}
+
+.resultHero pre,
+.resultHero pre.long,
+.detailItem strong,
+.warning,
+.equation,
+.raw pre {
+  overflow-wrap: anywhere;
+}
+
+.resultActions {
+  grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+}
+
+.resultActions button,
+.primary,
+.secondary,
+.mobileTabs button {
+  min-height: 44px;
+}
+
+@container tool-workbench (max-width: 900px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .inputPanel {
+    border-inline-end: 0;
+    border-bottom: 1px solid var(--we-v12-line, #e5ebf3);
+  }
+
+  .resultPanelInner {
+    position: static;
+  }
+}
+
+@container tool-workbench (max-width: 680px) {
+  .mobileTabs {
+    position: sticky;
+    top: 64px;
+    z-index: 8;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .inputPanel,
+  .resultPanel {
+    padding: 17px;
+  }
+
+  .panelHead {
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .status {
+    min-height: 30px;
+  }
+
+  .fields,
+  .formActions,
+  .details,
+  .resultActions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .field:has(textarea) {
+    grid-column: auto;
+  }
+
+  .resultHero {
+    min-height: 140px;
+    padding: 16px;
+  }
+
+  .resultHero pre:not(.long) {
+    white-space: normal;
+  }
+
+  .empty,
+  .error,
+  .loading,
+  .result {
+    min-height: 210px;
+  }
+}
+
+@container tool-workbench (max-width: 420px) {
+  .inputPanel,
+  .resultPanel {
+    padding: 14px;
+  }
+
+  .mobileTabs {
+    padding: 9px;
+  }
+
+  .panelHead h2 {
+    font-size: 1.4rem;
+  }
+
+  .field input,
+  .field select {
+    height: 50px;
+    min-height: 50px;
+  }
+
+  .resultHero pre:not(.long) {
+    font-size: clamp(1.6rem, 13vw, 2.7rem);
+  }
+}
+/* WEB_EMPIRE_FINAL_01_TOOL_WORKBENCH_END */

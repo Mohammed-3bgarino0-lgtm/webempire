@@ -267,3 +267,128 @@
 .guideGrid article { border-color: var(--we-v12-line,#e5ebf3); background: #f8fbff; }
 @media (max-width:680px) { .page { padding: 20px 0 48px; } .hero { gap: 14px; padding: 18px; } .icon { width: 56px; height: 56px; border-radius: 16px; font-size: 1.45rem; } }
 /* WEB_EMPIRE_V1_2_TOOL_DETAIL_POLISH_END */
+
+/* WEB_EMPIRE_FINAL_01_TOOL_DETAIL_START */
+.page,
+.page :global(.we-container) {
+  min-width: 0;
+}
+
+.hero,
+.copy,
+.actions,
+.workbench,
+.guide,
+.guideGrid,
+.guideGrid article {
+  min-width: 0;
+}
+
+.copy h1,
+.copy > p:last-of-type,
+.guideHeader h2,
+.guideHeader > span,
+.guideGrid h3,
+.guideGrid p {
+  overflow-wrap: anywhere;
+}
+
+.guideGrid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+}
+
+@media (max-width: 920px) {
+  .hero {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .actions {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 680px) {
+  .page {
+    padding-inline: 0;
+  }
+
+  .hero {
+    grid-template-columns: 52px minmax(0, 1fr);
+    align-items: start;
+    gap: 13px;
+    padding: 17px;
+  }
+
+  .icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .copy h1 {
+    font-size: clamp(1.55rem, 7.4vw, 2.15rem);
+  }
+
+  .copy > p:last-of-type {
+    margin-top: 8px;
+    font-size: 0.86rem;
+    line-height: 1.7;
+  }
+
+  .actions {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .badges {
+    width: 100%;
+  }
+
+  .badges span {
+    min-width: 0;
+    min-height: 44px;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .back {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .guide {
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .guideGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 420px) {
+  .hero {
+    grid-template-columns: 44px minmax(0, 1fr);
+    padding: 15px;
+    border-radius: 18px;
+  }
+
+  .icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 13px;
+    font-size: 1.2rem;
+  }
+
+  .kicker {
+    font-size: 0.67rem;
+    letter-spacing: 0.06em;
+  }
+
+  .badges {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+/* WEB_EMPIRE_FINAL_01_TOOL_DETAIL_END */

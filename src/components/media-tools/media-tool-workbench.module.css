@@ -260,3 +260,91 @@
 .progressBox progress { accent-color: var(--we-v12-blue,#1677ff); }
 @media (max-width:760px) { .workbench { padding: 17px; } }
 /* WEB_EMPIRE_V1_2_MEDIA_WORKBENCH_POLISH_END */
+
+/* WEB_EMPIRE_FINAL_01_MEDIA_WORKBENCH_START */
+.workbench {
+  width: 100%;
+  min-width: 0;
+  container-type: inline-size;
+  container-name: media-workbench;
+}
+
+.heading,
+.heading > div,
+.panel,
+.optionsGrid,
+.field,
+.actions,
+.progressBox,
+.stats {
+  min-width: 0;
+}
+
+.heading {
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.optionsGrid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+}
+
+.stats {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+}
+
+.field input,
+.field select {
+  max-width: 100%;
+  font-size: max(16px, 1rem);
+}
+
+.field small,
+.heading p,
+.success,
+.error,
+.privacy {
+  overflow-wrap: anywhere;
+}
+
+.actions button,
+.actions a {
+  min-height: 44px;
+}
+
+@container media-workbench (max-width: 620px) {
+  .workbench {
+    padding: 16px;
+    border-radius: 19px;
+  }
+
+  .heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .panel {
+    padding: 15px;
+  }
+
+  .optionsGrid,
+  .stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .actions button,
+  .actions a {
+    width: 100%;
+  }
+
+  .progressBox > div {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+/* WEB_EMPIRE_FINAL_01_MEDIA_WORKBENCH_END */
