@@ -115,13 +115,12 @@ export default async function LocaleLayout({
         .select("expires_at, plans(slug, price_sar)")
         .eq("user_id", user.id)
         .eq("status", "active")
+        .or("expires_at.is.null,expires_at.gt.now")
         .maybeSingle()
     : { data: null };
   const subscribedPlan = relationRecord(subscription?.plans);
-  const subscriptionIsCurrent =
-    !subscription?.expires_at || new Date(subscription.expires_at).getTime() > Date.now();
   const hasPaidSubscription =
-    subscriptionIsCurrent &&
+    Boolean(subscription) &&
     subscribedPlan.slug !== "free" &&
     Number(subscribedPlan.price_sar ?? 0) > 0;
 
