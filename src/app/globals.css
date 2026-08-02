@@ -2712,3 +2712,88 @@ table {
 html[dir="rtl"] .we-pricing-copy,html[dir="rtl"] .we-simple-card,html[dir="rtl"] .we-blog-card-body,html[dir="rtl"] .we-blog-article{text-align:right}
 html[dir="ltr"] .we-pricing-copy,html[dir="ltr"] .we-simple-card,html[dir="ltr"] .we-blog-card-body,html[dir="ltr"] .we-blog-article{text-align:left}
 /* WEB_EMPIRE_RESPONSIVE_02_END */
+
+/* WEB_EMPIRE_RESPONSIVE_02_1_START */
+
+/*
+  Mobile header correction:
+  - one row only
+  - brand + menu button
+  - desktop actions hidden inside mobile menu breakpoint
+*/
+@media (max-width: 1080px) {
+  .light-empire-header-inner {
+    min-height: 68px !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-rows: auto !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding-block: 6px !important;
+  }
+
+  .light-empire-brand {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    min-width: 0 !important;
+    max-width: min(68vw, 220px) !important;
+    justify-self: start !important;
+  }
+
+  .light-empire-brand-logo {
+    width: clamp(150px, 24vw, 205px) !important;
+    height: auto !important;
+    max-height: 52px !important;
+  }
+
+  .light-empire-nav,
+  .light-empire-actions {
+    display: none !important;
+  }
+
+  .light-empire-mobile-menu {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    display: block !important;
+    justify-self: end !important;
+    align-self: center !important;
+    margin: 0 !important;
+  }
+
+  .light-empire-mobile-menu > summary {
+    margin: 0 !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .light-empire-header-inner {
+    min-height: 64px !important;
+    padding-block: 5px !important;
+  }
+
+  .light-empire-brand {
+    max-width: calc(100vw - 94px) !important;
+  }
+
+  .light-empire-brand-logo {
+    width: clamp(145px, 43vw, 185px) !important;
+    max-height: 48px !important;
+  }
+
+  .light-empire-mobile-panel {
+    top: 70px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .light-empire-brand-logo {
+    width: 142px !important;
+  }
+
+  .light-empire-mobile-menu > summary {
+    width: 42px !important;
+    height: 42px !important;
+  }
+}
+
+/* WEB_EMPIRE_RESPONSIVE_02_1_END */
