@@ -33,9 +33,11 @@ function renderAdMarkup(
   const placeholderText = escapeHtml(options.placeholderText);
   const isProduction = process.env.VERCEL_ENV === "production";
 
-  if (!isProduction || !slot) {
+  if (!isProduction) {
     return `<aside class="we-ad-slot we-ad-slot-placeholder" data-ad-placement="${placement}" aria-label="${label}"><span class="we-ad-label">${label}</span><div class="we-ad-placeholder" aria-hidden="true">${placeholderText}</div></aside>`;
   }
+
+  if (!slot) return "";
 
   return `<aside class="we-ad-slot" data-ad-placement="${placement}" aria-label="${label}"><span class="we-ad-label">${label}</span><ins class="adsbygoogle" style="display:block" data-ad-client="${ADSENSE_CLIENT}" data-ad-slot="${slot}" data-ad-format="auto" data-full-width-responsive="true"></ins></aside>`;
 }

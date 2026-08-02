@@ -32,9 +32,11 @@ export default async function BlogPage({
   const prefix = `/${locale.code}`;
   const blogFeedSlot =
     process.env.NEXT_PUBLIC_ADSENSE_SLOT_BLOG_FEED?.trim();
+  const isProduction = process.env.VERCEL_ENV === "production";
   const blogFeedAdsLive =
-    process.env.VERCEL_ENV === "production" &&
-    /^\d+$/.test(blogFeedSlot ?? "");
+    isProduction && /^\d+$/.test(blogFeedSlot ?? "");
+  const showBlogFeedPlacement =
+    !isProduction || blogFeedAdsLive;
 
   return (
     <main className="we-page we-blog-page">
@@ -65,7 +67,7 @@ export default async function BlogPage({
                 </Link>
               </div>
             </article>
-            {(index + 1) % 6 === 0 ? (
+            {(index + 1) % 6 === 0 && showBlogFeedPlacement ? (
               <AdSenseSlot
                 slot={blogFeedSlot}
                 live={blogFeedAdsLive}
