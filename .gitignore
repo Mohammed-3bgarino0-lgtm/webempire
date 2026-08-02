@@ -17,3 +17,8 @@ supabase/.temp/
 .env.import
 _blog_package/
 _blog_package_2/
+.env.*.local
+apps/mobile/.env
+.vercel/
+!.env.example
+!apps/mobile/.env.example
