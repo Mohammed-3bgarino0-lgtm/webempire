@@ -50,6 +50,23 @@ function MicrosoftIcon() {
   );
 }
 
+
+function XIcon() {
+  return (
+    <svg
+      className="we-oauth-icon we-oauth-x-icon"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        fill="currentColor"
+        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.967 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"
+      />
+    </svg>
+  );
+}
+
 const labels = {
   ar: {
     title: "تسجيل الدخول",
@@ -62,6 +79,8 @@ const labels = {
     loginPending: "جاري تسجيل الدخول...",
     googlePending: "جاري التحويل إلى Google...",
     microsoftPending: "جاري التحويل إلى Microsoft...",
+    x: "المتابعة عبر X",
+    xPending: "جاري التحويل إلى X...",
     invalidCredentials: "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
     emailNotConfirmed: "يجب تأكيد البريد الإلكتروني قبل تسجيل الدخول.",
     google: "المتابعة عبر Google",
@@ -80,6 +99,8 @@ const labels = {
     loginPending: "Signing in...",
     googlePending: "Redirecting to Google...",
     microsoftPending: "Redirecting to Microsoft...",
+    x: "Continue with X",
+    xPending: "Redirecting to X...",
     invalidCredentials: "The email or password is incorrect.",
     emailNotConfirmed: "Confirm your email before signing in.",
     google: "Continue with Google",
@@ -128,7 +149,7 @@ export default async function LoginPage({
         : null;
 
   return (
-    <main className="we-page we-auth-page">
+    <main className="we-page we-auth-page we-login-page">
       <div className="we-container we-auth-grid">
         <section className="we-auth-visual-card">
           <img src={locale.code === "ar" ? assets.logoAr : assets.logoEn} alt={locale.code === "ar" ? "إمبراطورية الويب" : "WEB EMPIRE"} className="we-auth-brand-logo" />
@@ -160,8 +181,11 @@ export default async function LoginPage({
             <input type="hidden" name="next" value={next} />
             <label>{t.email}<input name="email" type="email" placeholder="name@example.com" required /></label>
             <label>{t.password}<input name="password" type="password" placeholder={t.password} required /></label>
-            <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
-              <label style={{ display: "flex", alignItems: "center" }}><input type="checkbox" defaultChecked style={{ minHeight: 18 }} /> {t.remember}</label>
+            <div className="we-login-options">
+              <label className="we-login-remember">
+                <input type="checkbox" defaultChecked />
+                <span>{t.remember}</span>
+              </label>
               <Link href={`${prefix}/auth/forgot-password`}>{t.forgot}</Link>
             </div>
             <FormPendingButton className="primary" type="submit" pendingLabel={t.loginPending}>
@@ -192,6 +216,17 @@ export default async function LoginPage({
             >
               <MicrosoftIcon />
               <span>{t.microsoft}</span>
+            </FormPendingButton>
+
+            <FormPendingButton
+              type="submit"
+              name="provider"
+              value="x"
+              pendingLabel={t.xPending}
+              className="we-oauth-button we-oauth-x"
+            >
+              <XIcon />
+              <span>{t.x}</span>
             </FormPendingButton>
           </form>
 

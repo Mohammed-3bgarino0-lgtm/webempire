@@ -47,7 +47,7 @@ export default async function ForgotPasswordPage({
   const prefix = `/${locale.code}`;
 
   return (
-    <main className="we-page we-simple-page">
+    <main className="we-page we-simple-page we-password-page">
       <section className="we-container we-simple-card">
         <img
           src={locale.code === "ar" ? assets.logoAr : assets.logoEn}

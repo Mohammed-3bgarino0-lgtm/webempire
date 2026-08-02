@@ -1,8 +1,8 @@
 const SUPPORTED_LOCALES = new Set(["ar", "en", "fr", "tr", "ur"]);
-const AUTH_PROVIDERS = new Set(["google", "azure", "facebook"]);
+const AUTH_PROVIDERS = new Set(["google", "azure", "facebook", "x"]);
 
 export type SupportedLocale = "ar" | "en" | "fr" | "tr" | "ur";
-export type AuthProvider = "google" | "azure" | "facebook";
+export type AuthProvider = "google" | "azure" | "facebook" | "x";
 
 export function normalizeLocale(input: FormDataEntryValue | string | null | undefined): SupportedLocale {
   const locale = String(input ?? "en").toLowerCase();

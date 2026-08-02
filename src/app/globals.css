@@ -3408,3 +3408,319 @@ html[dir="ltr"] .we-register-card-logo {
 }
 
 /* WEB_EMPIRE_RESPONSIVE_03_END */
+
+/* WEB_EMPIRE_RESPONSIVE_03_2_START */
+.we-password-page {
+  min-height: calc(100dvh - 72px);
+  align-items: start;
+  padding-block: clamp(28px, 4vw, 52px);
+}
+.we-password-page .we-simple-card {
+  width: min(100%, calc(100% - (var(--we-page-gutter, 20px) * 2)));
+  max-width: 820px;
+  min-height: 0;
+  gap: clamp(10px, 1.5vw, 16px);
+  padding: clamp(26px, 4vw, 44px);
+  border-radius: clamp(20px, 2.4vw, 28px);
+}
+.we-password-page .we-simple-card > img {
+  width: min(100%, 270px);
+  height: auto;
+  max-height: 78px;
+  margin-bottom: 4px;
+  object-fit: contain;
+}
+.we-password-page .we-simple-kicker {
+  margin: 0;
+  font-size: clamp(0.68rem, 0.9vw, 0.78rem);
+  letter-spacing: 0.16em;
+}
+.we-password-page .we-simple-card h1 {
+  max-width: 680px;
+  margin: 4px auto 0;
+  font-size: clamp(2rem, 4vw, 3.35rem) !important;
+  line-height: 1.12 !important;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+.we-password-page .we-simple-card > p:not(.we-simple-kicker):not(.we-form-note):not(.we-form-alert) {
+  max-width: 620px;
+  margin: 0 auto 8px;
+  font-size: clamp(0.86rem, 1.1vw, 0.98rem);
+  line-height: 1.75;
+}
+.we-password-page .we-simple-card .we-form {
+  width: min(100%, 440px) !important;
+  max-width: 440px !important;
+  gap: 12px;
+  margin-top: 6px;
+}
+.we-password-page .we-simple-card .we-form label {
+  gap: 7px;
+  font-size: clamp(0.76rem, 0.95vw, 0.86rem);
+}
+.we-password-page .we-simple-card .we-form input {
+  min-height: 48px;
+}
+.we-password-page .we-simple-card .we-form button,
+.we-password-page .we-simple-card .we-form + .we-button-primary {
+  width: min(100%, 440px);
+  min-height: 48px;
+}
+.we-password-page .we-simple-card .we-form + .we-button-primary {
+  margin-top: 0;
+}
+@media (max-width: 767px) {
+  .we-password-page {
+    min-height: calc(100dvh - 64px);
+    padding-block: 18px 34px;
+  }
+  .we-password-page .we-simple-card {
+    width: min(100%, calc(100% - (var(--we-page-gutter, 16px) * 2)));
+    gap: 10px;
+    padding: 22px 18px;
+    border-radius: 20px;
+  }
+  .we-password-page .we-simple-card > img {
+    width: min(78%, 230px);
+    max-height: 66px;
+  }
+  .we-password-page .we-simple-card h1 {
+    max-width: 100%;
+    font-size: clamp(1.72rem, 8.5vw, 2.35rem) !important;
+    line-height: 1.18 !important;
+  }
+  .we-password-page .we-simple-card > p:not(.we-simple-kicker):not(.we-form-note):not(.we-form-alert) {
+    font-size: 0.84rem;
+    line-height: 1.7;
+  }
+  .we-password-page .we-simple-card .we-form,
+  .we-password-page .we-simple-card .we-form + .we-button-primary {
+    width: 100% !important;
+  }
+}
+@media (max-height: 760px) and (min-width: 768px) {
+  .we-password-page { padding-block: 20px 34px; }
+  .we-password-page .we-simple-card { gap: 8px; padding-block: 24px; }
+  .we-password-page .we-simple-card > img { max-height: 62px; }
+  .we-password-page .we-simple-card h1 {
+    font-size: clamp(1.9rem, 3.3vw, 2.8rem) !important;
+  }
+}
+/* WEB_EMPIRE_RESPONSIVE_03_2_END */
+
+/* WEB_EMPIRE_X_AUTH_01_START */
+.we-oauth-x {
+  color: #ffffff !important;
+  border-color: #0f1419 !important;
+  background: #0f1419 !important;
+  box-shadow: none !important;
+}
+
+.we-oauth-x:hover {
+  color: #ffffff !important;
+  border-color: #000000 !important;
+  background: #000000 !important;
+}
+
+.we-oauth-x:focus-visible {
+  outline: 3px solid rgba(15, 20, 25, 0.22);
+  outline-offset: 2px;
+}
+
+.we-oauth-x-icon {
+  color: currentColor;
+}
+
+[data-color-mode="dark"] .we-oauth-x,
+[data-color-mode="system"] .we-oauth-x {
+  color: #ffffff !important;
+  background: #0f1419 !important;
+}
+
+@media (max-width: 420px) {
+  .we-login-page .we-oauth-x {
+    min-height: 48px;
+  }
+}
+/* WEB_EMPIRE_X_AUTH_01_END */
+
+/* WEB_EMPIRE_LOGIN_FIX_01_START */
+.we-login-page {
+  min-height: calc(100dvh - 72px);
+  display: grid;
+  align-items: start;
+  padding-block: clamp(28px, 4vw, 54px);
+}
+.we-login-page .we-auth-grid {
+  width: min(1160px, calc(100% - (var(--we-page-gutter, 20px) * 2)));
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: stretch;
+  gap: clamp(16px, 2vw, 26px);
+}
+.we-login-page .we-auth-card,
+.we-login-page .we-auth-visual-card {
+  min-height: 0;
+  border-radius: 24px;
+}
+.we-login-page .we-auth-card {
+  align-self: start;
+  padding: clamp(24px, 3vw, 38px);
+}
+.we-login-page .we-auth-card > h1 {
+  margin: 0 0 8px;
+  font-size: clamp(2rem, 3.4vw, 3.3rem);
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.we-login-page .we-auth-card > .we-form-note {
+  margin: 0 0 18px;
+  color: var(--we-v12-muted, #66758a);
+}
+.we-login-page .we-form {
+  gap: 13px;
+}
+.we-login-page .we-form label {
+  gap: 7px;
+}
+.we-login-page .we-form input:not([type="checkbox"]) {
+  min-height: 50px;
+  font-size: 0.92rem;
+}
+.we-login-options {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+.we-login-remember {
+  display: inline-flex !important;
+  grid-template-columns: auto auto !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: auto !important;
+  margin: 0;
+  white-space: nowrap;
+}
+.we-login-remember input {
+  width: 18px !important;
+  min-width: 18px !important;
+  height: 18px !important;
+  min-height: 18px !important;
+  margin: 0;
+}
+.we-login-options > a {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--we-v12-blue-dark, #0b5fcc);
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.we-login-page .we-form > button.primary {
+  min-height: 50px;
+  margin-top: 2px;
+}
+.we-login-page .we-oauth-form {
+  gap: 10px;
+  margin-top: 12px;
+}
+.we-login-page .we-oauth-button {
+  min-height: 50px;
+  grid-template-columns: 24px minmax(0, 1fr) 24px;
+  gap: 10px;
+  padding-inline: 14px;
+}
+.we-login-page .we-oauth-button .we-oauth-icon {
+  grid-column: 1;
+}
+.we-login-page .we-oauth-button span:last-child {
+  grid-column: 2;
+  text-align: center;
+}
+.we-login-page .we-auth-card > .we-form-note:last-child {
+  margin: 18px 0 0;
+  text-align: center;
+}
+.we-login-page .we-auth-visual-card {
+  display: grid;
+  align-content: start;
+  padding: clamp(24px, 3vw, 38px);
+}
+.we-login-page .we-auth-brand-logo {
+  width: min(100%, 280px) !important;
+  max-height: 72px !important;
+}
+.we-login-page .we-auth-visual-card h1 {
+  margin-block: 22px 10px;
+  font-size: clamp(1.85rem, 3vw, 2.7rem);
+}
+.we-login-page .we-auth-visual-card > p {
+  margin: 0;
+  color: var(--we-v12-muted, #66758a);
+  line-height: 1.75;
+}
+.we-login-page .we-auth-art-frame {
+  aspect-ratio: 1.18 / 1;
+  min-height: 0;
+  margin-top: 20px;
+  border-radius: 20px;
+}
+.we-login-page .we-auth-visual-art {
+  width: min(46%, 220px) !important;
+}
+@media (max-width: 980px) {
+  .we-login-page .we-auth-grid {
+    max-width: 680px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .we-login-page .we-auth-card { order: 1; }
+  .we-login-page .we-auth-visual-card { order: 2; }
+}
+@media (max-width: 700px) {
+  .we-login-page {
+    min-height: calc(100dvh - 64px);
+    padding-block: 16px 32px;
+  }
+  .we-login-page .we-auth-grid {
+    width: min(100%, calc(100% - (var(--we-page-gutter, 16px) * 2)));
+    gap: 0;
+  }
+  .we-login-page .we-auth-card {
+    padding: 22px 20px;
+    border-radius: 20px;
+  }
+  .we-login-page .we-auth-card > h1 {
+    font-size: clamp(1.8rem, 8vw, 2.35rem);
+    text-align: center;
+  }
+  .we-login-page .we-auth-card > .we-form-note {
+    text-align: center;
+    font-size: 0.82rem;
+  }
+  .we-login-page .we-auth-visual-card { display: none; }
+  .we-login-page .we-form input:not([type="checkbox"]) { min-height: 48px; }
+  .we-login-page .we-oauth-button { min-height: 48px; }
+}
+@media (max-width: 420px) {
+  .we-login-page .we-auth-card {
+    padding: 18px 16px;
+  }
+  .we-login-options {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start !important;
+    gap: 4px !important;
+  }
+  .we-login-options > a {
+    justify-self: start;
+  }
+  .we-login-page .we-oauth-button {
+    grid-template-columns: 22px minmax(0, 1fr) 22px;
+    padding-inline: 11px;
+  }
+}
+/* WEB_EMPIRE_LOGIN_FIX_01_END */
