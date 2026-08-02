@@ -63,18 +63,51 @@ export function normalizeAuthErrorCode(input: FormDataEntryValue | string | null
   }
 }
 
-export function resolveRequestOrigin(rawHeaders: Headers, fallbackSiteUrl: string): string {
-  const forwardedHost = rawHeaders.get("x-forwarded-host") ?? rawHeaders.get("host");
+export function resolveRequestOrigin(
+  rawHeaders: Headers,
+  fallbackSiteUrl: string,
+): string {
+  const origin = rawHeaders.get("origin");
+
+  if (origin && /^https?:\/\//i.test(origin)) {
+    return origin.replace(/\/$/, "");
+  }
+
+  const referer = rawHeaders.get("referer");
+
+  if (referer) {
+    try {
+      const refererUrl = new URL(referer);
+
+      if (refererUrl.protocol === "http:" || refererUrl.protocol === "https:") {
+        return refererUrl.origin;
+      }
+    } catch {
+      // Ignore malformed referer and continue with trusted fallbacks.
+    }
+  }
+
+  const forwardedHost =
+    rawHeaders.get("x-forwarded-host") ?? rawHeaders.get("host");
   const forwardedProto = rawHeaders.get("x-forwarded-proto");
 
   if (forwardedHost) {
-    const proto = forwardedProto ?? (forwardedHost.includes("localhost") ? "http" : "https");
-    return `${proto}://${forwardedHost}`;
+    const host = forwardedHost.split(",")[0]?.trim();
+    const proto =
+      forwardedProto?.split(",")[0]?.trim() ??
+      (host.includes("localhost") ? "http" : "https");
+
+    return `${proto}://${host}`;
   }
 
-  const origin = rawHeaders.get("origin");
-  if (origin && /^https?:\/\//i.test(origin)) {
-    return origin.replace(/\/$/, "");
+  const vercelUrl =
+    process.env.NEXT_PUBLIC_VERCEL_URL?.trim() ||
+    process.env.VERCEL_URL?.trim();
+
+  if (vercelUrl) {
+    return vercelUrl.startsWith("http")
+      ? vercelUrl.replace(/\/$/, "")
+      : `https://${vercelUrl.replace(/\/$/, "")}`;
   }
 
   return fallbackSiteUrl.replace(/\/$/, "");
