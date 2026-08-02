@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { AdSenseHydrator } from "@/components/adsense-slot";
+import { injectAdsIntoArticleHtml, hasInlineRelatedSection } from "@/lib/blog-ads";
 import { getLocaleByCode } from "@/localization/repository";
 import { getBlogPostBySlug, getRelatedBlogPosts } from "@/repositories/blog";
 
@@ -43,6 +45,14 @@ export default async function BlogPostPage({
   if (!post) notFound();
   const related = await getRelatedBlogPosts(post.related_slugs);
   const prefix = `/${locale.code}`;
+  const adLabel = locale.direction === "rtl" ? "إعلان" : "Ad";
+  const placeholderText =
+    locale.direction === "rtl" ? "مساحة إعلانية" : "Advertising space";
+  const articleHtml = injectAdsIntoArticleHtml(post.body_html, {
+    label: adLabel,
+    placeholderText,
+  });
+  const bodyContainsRelated = hasInlineRelatedSection(post.body_html);
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -61,8 +71,9 @@ export default async function BlogPostPage({
       <nav className="we-container we-blog-breadcrumbs" aria-label="مسار التنقل">
         <Link href={prefix}>الرئيسية</Link><span>/</span><Link href={`${prefix}/blog`}>المدونة</Link>
       </nav>
-      <div className="we-container we-blog-article" dangerouslySetInnerHTML={{ __html: post.body_html }} />
-      {related.length ? (
+      <div className="we-container we-blog-article" dangerouslySetInnerHTML={{ __html: articleHtml }} />
+      <AdSenseHydrator />
+      {related.length && !bodyContainsRelated ? (
         <aside className="we-container we-blog-related">
           <h2>مقالات مرتبطة</h2>
           <ul>

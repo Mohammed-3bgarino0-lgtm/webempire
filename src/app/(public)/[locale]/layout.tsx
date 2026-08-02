@@ -123,6 +123,11 @@ export default async function LocaleLayout({
     Boolean(subscription) &&
     subscribedPlan.slug !== "free" &&
     Number(subscribedPlan.price_sar ?? 0) > 0;
+  const adsenseClient =
+    process.env.NEXT_PUBLIC_ADSENSE_CLIENT?.trim() ||
+    "ca-pub-4001237202734263";
+  const adsRuntimeEnabled =
+    process.env.VERCEL_ENV === "production" && !hasPaidSubscription;
 
   return (
     <html
@@ -134,11 +139,11 @@ export default async function LocaleLayout({
       >
       <head>
         <meta name="google-site-verification" content="fbz_m2uEfEsNpf-7hB-5WAYTGpIahFEah49G4zXHcYo" />
-        <meta name="google-adsense-account" content="ca-pub-4001237202734263" />
-        {!hasPaidSubscription ? (
+        <meta name="google-adsense-account" content={adsenseClient} />
+        {adsRuntimeEnabled ? (
           <Script
             async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4001237202734263"
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
             crossOrigin="anonymous"
             strategy="beforeInteractive"
           />
@@ -165,6 +170,8 @@ gtag('config', 'G-2H0DD95M9W');`}
           data-density={appearance.uiDensity}
           data-font-preset={appearance.fontPreset}
           data-color-mode={appearance.defaultColorMode}
+          data-ads-access={hasPaidSubscription ? "paid" : "eligible"}
+          data-ads-runtime={adsRuntimeEnabled ? "live" : "preview"}
         >
           <SiteHeader
             locale={locale}

@@ -25,10 +25,13 @@ export type BlogPost = BlogPostSummary & {
 };
 
 const contentRoot = path.join(process.cwd(), "src", "content", "blog");
+let indexPromise: Promise<BlogPostSummary[]> | null = null;
 
 async function readIndex(): Promise<BlogPostSummary[]> {
-  const source = await fs.readFile(path.join(contentRoot, "index.json"), "utf8");
-  return JSON.parse(source) as BlogPostSummary[];
+  indexPromise ??= fs
+    .readFile(path.join(contentRoot, "index.json"), "utf8")
+    .then((source) => JSON.parse(source) as BlogPostSummary[]);
+  return indexPromise;
 }
 
 function isReleased(post: BlogPostSummary) {

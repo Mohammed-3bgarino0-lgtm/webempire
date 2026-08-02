@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { AdSenseSlot } from "@/components/adsense-slot";
 import { getLocaleByCode } from "@/localization/repository";
 import { getBlogPosts } from "@/repositories/blog";
 
@@ -28,6 +30,11 @@ export default async function BlogPage({
   const { posts, count } = await getBlogPosts(page, pageSize);
   const pages = Math.max(1, Math.ceil(count / pageSize));
   const prefix = `/${locale.code}`;
+  const blogFeedSlot =
+    process.env.NEXT_PUBLIC_ADSENSE_SLOT_BLOG_FEED?.trim();
+  const blogFeedAdsLive =
+    process.env.VERCEL_ENV === "production" &&
+    /^\d+$/.test(blogFeedSlot ?? "");
 
   return (
     <main className="we-page we-blog-page">
@@ -38,25 +45,40 @@ export default async function BlogPage({
       </section>
 
       <section className="we-container we-blog-grid" aria-label="المقالات">
-        {posts.map((post) => (
-          <article className="we-blog-card" key={post.id}>
-            <Link href={`${prefix}/blog/${post.slug}`} className="we-blog-cover">
-              <Image src={post.cover_url} alt={post.cover_alt} width={1200} height={630} />
-            </Link>
-            <div className="we-blog-card-body">
-              <p className="we-blog-meta">
-                <span>{post.category}</span>
-                <time dateTime={post.publish_date}>{post.publish_date}</time>
-              </p>
-              <h2>
-                <Link href={`${prefix}/blog/${post.slug}`}>{post.title}</Link>
-              </h2>
-              <p>{post.description}</p>
-              <Link href={`${prefix}/blog/${post.slug}`} className="empire-section-link">
-                اقرأ المقال
+        {posts.map((post, index) => (
+          <Fragment key={post.id}>
+            <article className="we-blog-card">
+              <Link href={`${prefix}/blog/${post.slug}`} className="we-blog-cover">
+                <Image src={post.cover_url} alt={post.cover_alt} width={1200} height={630} />
               </Link>
-            </div>
-          </article>
+              <div className="we-blog-card-body">
+                <p className="we-blog-meta">
+                  <span>{post.category}</span>
+                  <time dateTime={post.publish_date}>{post.publish_date}</time>
+                </p>
+                <h2>
+                  <Link href={`${prefix}/blog/${post.slug}`}>{post.title}</Link>
+                </h2>
+                <p>{post.description}</p>
+                <Link href={`${prefix}/blog/${post.slug}`} className="empire-section-link">
+                  اقرأ المقال
+                </Link>
+              </div>
+            </article>
+            {(index + 1) % 6 === 0 ? (
+              <AdSenseSlot
+                slot={blogFeedSlot}
+                live={blogFeedAdsLive}
+                placement={`blog-feed-${index + 1}`}
+                label={locale.direction === "rtl" ? "إعلان" : "Ad"}
+                placeholderText={
+                  locale.direction === "rtl"
+                    ? "مساحة إعلانية"
+                    : "Advertising space"
+                }
+              />
+            ) : null}
+          </Fragment>
         ))}
       </section>
 
