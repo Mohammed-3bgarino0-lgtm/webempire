@@ -29,3 +29,4 @@ Web_Empire_V1_2_*.zip
 web_empire_v1_2_*/
 __pycache__/
 *.py[cod]
+.env*
