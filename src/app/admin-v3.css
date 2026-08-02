@@ -3034,3 +3034,152 @@
   }
 }
 /* WEB_EMPIRE_ADMIN_02_END */
+
+/* WEB_EMPIRE_ADMIN_02_1_START */
+.adminv4-dashboard {
+  container-type: inline-size;
+  container-name: admin-dashboard;
+}
+
+.adminv4-kpi-grid {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.adminv4-kpi-card {
+  min-height: 148px;
+  padding: 19px;
+}
+
+.adminv4-kpi-head {
+  color: #53647a;
+  font-size: 0.8rem;
+  font-weight: 720;
+}
+
+.adminv4-kpi-card > strong {
+  margin-top: 17px;
+  font-size: clamp(1.65rem, 2.3vw, 2.1rem);
+  font-weight: 850;
+}
+
+.adminv4-kpi-card > small {
+  margin-top: 8px;
+  color: #68798f;
+  font-size: 0.75rem;
+  line-height: 1.65;
+}
+
+.adminv4-overview p,
+.adminv4-card-header p,
+.adminv4-version-card p {
+  color: #64758a;
+}
+
+.adminv4-card-header h3,
+.adminv4-version-card h3 {
+  font-size: 1.04rem;
+}
+
+.adminv4-activity-copy strong,
+.adminv4-rank-copy > strong {
+  font-size: 0.8rem;
+}
+
+.adminv4-activity-copy small,
+.adminv4-activity-item > time,
+.adminv4-status-pill {
+  font-size: 0.68rem;
+}
+
+.adminv4-health-row > span,
+.adminv4-efficiency-list span {
+  color: #53647a;
+  font-size: 0.77rem;
+}
+
+.adminv4-health-row > strong,
+.adminv4-efficiency-list strong {
+  font-size: 0.75rem;
+}
+
+@container admin-dashboard (max-width: 1120px) {
+  .adminv4-kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .adminv4-primary-grid,
+  .adminv4-secondary-grid,
+  .adminv4-footer-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .adminv4-secondary-grid > :last-child {
+    grid-column: auto;
+  }
+
+  .adminv4-overview {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .adminv4-overview-actions {
+    justify-content: flex-start;
+  }
+
+  .adminv4-live-card {
+    min-height: auto;
+  }
+}
+
+@container admin-dashboard (max-width: 720px) {
+  .adminv4-kpi-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .adminv4-kpi-card {
+    min-height: 126px;
+  }
+
+  .adminv4-overview {
+    padding: 21px;
+  }
+
+  .adminv4-overview-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .adminv4-health-badge,
+  .adminv4-action-primary,
+  .adminv4-action-secondary {
+    width: 100%;
+  }
+
+  .adminv4-card-header {
+    flex-direction: column;
+  }
+
+  .adminv4-quick-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container admin-dashboard (max-width: 480px) {
+  .adminv4-quick-actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .adminv4-chart {
+    gap: 6px;
+  }
+
+  .adminv4-activity-item {
+    grid-template-columns: 36px minmax(0, 1fr) auto;
+  }
+
+  .adminv4-activity-item > time {
+    grid-column: 2 / -1;
+  }
+}
+/* WEB_EMPIRE_ADMIN_02_1_END */
