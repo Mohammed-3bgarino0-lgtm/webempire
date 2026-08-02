@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo, useState, type ReactNode } from "react";
@@ -80,6 +81,15 @@ const titleMap: Record<string, string> = {
   "/admin/connections": "الاتصالات",
   "/admin/workflows": "سير العمل",
   "/admin/skills": "الإعدادات",
+};
+
+const roleLabels: Record<string, string> = {
+  owner: "المالك",
+  super_admin: "مدير عام",
+  admin: "مدير",
+  support: "دعم فني",
+  content_manager: "مدير المحتوى",
+  finance_manager: "مدير مالي",
 };
 
 function Icon({ name }: { name: IconName }) {
@@ -206,15 +216,21 @@ function resolvePageTitle(pathname: string) {
 export function AdminShell({
   children,
   productVersion,
+  adminName,
+  adminRole,
 }: {
   children: ReactNode;
   productVersion: string;
+  adminName: string;
+  adminRole: string;
 }) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const pageTitle = useMemo(() => resolvePageTitle(pathname), [pathname]);
+  const roleLabel = roleLabels[adminRole] ?? "مدير النظام";
+  const avatarLetter = adminName.trim().charAt(0) || "م";
 
   return (
     <div
@@ -231,10 +247,18 @@ export function AdminShell({
       <aside className="adminv3-sidebar" aria-label="التنقل الإداري">
         <div className="adminv3-brand-row">
           <Link href="/admin" className="adminv3-brand" onClick={() => setMobileOpen(false)}>
-            <span className="adminv3-brand-mark"><Icon name="crown" /></span>
+            <span className="adminv3-brand-mark">
+              <Image
+                src="/brand/v1.2/web-empire-mark-v1.2.png"
+                alt=""
+                width={38}
+                height={38}
+                priority
+              />
+            </span>
             <span className="adminv3-brand-copy">
-              <strong>WEB EMPIRE</strong>
-              <small>CONTROL CENTER</small>
+              <strong>إمبراطورية الويب</strong>
+              <small>مركز الإدارة</small>
             </span>
           </Link>
         </div>
@@ -254,6 +278,7 @@ export function AdminShell({
                       key={item.href}
                       href={item.href}
                       className={`adminv3-nav-link ${isActive ? "is-active" : ""}`}
+                      aria-current={isActive ? "page" : undefined}
                       title={collapsed ? item.label : undefined}
                       onClick={() => setMobileOpen(false)}
                     >
@@ -269,10 +294,10 @@ export function AdminShell({
 
         <div className="adminv3-sidebar-footer">
           <div className="adminv3-admin-card">
-            <span className="adminv3-avatar">A</span>
+            <span className="adminv3-avatar">{avatarLetter}</span>
             <span className="adminv3-admin-copy">
-              <strong>Admin</strong>
-              <small>مدير النظام</small>
+              <strong>{adminName}</strong>
+              <small>{roleLabel}</small>
             </span>
           </div>
           <Link href="/" className="adminv3-site-link">
@@ -304,7 +329,7 @@ export function AdminShell({
             </button>
 
             <div className="adminv3-title-block">
-              <p>WEB EMPIRE ADMIN</p>
+              <p>مركز إدارة إمبراطورية الويب</p>
               <h1>{pageTitle}</h1>
             </div>
           </div>
@@ -312,9 +337,14 @@ export function AdminShell({
           <div className="adminv3-header-actions">
             <div className="adminv3-search" role="search">
               <Icon name="search" />
-              <span>بحث سريع...</span>
+              <span>ابحث في الإدارة...</span>
               <kbd>⌘ K</kbd>
             </div>
+
+            <Link href="/admin/tools/new" className="adminv3-create-button">
+              <span aria-hidden="true">+</span>
+              أداة جديدة
+            </Link>
 
             <button type="button" className="adminv3-icon-button" aria-label="الإشعارات">
               <Icon name="bell" />
@@ -322,10 +352,10 @@ export function AdminShell({
             </button>
 
             <div className="adminv3-header-account">
-              <span className="adminv3-avatar">A</span>
+              <span className="adminv3-avatar">{avatarLetter}</span>
               <span>
-                <strong>Admin</strong>
-                <small>{productVersion}</small>
+                <strong>{adminName}</strong>
+                <small>{roleLabel} · {productVersion}</small>
               </span>
             </div>
           </div>
