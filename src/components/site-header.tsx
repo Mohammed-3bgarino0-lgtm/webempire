@@ -47,16 +47,21 @@ export function SiteHeader({
 }) {
   const prefix = `/${locale.code}`;
   const t = locale.code === "ar" ? labels.ar : labels.en;
+  const brandLogo =
+    locale.code === "ar"
+      ? webEmpireLightAssets.logoAr
+      : webEmpireLightAssets.logoEn;
+  const brandLabel = locale.code === "ar" ? "إمبراطورية الويب" : "WEB EMPIRE";
 
   return (
     <header className={`site-header light-empire-header header-${headerStyle}`}>
       <div className="container light-empire-header-inner">
-        <Link href={prefix} className="light-empire-brand" aria-label="WEB EMPIRE">
+        <Link href={prefix} className="light-empire-brand" aria-label={brandLabel}>
           <img
-            src={webEmpireLightAssets.logo}
-            alt="WEB EMPIRE"
-            width="200"
-            height="50"
+            src={brandLogo}
+            alt={brandLabel}
+            width="260"
+            height="72"
             className="light-empire-brand-logo"
           />
         </Link>

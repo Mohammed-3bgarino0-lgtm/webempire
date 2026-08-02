@@ -66,8 +66,17 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     <main className="we-page">
       <section className="we-hero">
         <div className="we-container we-hero-grid">
-          <div className="we-hero-visual">
-            <img src={assets.heroVisual} alt="" />
+          <div className="we-hero-visual we-brand-hero-visual" aria-hidden="true">
+            <span className="we-brand-orbit we-brand-orbit-a" />
+            <span className="we-brand-orbit we-brand-orbit-b" />
+            <span className="we-brand-orbit we-brand-orbit-c" />
+            <img
+              src={assets.mark}
+              alt=""
+              className="we-hero-brand-mark"
+              width="768"
+              height="682"
+            />
           </div>
           <div className="we-hero-copy">
             <h1>{t.h1a}<br /><span className="we-gradient-text">{t.h1b}</span></h1>

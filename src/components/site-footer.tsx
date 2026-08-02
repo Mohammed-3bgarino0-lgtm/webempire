@@ -50,7 +50,7 @@ export function SiteFooter({
 
         <div className="we-footer-brand">
           <span>© 2026 {identity.siteName || "Web Empire"}. {t.rights}</span>
-          <img src="/brand/web-empire-mark.svg" alt="" width="48" height="48" />
+          <img src="/brand/v1.2/web-empire-mark-v1.2.png" alt="" width="48" height="48" />
         </div>
       </div>
     </footer>
