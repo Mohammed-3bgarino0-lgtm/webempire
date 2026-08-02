@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { updatePassword } from "@/actions/auth";
 import { FormPendingButton } from "@/components/auth/form-pending-button";
+import { webEmpireLightAssets as assets } from "@/brand/web-empire-light-assets";
 import { getLocaleByCode } from "@/localization/repository";
 
 const labels = {
@@ -55,7 +56,12 @@ export default async function ResetPasswordPage({
   return (
     <main className="we-page we-simple-page">
       <section className="we-container we-simple-card">
-        <img src="/brand/v1.2/web-empire-logo-en-v1.2.png" alt={locale.code === "ar" ? "إمبراطورية الويب" : "WEB EMPIRE"} width="260" height="70" />
+        <img
+          src={locale.code === "ar" ? assets.logoAr : assets.logoEn}
+          alt={locale.code === "ar" ? "إمبراطورية الويب" : "WEB EMPIRE"}
+          width="260"
+          height="70"
+        />
         <p className="we-simple-kicker">WEB EMPIRE</p>
         <h1>{t.title}</h1>
         <p>{t.body}</p>
