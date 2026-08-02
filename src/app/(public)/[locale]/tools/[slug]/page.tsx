@@ -92,8 +92,8 @@ function toolGlyph(slug: string, title: string): string {
   if (value.includes("roi") || value.includes("عائد")) return "↗";
   if (value.includes("margin") || value.includes("هامش")) return "◔";
   if (value.includes("invoice") || value.includes("فاتور")) return "▤";
-  if (value.includes("content") || value.includes("محتوى")) return "T";
-  return "◇";
+  if (value.includes("content") || value.includes("writer") || value.includes("كتابة") || value.includes("محتوى")) return "✎";
+  return "✦";
 }
 
 export async function generateMetadata({

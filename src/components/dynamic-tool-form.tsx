@@ -430,7 +430,7 @@ function escapeHtml(value: string): string {
 
 async function loadLogo(): Promise<HTMLImageElement | null> {
   const image = new Image();
-  image.src = "/brand/web-empire-logo-horizontal.png";
+  image.src = "/brand/v1.2/web-empire-logo-en-v1.2.png";
 
   try {
     await image.decode();
@@ -730,7 +730,7 @@ export function DynamicToolForm({
 
       context.fillStyle = "#ffffff";
       context.fillRect(0, 0, canvas.width, canvas.height);
-      context.strokeStyle = "#d6b56e";
+      context.strokeStyle = "#1677ff";
       context.lineWidth = 8;
       context.strokeRect(30, 30, 1140, 840);
 
@@ -753,7 +753,7 @@ export function DynamicToolForm({
       context.font = "700 30px Arial";
       context.fillText(toolTitle, 600, 245);
 
-      context.fillStyle = "#7138f4";
+      context.fillStyle = "#1677ff";
       context.font =
         display.formatted.length > 18
           ? "900 58px Arial"
@@ -829,27 +829,27 @@ export function DynamicToolForm({
 @page { size: A4; margin: 16mm; }
 * { box-sizing: border-box; }
 body { margin: 0; color: #10131f; font-family: Arial, Tahoma, sans-serif; }
-.report { min-height: 260mm; border: 2px solid #d6b56e; border-radius: 22px; overflow: hidden; }
+.report { min-height: 260mm; border: 2px solid #1677ff; border-radius: 22px; overflow: hidden; }
 header { padding: 22px 28px; border-bottom: 1px solid #e7eaf1; text-align: center; }
 header img { width: 230px; max-height: 84px; object-fit: contain; }
 main { padding: 30px; }
 h1 { margin: 0; font-size: 27px; }
 .date { margin-top: 8px; color: #667085; font-size: 12px; }
-.result { margin-top: 24px; padding: 26px; border: 1px solid #e7eaf1; border-radius: 18px; background: #fbf9ff; }
-.result h2 { margin: 0 0 14px; color: #7138f4; }
+.result { margin-top: 24px; padding: 26px; border: 1px solid #e7eaf1; border-radius: 18px; background: #f4f8ff; }
+.result h2 { margin: 0 0 14px; color: #1677ff; }
 .result pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; line-height: 1.9; }
 .note { margin-top: 18px; color: #667085; line-height: 1.8; }
 table { width: 100%; margin-top: 24px; border-collapse: collapse; }
 th, td { padding: 11px 12px; border-bottom: 1px solid #e7eaf1; text-align: start; }
 th { width: 34%; color: #667085; }
 footer { margin-top: 30px; padding: 18px 28px; color: white; background: #101a38; text-align: center; font-size: 12px; }
-footer strong { color: #d6b56e; }
+footer strong { color: #8fc2ff; }
 </style>
 </head>
 <body>
 <section class="report">
 <header>
-<img src="${window.location.origin}/brand/web-empire-logo-horizontal.png" alt="Web Empire">
+<img src="${window.location.origin}/brand/v1.2/web-empire-logo-en-v1.2.png" alt="Web Empire">
 <h1>${escapeHtml(toolTitle)}</h1>
 <div class="date">${escapeHtml(generatedAt)}</div>
 </header>

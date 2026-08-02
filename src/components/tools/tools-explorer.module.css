@@ -28,7 +28,7 @@
 }
 
 .sidebarSummary > span {
-  color: var(--we-violet);
+  color: var(--we-v12-blue);
   font-size: 2rem;
   font-weight: 950;
 }
@@ -56,7 +56,7 @@
 .summaryBars i {
   width: 10px;
   border-radius: 999px 999px 3px 3px;
-  background: linear-gradient(180deg, rgba(113, 56, 244, 0.24), rgba(113, 56, 244, 0.04));
+  background: linear-gradient(180deg, rgba(22, 119, 255, 0.24), rgba(22, 119, 255, 0.04));
 }
 
 .summaryBars i:nth-child(1),
@@ -103,7 +103,7 @@
 }
 
 .categoryNav button:hover {
-  background: #f7f4ff;
+  background: #f7faff;
 }
 
 .categoryNav small {
@@ -111,8 +111,8 @@
 }
 
 .categoryNav .categoryActive {
-  color: var(--we-violet);
-  background: #f1ebff;
+  color: var(--we-v12-blue);
+  background: #eaf3ff;
 }
 
 .categoryNav .categoryActive small {
@@ -132,8 +132,8 @@
   display: grid;
   place-items: center;
   border-radius: 16px;
-  color: var(--we-violet);
-  background: #f1ebff;
+  color: var(--we-v12-blue);
+  background: #eaf3ff;
   font-size: 1.5rem;
 }
 
@@ -154,9 +154,9 @@
   align-items: center;
   justify-content: center;
   padding-inline: 18px;
-  border: 1px solid rgba(113, 56, 244, 0.28);
+  border: 1px solid rgba(22, 119, 255, 0.28);
   border-radius: 12px;
-  color: var(--we-violet);
+  color: var(--we-v12-blue);
   font-weight: 850;
 }
 
@@ -178,10 +178,10 @@
   place-items: center;
   border: 1px solid var(--we-line);
   border-radius: 18px;
-  color: var(--we-violet);
+  color: var(--we-v12-blue);
   background: white;
   font-size: 2rem;
-  box-shadow: 0 14px 38px rgba(113, 56, 244, 0.1);
+  box-shadow: 0 14px 38px rgba(22, 119, 255, 0.1);
 }
 
 .hero h1 {
@@ -209,7 +209,7 @@
 }
 
 .searchBar > span {
-  color: var(--we-violet);
+  color: var(--we-v12-blue);
   font-size: 1.6rem;
 }
 
@@ -275,14 +275,14 @@
 }
 
 .chips button:hover {
-  color: var(--we-violet);
-  border-color: rgba(113, 56, 244, 0.3);
+  color: var(--we-v12-blue);
+  border-color: rgba(22, 119, 255, 0.3);
 }
 
 .chips .chipActive {
   color: white;
   border-color: transparent;
-  background: linear-gradient(135deg, var(--we-violet), var(--we-violet-2));
+  background: linear-gradient(135deg, var(--we-v12-blue), var(--we-v12-blue-dark));
 }
 
 .toolbar select {
@@ -314,7 +314,7 @@
 
 .resultsHead button {
   padding-inline: 14px;
-  color: var(--we-violet);
+  color: var(--we-v12-blue);
   cursor: pointer;
 }
 
@@ -338,7 +338,7 @@
 
 .card:hover {
   transform: translateY(-4px);
-  border-color: rgba(113, 56, 244, 0.25);
+  border-color: rgba(22, 119, 255, 0.25);
   box-shadow: 0 24px 62px rgba(16, 19, 31, 0.11);
 }
 
@@ -356,12 +356,12 @@
   display: grid;
   place-items: center;
   overflow: hidden;
-  border: 1px solid rgba(113, 56, 244, 0.1);
+  border: 1px solid rgba(22, 119, 255, 0.1);
   border-radius: 16px;
-  color: var(--we-violet);
+  color: var(--we-v12-blue);
   background:
     radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.95), transparent 38%),
-    linear-gradient(145deg, #f5f1ff, #eee7ff);
+    linear-gradient(145deg, #f4f8ff, #e6f1ff);
   font-size: 1.52rem;
   font-weight: 950;
 }
@@ -385,13 +385,13 @@
 }
 
 .featuredBadge {
-  color: #9b650c;
-  background: #fff6df;
+  color: #0b5fcc;
+  background: #eaf3ff;
 }
 
 .engineBadge {
-  color: var(--we-violet);
-  background: #f2edff;
+  color: var(--we-v12-blue);
+  background: #eef6ff;
 }
 
 .cardBody {
@@ -400,7 +400,7 @@
 
 .categoryName {
   margin: 16px 0 4px;
-  color: var(--we-gold-2);
+  color: var(--we-v12-blue-dark);
   font-size: 0.72rem;
   font-weight: 850;
 }
@@ -432,7 +432,7 @@
 }
 
 .cardMeta span:first-child {
-  color: var(--we-gold-2);
+  color: var(--we-v12-blue-dark);
   font-weight: 850;
 }
 
@@ -443,9 +443,9 @@
   align-items: center;
   justify-content: center;
   gap: 9px;
-  border: 1px solid rgba(113, 56, 244, 0.25);
+  border: 1px solid rgba(22, 119, 255, 0.25);
   border-radius: 11px;
-  color: var(--we-violet);
+  color: var(--we-v12-blue);
   font-weight: 900;
   transition:
     color 160ms ease,
@@ -454,7 +454,7 @@
 
 .useButton:hover {
   color: white;
-  background: linear-gradient(135deg, var(--we-violet), var(--we-violet-2));
+  background: linear-gradient(135deg, var(--we-v12-blue), var(--we-v12-blue-dark));
 }
 
 .empty {
@@ -468,7 +468,7 @@
 }
 
 .empty > span {
-  color: var(--we-violet);
+  color: var(--we-v12-blue);
   font-size: 3rem;
 }
 
@@ -483,7 +483,7 @@
 .empty button {
   margin-top: 16px;
   padding-inline: 20px;
-  color: var(--we-violet);
+  color: var(--we-v12-blue);
   cursor: pointer;
 }
 
@@ -661,7 +661,7 @@
   display: inline-grid;
   place-items: center;
   border-radius: 8px;
-  color: var(--we-violet);
+  color: var(--we-v12-blue);
   background: #f4efff;
   font-style: normal;
   font-size: 0.78rem;
@@ -732,13 +732,13 @@
 }
 
 .featuredBadge {
-  color: #9b650c;
-  background: #fff6df;
+  color: #0b5fcc;
+  background: #eaf3ff;
 }
 
 .typeBadge {
-  color: var(--we-violet);
-  background: #f2edff;
+  color: var(--we-v12-blue);
+  background: #eef6ff;
 }
 
 .cardBody h3 {
@@ -904,12 +904,12 @@
 }
 
 .selectGroup select:hover {
-  border-color: rgba(113, 56, 244, 0.3);
+  border-color: rgba(22, 119, 255, 0.3);
 }
 
 .selectGroup select:focus {
-  border-color: rgba(113, 56, 244, 0.55);
-  box-shadow: 0 0 0 4px rgba(113, 56, 244, 0.08);
+  border-color: rgba(22, 119, 255, 0.55);
+  box-shadow: 0 0 0 4px rgba(22, 119, 255, 0.08);
 }
 
 .chips {
@@ -961,7 +961,7 @@
   background:
     linear-gradient(
       135deg,
-      rgba(113, 56, 244, 0.075),
+      rgba(22, 119, 255, 0.075),
       rgba(255, 255, 255, 0.96)
     );
 }
@@ -984,8 +984,8 @@
   display: inline-grid;
   place-items: center;
   border-radius: 9px;
-  color: var(--we-violet);
-  background: #f1ebff;
+  color: var(--we-v12-blue);
+  background: #eaf3ff;
   font-size: 0.72rem;
 }
 
@@ -1004,7 +1004,7 @@
   border-radius: 0;
   background: transparent;
   scrollbar-width: thin;
-  scrollbar-color: rgba(113, 56, 244, 0.24) transparent;
+  scrollbar-color: rgba(22, 119, 255, 0.24) transparent;
 }
 
 .categoryNav::-webkit-scrollbar {
@@ -1013,7 +1013,7 @@
 
 .categoryNav::-webkit-scrollbar-thumb {
   border-radius: 999px;
-  background: rgba(113, 56, 244, 0.24);
+  background: rgba(22, 119, 255, 0.24);
 }
 
 .categoryNav button {
@@ -1045,12 +1045,12 @@
 }
 
 .categoryNav .categoryActive {
-  color: var(--we-violet);
+  color: var(--we-v12-blue);
   background:
     linear-gradient(
       135deg,
-      rgba(113, 56, 244, 0.13),
-      rgba(113, 56, 244, 0.055)
+      rgba(22, 119, 255, 0.13),
+      rgba(22, 119, 255, 0.055)
     );
 }
 

@@ -3,7 +3,7 @@
   padding: 34px 0 78px;
   scroll-padding-top: 110px;
   background:
-    radial-gradient(circle at 84% 2%, rgba(113, 56, 244, 0.055), transparent 28%),
+    radial-gradient(circle at 84% 2%, rgba(22, 119, 255, 0.055), transparent 28%),
     radial-gradient(circle at 8% 12%, rgba(214, 181, 110, 0.07), transparent 26%),
     linear-gradient(180deg, #fff 0%, #fbfbfe 68%, #fff 100%);
 }
@@ -26,12 +26,12 @@
   height: 82px;
   display: grid;
   place-items: center;
-  border: 1px solid rgba(113, 56, 244, 0.14);
+  border: 1px solid rgba(22, 119, 255, 0.14);
   border-radius: 24px;
-  color: var(--we-violet);
+  color: var(--we-v12-blue);
   background:
     radial-gradient(circle at 28% 22%, rgba(255, 255, 255, 0.95), transparent 34%),
-    linear-gradient(145deg, #f5f1ff, #ece4ff);
+    linear-gradient(145deg, #f4f8ff, #ece4ff);
   font-size: 2.25rem;
   font-weight: 950;
 }
@@ -42,7 +42,7 @@
 
 .kicker {
   margin: 0 0 6px;
-  color: var(--we-gold-2);
+  color: var(--we-v12-blue-dark);
   font-size: 0.78rem;
   font-weight: 950;
   letter-spacing: 0.11em;
@@ -92,11 +92,11 @@
 }
 
 .badges span:first-child {
-  color: var(--we-gold-2);
+  color: var(--we-v12-blue-dark);
 }
 
 .back {
-  color: var(--we-violet);
+  color: var(--we-v12-blue);
   font-size: 0.85rem;
   font-weight: 900;
 }
@@ -120,7 +120,7 @@
 
 .guideHeader p {
   margin: 0;
-  color: var(--we-gold-2);
+  color: var(--we-v12-blue-dark);
   font-size: 0.78rem;
   font-weight: 950;
   letter-spacing: 0.1em;
@@ -238,3 +238,32 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* WEB_EMPIRE_V1_2_TOOL_DETAIL_POLISH_START */
+.page { padding: 30px 0 68px; background: radial-gradient(circle at 86% 0%,rgba(22,119,255,.065),transparent 27%),linear-gradient(180deg,#fff,#f7faff 72%,#fff); }
+.hero { min-height: 164px; gap: 22px; padding: 24px 28px; border-color: var(--we-v12-line,#e5ebf3); border-radius: 24px; box-shadow: 0 20px 58px rgba(7,17,31,.065); }
+.icon { width: 72px; height: 72px; border-color: rgba(22,119,255,.16); border-radius: 21px; color: var(--we-v12-blue,#1677ff); background: radial-gradient(circle at 28% 22%,rgba(255,255,255,.95),transparent 34%),linear-gradient(145deg,#f4f8ff,#e6f1ff); font-size: 1.9rem; }
+.kicker,.badges span:first-child,.back,.guideHeader p { color: var(--we-v12-blue-dark,#0b5fcc); }
+.copy h1 { font-size: clamp(2rem,3.2vw,3rem); }
+.copy > p:last-of-type { margin-top: 9px; }
+.badges span { min-height: 36px; border-color: var(--we-v12-line,#e5ebf3); }
+.workbench { margin-top: 18px; }
+.guide { margin-top: 22px; border-color: var(--we-v12-line,#e5ebf3); box-shadow: 0 16px 48px rgba(7,17,31,.055); }
+.guideGrid article { border-color: var(--we-v12-line,#e5ebf3); background: #f8fbff; }
+@media (max-width:680px) { .page { padding: 20px 0 48px; } .hero { gap: 14px; padding: 18px; } .icon { width: 56px; height: 56px; border-radius: 16px; font-size: 1.45rem; } }
+/* WEB_EMPIRE_V1_2_TOOL_DETAIL_POLISH_END */

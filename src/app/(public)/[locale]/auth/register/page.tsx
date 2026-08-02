@@ -140,13 +140,13 @@ export default async function RegisterPage({
             <span className="we-register-orbit-chip is-chart">◔</span>
 
             <img
-              src={assets.heroVisual}
+              src={assets.mark}
               alt=""
               className="we-register-castle"
             />
 
             <img
-              src={assets.dashboardPreview}
+              src={assets.mark}
               alt=""
               className="we-register-dashboard-preview"
             />
@@ -179,8 +179,8 @@ export default async function RegisterPage({
 
         <section className="we-register-card" aria-labelledby="register-title">
           <img
-            src={assets.logo}
-            alt="WEB EMPIRE"
+            src={locale.code === "ar" ? assets.logoAr : assets.logoEn}
+            alt={locale.code === "ar" ? "إمبراطورية الويب" : "WEB EMPIRE"}
             className="we-register-card-logo"
           />
 

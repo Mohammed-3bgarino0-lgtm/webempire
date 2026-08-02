@@ -131,7 +131,7 @@ export default async function LoginPage({
     <main className="we-page we-auth-page">
       <div className="we-container we-auth-grid">
         <section className="we-auth-visual-card">
-          <img src={assets.logo} alt="WEB EMPIRE" className="we-auth-brand-logo" />
+          <img src={locale.code === "ar" ? assets.logoAr : assets.logoEn} alt={locale.code === "ar" ? "إمبراطورية الويب" : "WEB EMPIRE"} className="we-auth-brand-logo" />
           <h1>
             <span>{locale.code === "ar" ? "كل أداة تحتاجها." : "Every tool you need."}</span>
             <br />
@@ -139,7 +139,7 @@ export default async function LoginPage({
           </h1>
           <p>{locale.code === "ar" ? "نفس حسابك للوصول إلى أدواتك وسجل تشغيلاتك ورصيدك." : "One account for your tools, runs, and credits."}</p>
           <div className="we-auth-art-frame" aria-hidden="true">
-            <img src={assets.authVisual} alt="" className="we-auth-visual-art" />
+            <img src={assets.mark} alt="" className="we-auth-visual-art" />
           </div>
         </section>
 

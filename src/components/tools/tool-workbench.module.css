@@ -30,7 +30,7 @@
 .resultPanel {
   position: relative;
   background:
-    radial-gradient(circle at 50% 0%, rgba(113, 56, 244, 0.07), transparent 34%),
+    radial-gradient(circle at 50% 0%, rgba(22, 119, 255, 0.07), transparent 34%),
     linear-gradient(180deg, #fffcf7, #ffffff);
 }
 
@@ -48,7 +48,7 @@
 
 .panelHead p {
   margin: 0 0 5px;
-  color: var(--we-gold-2);
+  color: var(--we-v12-blue-dark);
   font-size: 0.74rem;
   font-weight: 950;
   letter-spacing: 0.1em;
@@ -75,7 +75,7 @@
   padding-inline: 11px;
   border: 1px solid var(--we-line);
   border-radius: 999px;
-  color: var(--we-violet);
+  color: var(--we-v12-blue);
   background: white;
   font-size: 0.72rem;
   font-weight: 850;
@@ -128,8 +128,8 @@
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
-  border-color: rgba(113, 56, 244, 0.52);
-  box-shadow: 0 0 0 4px rgba(113, 56, 244, 0.09);
+  border-color: rgba(22, 119, 255, 0.52);
+  box-shadow: 0 0 0 4px rgba(22, 119, 255, 0.09);
 }
 
 .checkbox {
@@ -175,8 +175,8 @@
 .primary {
   border: 0;
   color: white;
-  background: linear-gradient(135deg, var(--we-violet), var(--we-violet-2));
-  box-shadow: 0 14px 30px rgba(113, 56, 244, 0.22);
+  background: linear-gradient(135deg, var(--we-v12-blue), var(--we-v12-blue-dark));
+  box-shadow: 0 14px 30px rgba(22, 119, 255, 0.22);
 }
 
 .primary:disabled {
@@ -192,8 +192,8 @@
 
 .secondary:hover,
 .resultActions button:hover {
-  color: var(--we-violet);
-  border-color: rgba(113, 56, 244, 0.28);
+  color: var(--we-v12-blue);
+  border-color: rgba(22, 119, 255, 0.28);
 }
 
 .resultPanelInner {
@@ -228,8 +228,8 @@
   display: grid;
   place-items: center;
   border-radius: 20px;
-  color: var(--we-violet);
-  background: #f1ebff;
+  color: var(--we-v12-blue);
+  background: #eaf3ff;
   font-size: 1.9rem;
 }
 
@@ -262,7 +262,7 @@
 }
 
 .error a {
-  color: var(--we-violet);
+  color: var(--we-v12-blue);
   font-weight: 900;
 }
 
@@ -295,7 +295,7 @@
   margin: 0;
   white-space: pre-wrap;
   word-break: break-word;
-  color: var(--we-violet);
+  color: var(--we-v12-blue);
   font-family: inherit;
   font-size: clamp(2.35rem, 5vw, 4.8rem);
   font-weight: 950;
@@ -456,7 +456,7 @@
   .mobileTabs .activeTab {
     color: white;
     border-color: transparent;
-    background: linear-gradient(135deg, var(--we-violet), var(--we-violet-2));
+    background: linear-gradient(135deg, var(--we-v12-blue), var(--we-v12-blue-dark));
   }
 
   .inputPanel,
@@ -643,3 +643,76 @@
 .meta span {
   white-space: nowrap;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* WEB_EMPIRE_V1_2_TOOL_WORKBENCH_POLISH_START */
+.station { overflow: clip; border: 1px solid var(--we-v12-line,#e5ebf3); border-radius: 24px; background: #fff; box-shadow: 0 22px 64px rgba(7,17,31,.075); }
+.grid { grid-template-columns: minmax(330px,42fr) minmax(430px,58fr); align-items: start; }
+.inputPanel,.resultPanel { min-height: 0; padding: clamp(22px,2.4vw,30px); }
+.inputPanel { border-inline-end: 1px solid var(--we-v12-line,#e5ebf3); background: #fff; }
+.resultPanel { background: radial-gradient(circle at 50% 0%,rgba(22,119,255,.07),transparent 35%),linear-gradient(180deg,#f8fbff,#fff 68%); }
+.resultPanelInner { position: sticky; top: 96px; }
+.panelHead { margin-bottom: 18px; }
+.panelHead p { color: var(--we-v12-blue,#1677ff); }
+.panelHead h2 { font-size: clamp(1.55rem,2.2vw,2.1rem); }
+.status { color: var(--we-v12-blue,#1677ff); border-color: rgba(22,119,255,.18); background: #f7fbff; }
+.form { gap: 16px; }
+.fields { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 13px 14px; align-items: start; }
+.field { align-self: start; align-content: start; gap: 7px; min-width: 0; }
+.field:has(textarea) { grid-column: 1 / -1; }
+.field > span { font-size: .86rem; line-height: 1.45; }
+.field input,.field select { height: 52px; min-height: 52px; max-height: 52px; padding: 10px 13px; border-radius: 13px; }
+.field textarea { min-height: 118px; max-height: 240px; padding: 12px 13px; border-radius: 13px; line-height: 1.7; }
+.field input:focus,.field select:focus,.field textarea:focus { border-color: rgba(22,119,255,.58); box-shadow: 0 0 0 4px rgba(22,119,255,.10); }
+.help { margin-top: -1px; font-size: .72rem; }
+.checkbox { min-height: 52px; align-self: start; border-radius: 13px; }
+.formActions { margin-top: 2px; grid-template-columns: minmax(0,1fr) minmax(116px,auto); }
+.primary,.secondary { min-height: 48px; border-radius: 12px; }
+.primary { background: linear-gradient(135deg,var(--we-v12-blue,#1677ff),var(--we-v12-blue-dark,#0b5fcc)); box-shadow: 0 13px 28px rgba(22,119,255,.20); }
+.secondary:hover,.resultActions button:hover { color: var(--we-v12-blue-dark,#0b5fcc); border-color: rgba(22,119,255,.30); }
+.empty,.loading,.error { min-height: 292px; }
+.result { min-height: 0; }
+.empty,.loading { gap: 10px; padding: 28px; border-color: #d7e2f0; border-radius: 19px; background: rgba(255,255,255,.82); }
+.emptyIcon,.loadingIcon { width: 58px; height: 58px; border-radius: 17px; color: var(--we-v12-blue,#1677ff); background: var(--we-v12-blue-soft,#eaf3ff); font-size: 1.55rem; }
+.empty strong,.loading strong { font-size: 1.05rem; }
+.empty p,.loading p { max-width: 390px; font-size: .86rem; }
+.resultHero { min-height: 164px; padding: 20px; border-radius: 19px; border-color: var(--we-v12-line,#e5ebf3); background: radial-gradient(circle at 50% 0%,rgba(22,119,255,.08),transparent 42%),#fff; }
+.resultHero pre { color: var(--we-v12-blue-dark,#0b5fcc); }
+.resultHero pre.long { max-height: 360px; padding: 6px; }
+.details { gap: 9px; }
+.detailItem { min-height: 60px; padding: 11px 13px; border-radius: 13px; }
+.meta { gap: 7px; }
+.meta span { min-height: 32px; padding-inline: 10px; }
+.resultActions { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+.resultActions button { min-height: 44px; border-radius: 11px; }
+.raw { border-radius: 13px; }
+@media (max-width:1020px) {
+  .grid { grid-template-columns: 1fr; }
+  .inputPanel { border-inline-end: 0; border-bottom: 1px solid var(--we-v12-line,#e5ebf3); }
+  .resultPanelInner { position: static; }
+  .empty,.loading,.error { min-height: 250px; }
+}
+@media (max-width:680px) {
+  .inputPanel,.resultPanel { padding: 18px; }
+  .fields { grid-template-columns: 1fr; }
+  .field:has(textarea) { grid-column: auto; }
+  .field textarea { min-height: 108px; }
+  .empty,.loading,.error { min-height: 230px; }
+  .resultHero { min-height: 150px; }
+  .formActions,.resultActions { grid-template-columns: 1fr; }
+}
+/* WEB_EMPIRE_V1_2_TOOL_WORKBENCH_POLISH_END */

@@ -1,14 +1,22 @@
 {
   "version": "1.2",
+  "palette": {
+    "navy": "#07111F",
+    "blue": "#1677FF",
+    "blueDark": "#0B5FCC",
+    "blueSoft": "#EAF3FF",
+    "silver": "#D9E2EF",
+    "white": "#FFFFFF"
+  },
   "logoAr": "/brand/v1.2/web-empire-logo-ar-v1.2.png",
   "logoEn": "/brand/v1.2/web-empire-logo-en-v1.2.png",
   "logo": "/brand/v1.2/web-empire-logo-en-v1.2.png",
   "mark": "/brand/v1.2/web-empire-mark-v1.2.png",
   "heroVisual": "/brand/v1.2/web-empire-mark-v1.2.png",
-  "toolsVisual": "/brand/web-empire-tools-library-v2.webp",
-  "dashboardPreview": "/brand/web-empire-dashboard-panel-v2.webp",
+  "toolsVisual": "/brand/v1.2/web-empire-mark-v1.2.png",
+  "dashboardPreview": "/brand/v1.2/web-empire-mark-v1.2.png",
   "authVisual": "/brand/v1.2/web-empire-mark-v1.2.png",
-  "pricingVisual": "/brand/web-empire-pricing-v2.webp",
+  "pricingVisual": "/brand/v1.2/web-empire-mark-v1.2.png",
   "editableInAdmin": true,
   "adminFields": [
     "logoAr",

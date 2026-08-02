@@ -103,7 +103,7 @@
   width: 18px;
   height: 18px;
   margin-top: 4px;
-  accent-color: #7138f4;
+  accent-color: #1677ff;
 }
 
 .actions {
@@ -123,7 +123,7 @@
   border: 1px solid transparent;
   border-radius: 13px;
   color: #ffffff;
-  background: #7138f4;
+  background: #1677ff;
   font: inherit;
   font-weight: 850;
   text-decoration: none;
@@ -163,7 +163,7 @@
   overflow: hidden;
   border: 0;
   border-radius: 999px;
-  accent-color: #7138f4;
+  accent-color: #1677ff;
 }
 
 .success,
@@ -232,3 +232,31 @@
     width: 100%;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* WEB_EMPIRE_V1_2_MEDIA_WORKBENCH_POLISH_START */
+.workbench { gap: 16px; padding: clamp(18px,2.6vw,28px); border-color: var(--we-v12-line,#e5ebf3); border-radius: 22px; box-shadow: 0 20px 56px rgba(7,17,31,.07); }
+.badge { color: var(--we-v12-blue-dark,#0b5fcc); border-color: rgba(22,119,255,.20); background: rgba(22,119,255,.07); }
+.panel { gap: 14px; border-color: var(--we-v12-line,#e5ebf3); border-radius: 18px; background: #f8fbff; }
+.field { align-content: start; align-self: start; }
+.field input,.field select { height: 50px; min-height: 50px; max-height: 50px; border-color: var(--we-v12-line,#e5ebf3); border-radius: 12px; }
+.field input:focus,.field select:focus { border-color: rgba(22,119,255,.58); box-shadow: 0 0 0 4px rgba(22,119,255,.10); }
+.confirmation input { accent-color: var(--we-v12-blue,#1677ff); }
+.actions button { background: linear-gradient(135deg,var(--we-v12-blue,#1677ff),var(--we-v12-blue-dark,#0b5fcc)); }
+.progressBox progress { accent-color: var(--we-v12-blue,#1677ff); }
+@media (max-width:760px) { .workbench { padding: 17px; } }
+/* WEB_EMPIRE_V1_2_MEDIA_WORKBENCH_POLISH_END */
