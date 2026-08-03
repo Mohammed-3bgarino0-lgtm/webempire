@@ -26,4 +26,3 @@ Generated: 2026-08-03T12:21:49.770Z
 - validation > formula > transform: 546
 - validation > analysis > prompt > ai > validation > transform: 30
 - validation > text_transform > transform: 23
-
