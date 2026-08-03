@@ -73,21 +73,9 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
       .NEXT_PUBLIC_PADDLE_CLIENT_TOKEN
       ?.trim() ?? "";
 
-  const paddleProPriceId =
-    process.env
-      .PADDLE_PRO_MONTHLY_PRICE_ID
-      ?.trim() ?? "";
-
-  const paddleBusinessPriceId =
-    process.env
-      .PADDLE_BUSINESS_MONTHLY_PRICE_ID
-      ?.trim() ?? "";
-
   const paddleSandboxConfigured =
     paddleEnvironment === "sandbox" &&
-    paddleClientToken.startsWith("test_") &&
-    paddleProPriceId.startsWith("pri_") &&
-    paddleBusinessPriceId.startsWith("pri_");
+    paddleClientToken.startsWith("test_");
 
   return (
     <main className="we-page we-pricing-page">
@@ -130,16 +118,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
                   clientToken={
                     paddleClientToken
                   }
-                  priceId={
-                    index === 1
-                      ? paddleProPriceId
-                      : paddleBusinessPriceId
-                  }
-                  planSlug={
-                    index === 1
-                      ? "pro"
-                      : "business"
-                  }
+                  planId={String(plan.id)}
                   locale={
                     locale.code === "ar"
                       ? "ar"
