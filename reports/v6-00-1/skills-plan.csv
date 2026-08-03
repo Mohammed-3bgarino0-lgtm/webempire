@@ -1,0 +1,308 @@
+"slug","name_ar","name_en","category_slug","capability_key","engine_group","risk_level","description","instructions"
+"skill-general-tools-calculation","الحساب والتحقق — أدوات عامة General Tools","calculation — general-tools","general-tools","calculation","formula","low","قدرة مشتركة لأدوات general-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-engine-formula","تنفيذ المعادلات والتحقق من النتائج","formula engine execution","platform-core","engine-formula","formula","low","قدرة تشغيل مشتركة لمحرك formula.","تحقق من المدخلات، نفّذ المحرك الصحيح، تحقّق من المخرجات وأعد نتيجة منظمة."
+"skill-ai-tools-writing","الكتابة الموجّهة — أدوات الذكاء الاصطناعي AI Tools","writing — ai-tools","ai-tools","writing","ai","medium","قدرة مشتركة لأدوات ai-tools التي تنفذ writing.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-engine-ai","تشغيل أدوات الذكاء الاصطناعي","ai engine execution","platform-core","engine-ai","ai","medium","قدرة تشغيل مشتركة لمحرك ai.","تحقق من المزود والنموذج وAlias، ابنِ الطلب، نفّذ الاستدعاء، تحقّق من المخرجات وسجل الاستخدام."
+"skill-marketing-tools-calculation","الحساب والتحقق — أدوات التسويق Marketing Tools","calculation — marketing-tools","marketing-tools","calculation","formula","low","قدرة مشتركة لأدوات marketing-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-finance-tools-calculation","الحساب والتحقق — أدوات المال Finance Tools","calculation — finance-tools","finance-tools","calculation","formula","medium","قدرة مشتركة لأدوات finance-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-employment-tools-calculation","الحساب والتحقق — أدوات الرواتب والموظفين Employment Tools","calculation — employment-tools","employment-tools","calculation","formula","low","قدرة مشتركة لأدوات employment-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-business-tools-calculation","الحساب والتحقق — أدوات الأعمال Business Tools","calculation — business-tools","business-tools","calculation","formula","low","قدرة مشتركة لأدوات business-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-text-tools-sorting","الترتيب — أدوات النصوص Text Tools","sorting — text-tools","text-tools","sorting","text","low","قدرة مشتركة لأدوات text-tools التي تنفذ sorting.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-engine-text","تحويل النصوص مع الحفاظ على المحتوى","text engine execution","platform-core","engine-text","text","low","قدرة تشغيل مشتركة لمحرك text.","تحقق من المدخلات، نفّذ المحرك الصحيح، تحقّق من المخرجات وأعد نتيجة منظمة."
+"skill-text-tools-text-transformation","تحويل النصوص — أدوات النصوص Text Tools","text transformation — text-tools","text-tools","text-transformation","text","low","قدرة مشتركة لأدوات text-tools التي تنفذ text-transformation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-text-tools-conversion","التحويل والتحقق — أدوات النصوص Text Tools","conversion — text-tools","text-tools","conversion","text","low","قدرة مشتركة لأدوات text-tools التي تنفذ conversion.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-decoration-tools-generation","التوليد المنظم — أدوات الزخرفة والرموز Decoration & Symbols","generation — decoration-tools","decoration-tools","generation","text","low","قدرة مشتركة لأدوات decoration-tools التي تنفذ generation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-decoration-tools-text-transformation","تحويل النصوص — أدوات الزخرفة والرموز Decoration & Symbols","text transformation — decoration-tools","decoration-tools","text-transformation","text","low","قدرة مشتركة لأدوات decoration-tools التي تنفذ text-transformation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-text-tools-generation","التوليد المنظم — أدوات النصوص Text Tools","generation — text-tools","text-tools","generation","text","low","قدرة مشتركة لأدوات text-tools التي تنفذ generation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-text-tools-removal","الإزالة والتنظيف — أدوات النصوص Text Tools","removal — text-tools","text-tools","removal","text","low","قدرة مشتركة لأدوات text-tools التي تنفذ removal.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-text-tools-counting","العد والإحصاء — أدوات النصوص Text Tools","counting — text-tools","text-tools","counting","text","low","قدرة مشتركة لأدوات text-tools التي تنفذ counting.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-text-tools-cleaning","التنظيف والتوحيد — أدوات النصوص Text Tools","cleaning — text-tools","text-tools","cleaning","text","low","قدرة مشتركة لأدوات text-tools التي تنفذ cleaning.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-ai-writing-tools-writing","الكتابة الموجّهة — الكتابة بالذكاء الاصطناعي AI Writing Tools","writing — ai-writing-tools","ai-writing-tools","writing","ai","medium","قدرة مشتركة لأدوات ai-writing-tools التي تنفذ writing.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-ai-writing-tools-generation","التوليد المنظم — الكتابة بالذكاء الاصطناعي AI Writing Tools","generation — ai-writing-tools","ai-writing-tools","generation","ai","medium","قدرة مشتركة لأدوات ai-writing-tools التي تنفذ generation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-social-media-tools-generation","التوليد المنظم — أدوات السوشيال ميديا Social Media Tools","generation — social-media-tools","social-media-tools","generation","ai","medium","قدرة مشتركة لأدوات social-media-tools التي تنفذ generation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-ai-writing-tools-summarization","التلخيص — الكتابة بالذكاء الاصطناعي AI Writing Tools","summarization — ai-writing-tools","ai-writing-tools","summarization","ai","medium","قدرة مشتركة لأدوات ai-writing-tools التي تنفذ summarization.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-ai-writing-tools-ai-assistance","المعالجة بالذكاء الاصطناعي — الكتابة بالذكاء الاصطناعي AI Writing Tools","ai assistance — ai-writing-tools","ai-writing-tools","ai-assistance","ai","medium","قدرة مشتركة لأدوات ai-writing-tools التي تنفذ ai-assistance.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-productivity-tools-writing","الكتابة الموجّهة — أدوات الإنتاجية Productivity Tools","writing — productivity-tools","productivity-tools","writing","ai","medium","قدرة مشتركة لأدوات productivity-tools التي تنفذ writing.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-productivity-tools-generation","التوليد المنظم — أدوات الإنتاجية Productivity Tools","generation — productivity-tools","productivity-tools","generation","ai","medium","قدرة مشتركة لأدوات productivity-tools التي تنفذ generation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-seo-tools-generation","التوليد المنظم — أدوات تحسين محركات البحث SEO Tools","generation — seo-tools","seo-tools","generation","ai","medium","قدرة مشتركة لأدوات seo-tools التي تنفذ generation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-education-tools-conversion","التحويل والتحقق — أدوات الطلاب Education Tools","conversion — education-tools","education-tools","conversion","formula","low","قدرة مشتركة لأدوات education-tools التي تنفذ conversion.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-converter-tools-calculation","الحساب والتحقق — أدوات التحويل Converter Tools","calculation — converter-tools","converter-tools","calculation","formula","low","قدرة مشتركة لأدوات converter-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-converter-tools-conversion","التحويل والتحقق — أدوات التحويل Converter Tools","conversion — converter-tools","converter-tools","conversion","formula","low","قدرة مشتركة لأدوات converter-tools التي تنفذ conversion.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-education-tools-calculation","الحساب والتحقق — أدوات الطلاب Education Tools","calculation — education-tools","education-tools","calculation","formula","low","قدرة مشتركة لأدوات education-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-health-tools-calculation","الحساب والتحقق — أدوات الصحة Health Tools","calculation — health-tools","health-tools","calculation","formula","medium","قدرة مشتركة لأدوات health-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-math-tools-calculation","الحساب والتحقق — أدوات حسابية Math Tools","calculation — math-tools","math-tools","calculation","formula","low","قدرة مشتركة لأدوات math-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-date-time-tools-calculation","الحساب والتحقق — أدوات التاريخ والوقت Date & Time Tools","calculation — date-time-tools","date-time-tools","calculation","formula","low","قدرة مشتركة لأدوات date-time-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-saudi-tools-calculation","الحساب والتحقق — أدوات السعودية Saudi Tools","calculation — saudi-tools","saudi-tools","calculation","formula","low","قدرة مشتركة لأدوات saudi-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-travel-tools-calculation","الحساب والتحقق — أدوات السفر Travel Tools","calculation — travel-tools","travel-tools","calculation","formula","low","قدرة مشتركة لأدوات travel-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-productivity-tools-calculation","الحساب والتحقق — أدوات الإنتاجية Productivity Tools","calculation — productivity-tools","productivity-tools","calculation","formula","low","قدرة مشتركة لأدوات productivity-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-sustainability-tools-calculation","الحساب والتحقق — أدوات الاستدامة Sustainability Tools","calculation — sustainability-tools","sustainability-tools","calculation","formula","low","قدرة مشتركة لأدوات sustainability-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-ecommerce-tools-calculation","الحساب والتحقق — أدوات التجارة الإلكترونية E-commerce Tools","calculation — ecommerce-tools","ecommerce-tools","calculation","formula","low","قدرة مشتركة لأدوات ecommerce-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-freelancer-tools-calculation","الحساب والتحقق — أدوات المستقلين Freelancer Tools","calculation — freelancer-tools","freelancer-tools","calculation","formula","low","قدرة مشتركة لأدوات freelancer-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-restaurant-tools-calculation","الحساب والتحقق — أدوات المطاعم Restaurant Tools","calculation — restaurant-tools","restaurant-tools","calculation","formula","low","قدرة مشتركة لأدوات restaurant-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-logistics-tools-calculation","الحساب والتحقق — أدوات اللوجستيات Logistics Tools","calculation — logistics-tools","logistics-tools","calculation","formula","low","قدرة مشتركة لأدوات logistics-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-sales-tools-calculation","الحساب والتحقق — أدوات المبيعات Sales Tools","calculation — sales-tools","sales-tools","calculation","formula","low","قدرة مشتركة لأدوات sales-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-creator-tools-calculation","الحساب والتحقق — أدوات صناع المحتوى Creator Tools","calculation — creator-tools","creator-tools","calculation","formula","low","قدرة مشتركة لأدوات creator-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-real-estate-tools-calculation","الحساب والتحقق — أدوات العقار Real Estate Tools","calculation — real-estate-tools","real-estate-tools","calculation","formula","low","قدرة مشتركة لأدوات real-estate-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-hr-tools-calculation","الحساب والتحقق — أدوات الموارد البشرية HR Tools","calculation — hr-tools","hr-tools","calculation","formula","low","قدرة مشتركة لأدوات hr-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-automotive-tools-calculation","الحساب والتحقق — أدوات السيارات Automotive Tools","calculation — automotive-tools","automotive-tools","calculation","formula","low","قدرة مشتركة لأدوات automotive-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-construction-tools-calculation","الحساب والتحقق — أدوات البناء Construction Tools","calculation — construction-tools","construction-tools","calculation","formula","low","قدرة مشتركة لأدوات construction-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-design-tools-calculation","الحساب والتحقق — أدوات التصميم Design Tools","calculation — design-tools","design-tools","calculation","formula","low","قدرة مشتركة لأدوات design-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-agriculture-tools-calculation","الحساب والتحقق — أدوات الزراعة Agriculture Tools","calculation — agriculture-tools","agriculture-tools","calculation","formula","low","قدرة مشتركة لأدوات agriculture-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-construction-tools-estimation","التقدير — أدوات البناء Construction Tools","estimation — construction-tools","construction-tools","estimation","formula","low","قدرة مشتركة لأدوات construction-tools التي تنفذ estimation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-event-tools-calculation","الحساب والتحقق — أدوات الفعاليات Event Tools","calculation — event-tools","event-tools","calculation","formula","low","قدرة مشتركة لأدوات event-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-seo-tools-calculation","الحساب والتحقق — أدوات تحسين محركات البحث SEO Tools","calculation — seo-tools","seo-tools","calculation","formula","low","قدرة مشتركة لأدوات seo-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-web-tools-calculation","الحساب والتحقق — أدوات الويب Web Tools","calculation — web-tools","web-tools","calculation","formula","low","قدرة مشتركة لأدوات web-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-personal-finance-tools-calculation","الحساب والتحقق — أدوات المالية الشخصية Personal Finance Tools","calculation — personal-finance-tools","personal-finance-tools","calculation","formula","low","قدرة مشتركة لأدوات personal-finance-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-design-tools-estimation","التقدير — أدوات التصميم Design Tools","estimation — design-tools","design-tools","estimation","formula","low","قدرة مشتركة لأدوات design-tools التي تنفذ estimation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-customer-service-tools-calculation","الحساب والتحقق — أدوات خدمة العملاء Customer Service Tools","calculation — customer-service-tools","customer-service-tools","calculation","formula","low","قدرة مشتركة لأدوات customer-service-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-hospitality-tools-calculation","الحساب والتحقق — أدوات الضيافة والفنادق Hospitality Tools","calculation — hospitality-tools","hospitality-tools","calculation","formula","low","قدرة مشتركة لأدوات hospitality-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-home-tools-calculation","الحساب والتحقق — أدوات المنزل Home Tools","calculation — home-tools","home-tools","calculation","formula","low","قدرة مشتركة لأدوات home-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-home-tools-estimation","التقدير — أدوات المنزل Home Tools","estimation — home-tools","home-tools","estimation","formula","low","قدرة مشتركة لأدوات home-tools التي تنفذ estimation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-fitness-tools-calculation","الحساب والتحقق — أدوات اللياقة Fitness Tools","calculation — fitness-tools","fitness-tools","calculation","formula","low","قدرة مشتركة لأدوات fitness-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-retail-tools-calculation","الحساب والتحقق — أدوات التجزئة Retail Tools","calculation — retail-tools","retail-tools","calculation","formula","low","قدرة مشتركة لأدوات retail-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-manufacturing-tools-calculation","الحساب والتحقق — أدوات التصنيع Manufacturing Tools","calculation — manufacturing-tools","manufacturing-tools","calculation","formula","low","قدرة مشتركة لأدوات manufacturing-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-project-management-tools-calculation","الحساب والتحقق — أدوات إدارة المشاريع Project Management Tools","calculation — project-management-tools","project-management-tools","calculation","formula","low","قدرة مشتركة لأدوات project-management-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-insurance-tools-estimation","التقدير — أدوات التأمين Insurance Tools","estimation — insurance-tools","insurance-tools","estimation","formula","low","قدرة مشتركة لأدوات insurance-tools التي تنفذ estimation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-insurance-tools-calculation","الحساب والتحقق — أدوات التأمين Insurance Tools","calculation — insurance-tools","insurance-tools","calculation","formula","low","قدرة مشتركة لأدوات insurance-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-energy-tools-calculation","الحساب والتحقق — أدوات الطاقة Energy Tools","calculation — energy-tools","energy-tools","calculation","formula","low","قدرة مشتركة لأدوات energy-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-cybersecurity-tools-calculation","الحساب والتحقق — أدوات الأمن السيبراني Cybersecurity Tools","calculation — cybersecurity-tools","cybersecurity-tools","calculation","formula","low","قدرة مشتركة لأدوات cybersecurity-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-photography-tools-calculation","الحساب والتحقق — أدوات التصوير Photography Tools","calculation — photography-tools","photography-tools","calculation","formula","low","قدرة مشتركة لأدوات photography-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-fitness-tools-estimation","التقدير — أدوات اللياقة Fitness Tools","estimation — fitness-tools","fitness-tools","estimation","formula","low","قدرة مشتركة لأدوات fitness-tools التي تنفذ estimation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-startup-tools-calculation","الحساب والتحقق — أدوات الشركات الناشئة Startup Tools","calculation — startup-tools","startup-tools","calculation","formula","low","قدرة مشتركة لأدوات startup-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-telecom-tools-calculation","الحساب والتحقق — أدوات الاتصالات Telecom Tools","calculation — telecom-tools","telecom-tools","calculation","formula","low","قدرة مشتركة لأدوات telecom-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-saas-tools-calculation","الحساب والتحقق — أدوات SaaS SaaS Tools","calculation — saas-tools","saas-tools","calculation","formula","low","قدرة مشتركة لأدوات saas-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-rental-business-tools-calculation","الحساب والتحقق — أدوات أعمال التأجير Rental Business Tools","calculation — rental-business-tools","rental-business-tools","calculation","formula","low","قدرة مشتركة لأدوات rental-business-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-procurement-tools-calculation","الحساب والتحقق — أدوات المشتريات Procurement Tools","calculation — procurement-tools","procurement-tools","calculation","formula","low","قدرة مشتركة لأدوات procurement-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-quality-tools-calculation","الحساب والتحقق — أدوات إدارة الجودة Quality Management Tools","calculation — quality-tools","quality-tools","calculation","formula","low","قدرة مشتركة لأدوات quality-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-maintenance-tools-calculation","الحساب والتحقق — أدوات الصيانة Maintenance Tools","calculation — maintenance-tools","maintenance-tools","calculation","formula","low","قدرة مشتركة لأدوات maintenance-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-franchise-tools-calculation","الحساب والتحقق — أدوات الامتياز التجاري Franchise Tools","calculation — franchise-tools","franchise-tools","calculation","formula","low","قدرة مشتركة لأدوات franchise-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-bakery-tools-calculation","الحساب والتحقق — أدوات المخابز Bakery Tools","calculation — bakery-tools","bakery-tools","calculation","formula","low","قدرة مشتركة لأدوات bakery-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."
+"skill-salon-tools-calculation","الحساب والتحقق — أدوات الصالونات Salon Tools","calculation — salon-tools","salon-tools","calculation","formula","low","قدرة مشتركة لأدوات salon-tools التي تنفذ calculation.","تحقق من اكتمال المدخلات وصحتها.
+نفّذ منطق الأداة المحدد دون تغيير المعنى أو الوحدات.
+أظهر النتيجة بصيغة واضحة وقابلة للاستخدام.
+لا تختلق قيمًا غير موجودة في المدخلات."

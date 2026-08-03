@@ -1,0 +1,473 @@
+{
+  "summary": {
+    "generated_at": "2026-08-03T01:44:09.688Z",
+    "read_only": true,
+    "tables_existing": 7,
+    "tables_missing": 3,
+    "missing_tables": [
+      "workflow_tools",
+      "tool_workflows",
+      "workflow_skills"
+    ],
+    "migration_files_scanned": 18,
+    "migration_matches": 54,
+    "workflow_action_found": true,
+    "blueprint_summary": {
+      "generated_at": "2026-08-03T01:34:03.582Z",
+      "read_only": true,
+      "active_tools_total": 603,
+      "excluded_media_tools": 4,
+      "restored_false_positive_media_candidates": 24,
+      "eligible_tools_final": 599,
+      "proposed_skills": 79,
+      "proposed_tool_skill_links": 1198,
+      "proposed_workflows": 629,
+      "proposed_workflow_steps": 2007,
+      "proposed_tool_workflow_links": 629,
+      "proposed_workflow_skill_links": 1258,
+      "eligible_tools_without_skill_plan": 0,
+      "eligible_tools_without_workflow_plan": 0
+    }
+  },
+  "schema": {
+    "skills": {
+      "table": "skills",
+      "exists": true,
+      "existing_columns": [
+        "id",
+        "name",
+        "slug",
+        "description",
+        "risk_level",
+        "status",
+        "current_version_id",
+        "created_at"
+      ],
+      "missing_columns": [
+        "category",
+        "category_slug",
+        "capability_key",
+        "engine_group",
+        "updated_at"
+      ],
+      "errors": []
+    },
+    "skill_versions": {
+      "table": "skill_versions",
+      "exists": true,
+      "existing_columns": [
+        "id",
+        "skill_id",
+        "version_number",
+        "instructions",
+        "created_at"
+      ],
+      "missing_columns": [
+        "input_requirements",
+        "output_contract",
+        "updated_at"
+      ],
+      "errors": []
+    },
+    "tool_skills": {
+      "table": "tool_skills",
+      "exists": true,
+      "existing_columns": [
+        "tool_id",
+        "skill_id",
+        "sort_order"
+      ],
+      "missing_columns": [
+        "id",
+        "created_at",
+        "updated_at"
+      ],
+      "errors": []
+    },
+    "workflows": {
+      "table": "workflows",
+      "exists": true,
+      "existing_columns": [
+        "id",
+        "name",
+        "slug",
+        "description",
+        "is_active",
+        "created_at",
+        "updated_at"
+      ],
+      "missing_columns": [
+        "version",
+        "category",
+        "category_slug",
+        "input_schema",
+        "output_schema"
+      ],
+      "errors": []
+    },
+    "workflow_steps": {
+      "table": "workflow_steps",
+      "exists": true,
+      "existing_columns": [
+        "id",
+        "workflow_id",
+        "step_key",
+        "name",
+        "step_type",
+        "sort_order",
+        "config",
+        "continue_on_error",
+        "created_at"
+      ],
+      "missing_columns": [
+        "input_source",
+        "output_key",
+        "is_required",
+        "updated_at"
+      ],
+      "errors": []
+    },
+    "workflow_tools": {
+      "table": "workflow_tools",
+      "exists": false,
+      "existing_columns": [],
+      "missing_columns": [],
+      "errors": [
+        "Could not find the table 'public.workflow_tools' in the schema cache"
+      ]
+    },
+    "tool_workflows": {
+      "table": "tool_workflows",
+      "exists": false,
+      "existing_columns": [],
+      "missing_columns": [],
+      "errors": [
+        "Could not find the table 'public.tool_workflows' in the schema cache"
+      ]
+    },
+    "workflow_skills": {
+      "table": "workflow_skills",
+      "exists": false,
+      "existing_columns": [],
+      "missing_columns": [],
+      "errors": [
+        "Could not find the table 'public.workflow_skills' in the schema cache"
+      ]
+    },
+    "ai_providers": {
+      "table": "ai_providers",
+      "exists": true,
+      "existing_columns": [
+        "id",
+        "name",
+        "slug",
+        "adapter_type",
+        "base_url",
+        "secret_id",
+        "config",
+        "priority",
+        "is_active",
+        "created_at",
+        "updated_at"
+      ],
+      "missing_columns": [],
+      "errors": []
+    },
+    "ai_models": {
+      "table": "ai_models",
+      "exists": true,
+      "existing_columns": [
+        "id",
+        "provider_id",
+        "name",
+        "model_key",
+        "alias",
+        "capabilities",
+        "input_cost_per_million_usd",
+        "output_cost_per_million_usd",
+        "cached_input_cost_per_million_usd",
+        "max_output_tokens",
+        "priority",
+        "is_active",
+        "created_at"
+      ],
+      "missing_columns": [
+        "updated_at"
+      ],
+      "errors": []
+    }
+  },
+  "migration_matches": [
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 80,
+      "excerpt": "  seo_title text,\n  seo_description text,\n  created_at timestamptz not null default now(),\n  updated_at timestamptz not null default now()\n);\n\ncreate table if not exists public.ai_providers (\n  id uuid primary key default gen_random_uuid(),\n  name text not null,\n  slug text not null unique,\n  adapter_type public.provider_adapter_type not null,\n  base_url text,\n  secret_id uuid,\n  config jsonb not null default '{}'::jsonb,\n  priority integer not null default 100,\n  is_active boolean not null default true,\n  created_at timestamptz not null default now(),\n  updated_at timestamptz not null default now()"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 94,
+      "excerpt": "  priority integer not null default 100,\n  is_active boolean not null default true,\n  created_at timestamptz not null default now(),\n  updated_at timestamptz not null default now()\n);\n\ncreate table if not exists public.ai_models (\n  id uuid primary key default gen_random_uuid(),\n  provider_id uuid not null references public.ai_providers(id) on delete cascade,\n  name text not null,\n  model_key text not null,\n  alias text not null default 'standard',\n  capabilities text[] not null default array['text']::text[],\n  input_cost_per_million_usd numeric(14,6) not null default 0,\n  output_cost_per_million_usd numeric(14,6) not null default 0,\n  cached_input_cost_per_million_usd numeric(14,6) not null default 0,\n  max_output_tokens integer not null default 4096,\n  priority integer not null default 100,"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 96,
+      "excerpt": "  created_at timestamptz not null default now(),\n  updated_at timestamptz not null default now()\n);\n\ncreate table if not exists public.ai_models (\n  id uuid primary key default gen_random_uuid(),\n  provider_id uuid not null references public.ai_providers(id) on delete cascade,\n  name text not null,\n  model_key text not null,\n  alias text not null default 'standard',\n  capabilities text[] not null default array['text']::text[],\n  input_cost_per_million_usd numeric(14,6) not null default 0,\n  output_cost_per_million_usd numeric(14,6) not null default 0,\n  cached_input_cost_per_million_usd numeric(14,6) not null default 0,\n  max_output_tokens integer not null default 4096,\n  priority integer not null default 100,\n  is_active boolean not null default true,\n  pricing_effective_from timestamptz not null default now(),"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 112,
+      "excerpt": "  is_active boolean not null default true,\n  pricing_effective_from timestamptz not null default now(),\n  created_at timestamptz not null default now(),\n  unique(provider_id, model_key, alias)\n);\n\ncreate table if not exists public.skills (\n  id uuid primary key default gen_random_uuid(),\n  name text not null,\n  slug text not null unique,\n  description text not null default '',\n  risk_level text not null default 'low'\n    check (risk_level in ('low','medium','high','critical')),\n  status text not null default 'draft'\n    check (status in ('draft','review','approved','active','disabled')),\n  current_version_id uuid,\n  created_at timestamptz not null default now()\n);"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 125,
+      "excerpt": "  status text not null default 'draft'\n    check (status in ('draft','review','approved','active','disabled')),\n  current_version_id uuid,\n  created_at timestamptz not null default now()\n);\n\ncreate table if not exists public.skill_versions (\n  id uuid primary key default gen_random_uuid(),\n  skill_id uuid not null references public.skills(id) on delete cascade,\n  version_number integer not null,\n  instructions text not null,\n  metadata jsonb not null default '{}'::jsonb,\n  created_at timestamptz not null default now(),\n  unique(skill_id, version_number)\n);\n\nalter table public.skills\n  drop constraint if exists skills_current_version_id_fkey;"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 127,
+      "excerpt": "  current_version_id uuid,\n  created_at timestamptz not null default now()\n);\n\ncreate table if not exists public.skill_versions (\n  id uuid primary key default gen_random_uuid(),\n  skill_id uuid not null references public.skills(id) on delete cascade,\n  version_number integer not null,\n  instructions text not null,\n  metadata jsonb not null default '{}'::jsonb,\n  created_at timestamptz not null default now(),\n  unique(skill_id, version_number)\n);\n\nalter table public.skills\n  drop constraint if exists skills_current_version_id_fkey;\n\nalter table public.skills"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 135,
+      "excerpt": "  instructions text not null,\n  metadata jsonb not null default '{}'::jsonb,\n  created_at timestamptz not null default now(),\n  unique(skill_id, version_number)\n);\n\nalter table public.skills\n  drop constraint if exists skills_current_version_id_fkey;\n\nalter table public.skills\n  add constraint skills_current_version_id_fkey\n  foreign key (current_version_id)\n  references public.skill_versions(id)\n  on delete set null;\n\ncreate table if not exists public.tool_skills (\n  tool_id uuid not null references public.tools(id) on delete cascade,\n  skill_id uuid not null references public.skills(id) on delete cascade,"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 136,
+      "excerpt": "  metadata jsonb not null default '{}'::jsonb,\n  created_at timestamptz not null default now(),\n  unique(skill_id, version_number)\n);\n\nalter table public.skills\n  drop constraint if exists skills_current_version_id_fkey;\n\nalter table public.skills\n  add constraint skills_current_version_id_fkey\n  foreign key (current_version_id)\n  references public.skill_versions(id)\n  on delete set null;\n\ncreate table if not exists public.tool_skills (\n  tool_id uuid not null references public.tools(id) on delete cascade,\n  skill_id uuid not null references public.skills(id) on delete cascade,\n  sort_order integer not null default 0,"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 138,
+      "excerpt": "  unique(skill_id, version_number)\n);\n\nalter table public.skills\n  drop constraint if exists skills_current_version_id_fkey;\n\nalter table public.skills\n  add constraint skills_current_version_id_fkey\n  foreign key (current_version_id)\n  references public.skill_versions(id)\n  on delete set null;\n\ncreate table if not exists public.tool_skills (\n  tool_id uuid not null references public.tools(id) on delete cascade,\n  skill_id uuid not null references public.skills(id) on delete cascade,\n  sort_order integer not null default 0,\n  primary key(tool_id, skill_id)\n);"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 139,
+      "excerpt": ");\n\nalter table public.skills\n  drop constraint if exists skills_current_version_id_fkey;\n\nalter table public.skills\n  add constraint skills_current_version_id_fkey\n  foreign key (current_version_id)\n  references public.skill_versions(id)\n  on delete set null;\n\ncreate table if not exists public.tool_skills (\n  tool_id uuid not null references public.tools(id) on delete cascade,\n  skill_id uuid not null references public.skills(id) on delete cascade,\n  sort_order integer not null default 0,\n  primary key(tool_id, skill_id)\n);\n"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 141,
+      "excerpt": "alter table public.skills\n  drop constraint if exists skills_current_version_id_fkey;\n\nalter table public.skills\n  add constraint skills_current_version_id_fkey\n  foreign key (current_version_id)\n  references public.skill_versions(id)\n  on delete set null;\n\ncreate table if not exists public.tool_skills (\n  tool_id uuid not null references public.tools(id) on delete cascade,\n  skill_id uuid not null references public.skills(id) on delete cascade,\n  sort_order integer not null default 0,\n  primary key(tool_id, skill_id)\n);\n\ncreate table if not exists public.plans (\n  id uuid primary key default gen_random_uuid(),"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 144,
+      "excerpt": "alter table public.skills\n  add constraint skills_current_version_id_fkey\n  foreign key (current_version_id)\n  references public.skill_versions(id)\n  on delete set null;\n\ncreate table if not exists public.tool_skills (\n  tool_id uuid not null references public.tools(id) on delete cascade,\n  skill_id uuid not null references public.skills(id) on delete cascade,\n  sort_order integer not null default 0,\n  primary key(tool_id, skill_id)\n);\n\ncreate table if not exists public.plans (\n  id uuid primary key default gen_random_uuid(),\n  slug text not null unique,\n  name_ar text not null,\n  name_en text not null,"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 146,
+      "excerpt": "  foreign key (current_version_id)\n  references public.skill_versions(id)\n  on delete set null;\n\ncreate table if not exists public.tool_skills (\n  tool_id uuid not null references public.tools(id) on delete cascade,\n  skill_id uuid not null references public.skills(id) on delete cascade,\n  sort_order integer not null default 0,\n  primary key(tool_id, skill_id)\n);\n\ncreate table if not exists public.plans (\n  id uuid primary key default gen_random_uuid(),\n  slug text not null unique,\n  name_ar text not null,\n  name_en text not null,\n  description text not null default '',\n  price_sar numeric(12,2) not null default 0,"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 191,
+      "excerpt": ");\n\ncreate table if not exists public.tool_runs (\n  id uuid primary key default gen_random_uuid(),\n  tool_id uuid not null references public.tools(id) on delete restrict,\n  user_id uuid references auth.users(id) on delete set null,\n  provider_id uuid references public.ai_providers(id) on delete set null,\n  model_id uuid references public.ai_models(id) on delete set null,\n  status text not null default 'queued'\n    check (status in ('queued','running','completed','failed','cancelled')),\n  input_payload jsonb not null default '{}'::jsonb,\n  output_payload jsonb,\n  input_tokens integer not null default 0,\n  output_tokens integer not null default 0,\n  cached_input_tokens integer not null default 0,\n  credits_reserved integer not null default 0,\n  credits_charged integer not null default 0,\n  provider_response_id text,"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 192,
+      "excerpt": "\ncreate table if not exists public.tool_runs (\n  id uuid primary key default gen_random_uuid(),\n  tool_id uuid not null references public.tools(id) on delete restrict,\n  user_id uuid references auth.users(id) on delete set null,\n  provider_id uuid references public.ai_providers(id) on delete set null,\n  model_id uuid references public.ai_models(id) on delete set null,\n  status text not null default 'queued'\n    check (status in ('queued','running','completed','failed','cancelled')),\n  input_payload jsonb not null default '{}'::jsonb,\n  output_payload jsonb,\n  input_tokens integer not null default 0,\n  output_tokens integer not null default 0,\n  cached_input_tokens integer not null default 0,\n  credits_reserved integer not null default 0,\n  credits_charged integer not null default 0,\n  provider_response_id text,\n  error_message text,"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 237,
+      "excerpt": "  created_at timestamptz not null default now()\n);\n\ncreate table if not exists public.provider_usage (\n  id uuid primary key default gen_random_uuid(),\n  tool_run_id uuid not null references public.tool_runs(id) on delete cascade,\n  provider_id uuid references public.ai_providers(id) on delete set null,\n  model_id uuid references public.ai_models(id) on delete set null,\n  input_tokens integer not null default 0,\n  output_tokens integer not null default 0,\n  cached_input_tokens integer not null default 0,\n  estimated_cost_usd numeric(16,8) not null default 0,\n  created_at timestamptz not null default now()\n);\n\ncreate table if not exists public.platform_settings (\n  key text primary key,\n  value jsonb not null,"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 238,
+      "excerpt": ");\n\ncreate table if not exists public.provider_usage (\n  id uuid primary key default gen_random_uuid(),\n  tool_run_id uuid not null references public.tool_runs(id) on delete cascade,\n  provider_id uuid references public.ai_providers(id) on delete set null,\n  model_id uuid references public.ai_models(id) on delete set null,\n  input_tokens integer not null default 0,\n  output_tokens integer not null default 0,\n  cached_input_tokens integer not null default 0,\n  estimated_cost_usd numeric(16,8) not null default 0,\n  created_at timestamptz not null default now()\n);\n\ncreate table if not exists public.platform_settings (\n  key text primary key,\n  value jsonb not null,\n  updated_at timestamptz not null default now()"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 285,
+      "excerpt": "declare\n  v_secret_id uuid;\n  v_existing uuid;\nbegin\n  select secret_id\n  into v_existing\n  from public.ai_providers\n  where id = p_provider_id\n  for update;\n\n  if v_existing is null then\n    select vault.create_secret(\n      p_secret,\n      'web_empire_provider_' || p_provider_id::text,\n      'Web Empire AI provider secret'\n    )\n    into v_secret_id;\n"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 297,
+      "excerpt": "      p_secret,\n      'web_empire_provider_' || p_provider_id::text,\n      'Web Empire AI provider secret'\n    )\n    into v_secret_id;\n\n    update public.ai_providers\n    set secret_id = v_secret_id,\n        updated_at = now()\n    where id = p_provider_id;\n  else\n    perform vault.update_secret(v_existing, p_secret);\n    v_secret_id := v_existing;\n  end if;\n\n  return v_secret_id;\nend;\n$$;"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 319,
+      "excerpt": "returns text\nlanguage sql\nsecurity definer\nset search_path = public, vault\nas $$\n  select ds.decrypted_secret\n  from public.ai_providers p\n  join vault.decrypted_secrets ds\n    on ds.id = p.secret_id\n  where p.id = p_provider_id;\n$$;\n\nrevoke all on function public.set_ai_provider_secret(uuid, text)\n  from public, anon, authenticated;\n\nrevoke all on function public.get_ai_provider_secret(uuid)\n  from public, anon, authenticated;\n"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 701,
+      "excerpt": "execute procedure public.handle_new_user();\n\nalter table public.profiles enable row level security;\nalter table public.admin_users enable row level security;\nalter table public.categories enable row level security;\nalter table public.tools enable row level security;\nalter table public.ai_providers enable row level security;\nalter table public.ai_models enable row level security;\nalter table public.skills enable row level security;\nalter table public.skill_versions enable row level security;\nalter table public.tool_skills enable row level security;\nalter table public.plans enable row level security;\nalter table public.user_subscriptions enable row level security;\nalter table public.credit_wallets enable row level security;\nalter table public.tool_runs enable row level security;\nalter table public.credit_reservations enable row level security;\nalter table public.credit_transactions enable row level security;\nalter table public.provider_usage enable row level security;"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 702,
+      "excerpt": "\nalter table public.profiles enable row level security;\nalter table public.admin_users enable row level security;\nalter table public.categories enable row level security;\nalter table public.tools enable row level security;\nalter table public.ai_providers enable row level security;\nalter table public.ai_models enable row level security;\nalter table public.skills enable row level security;\nalter table public.skill_versions enable row level security;\nalter table public.tool_skills enable row level security;\nalter table public.plans enable row level security;\nalter table public.user_subscriptions enable row level security;\nalter table public.credit_wallets enable row level security;\nalter table public.tool_runs enable row level security;\nalter table public.credit_reservations enable row level security;\nalter table public.credit_transactions enable row level security;\nalter table public.provider_usage enable row level security;\nalter table public.platform_settings enable row level security;"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 703,
+      "excerpt": "alter table public.profiles enable row level security;\nalter table public.admin_users enable row level security;\nalter table public.categories enable row level security;\nalter table public.tools enable row level security;\nalter table public.ai_providers enable row level security;\nalter table public.ai_models enable row level security;\nalter table public.skills enable row level security;\nalter table public.skill_versions enable row level security;\nalter table public.tool_skills enable row level security;\nalter table public.plans enable row level security;\nalter table public.user_subscriptions enable row level security;\nalter table public.credit_wallets enable row level security;\nalter table public.tool_runs enable row level security;\nalter table public.credit_reservations enable row level security;\nalter table public.credit_transactions enable row level security;\nalter table public.provider_usage enable row level security;\nalter table public.platform_settings enable row level security;\n"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 704,
+      "excerpt": "alter table public.admin_users enable row level security;\nalter table public.categories enable row level security;\nalter table public.tools enable row level security;\nalter table public.ai_providers enable row level security;\nalter table public.ai_models enable row level security;\nalter table public.skills enable row level security;\nalter table public.skill_versions enable row level security;\nalter table public.tool_skills enable row level security;\nalter table public.plans enable row level security;\nalter table public.user_subscriptions enable row level security;\nalter table public.credit_wallets enable row level security;\nalter table public.tool_runs enable row level security;\nalter table public.credit_reservations enable row level security;\nalter table public.credit_transactions enable row level security;\nalter table public.provider_usage enable row level security;\nalter table public.platform_settings enable row level security;\n\ncreate policy \"public read active categories\""
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 705,
+      "excerpt": "alter table public.categories enable row level security;\nalter table public.tools enable row level security;\nalter table public.ai_providers enable row level security;\nalter table public.ai_models enable row level security;\nalter table public.skills enable row level security;\nalter table public.skill_versions enable row level security;\nalter table public.tool_skills enable row level security;\nalter table public.plans enable row level security;\nalter table public.user_subscriptions enable row level security;\nalter table public.credit_wallets enable row level security;\nalter table public.tool_runs enable row level security;\nalter table public.credit_reservations enable row level security;\nalter table public.credit_transactions enable row level security;\nalter table public.provider_usage enable row level security;\nalter table public.platform_settings enable row level security;\n\ncreate policy \"public read active categories\"\non public.categories for select"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 762,
+      "excerpt": "create policy \"admins manage tools\"\non public.tools for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins manage providers\"\non public.ai_providers for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins manage models\"\non public.ai_models for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins manage skills\"\non public.skills for all\nusing (public.is_admin())"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 767,
+      "excerpt": "create policy \"admins manage providers\"\non public.ai_providers for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins manage models\"\non public.ai_models for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins manage skills\"\non public.skills for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins manage skill versions\"\non public.skill_versions for all\nusing (public.is_admin())"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 771,
+      "excerpt": "\ncreate policy \"admins manage models\"\non public.ai_models for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins manage skills\"\non public.skills for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins manage skill versions\"\non public.skill_versions for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins manage tool skills\"\non public.tool_skills for all"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 772,
+      "excerpt": "create policy \"admins manage models\"\non public.ai_models for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins manage skills\"\non public.skills for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins manage skill versions\"\non public.skill_versions for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins manage tool skills\"\non public.tool_skills for all\nusing (public.is_admin())"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 777,
+      "excerpt": "create policy \"admins manage skills\"\non public.skills for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins manage skill versions\"\non public.skill_versions for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins manage tool skills\"\non public.tool_skills for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins manage plans\"\non public.plans for all\nusing (public.is_admin())"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 781,
+      "excerpt": "\ncreate policy \"admins manage skill versions\"\non public.skill_versions for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins manage tool skills\"\non public.tool_skills for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins manage plans\"\non public.plans for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins read subscriptions\"\non public.user_subscriptions for select"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 782,
+      "excerpt": "create policy \"admins manage skill versions\"\non public.skill_versions for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins manage tool skills\"\non public.tool_skills for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins manage plans\"\non public.plans for all\nusing (public.is_admin())\nwith check (public.is_admin());\n\ncreate policy \"admins read subscriptions\"\non public.user_subscriptions for select\nusing (public.is_admin());"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 827,
+      "excerpt": "  on public.tools(category_id);\n\ncreate index if not exists idx_tools_active_sort\n  on public.tools(is_active, sort_order);\n\ncreate index if not exists idx_models_alias_active\n  on public.ai_models(alias, is_active, priority);\n\ncreate index if not exists idx_tool_runs_user_created\n  on public.tool_runs(user_id, created_at desc);\n\ncreate index if not exists idx_tool_runs_status\n  on public.tool_runs(status);\n\ncreate index if not exists idx_credit_transactions_user_created\n  on public.credit_transactions(user_id, created_at desc);\n\ninsert into public.categories("
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 1049,
+      "excerpt": "  true,\n  20\nfrom public.categories c\nwhere c.slug = 'ai-tools'\non conflict (slug) do nothing;\n\ninsert into public.skills(\n  name,\n  slug,\n  description,\n  risk_level,\n  status\n)\nvalues (\n  'كاتب عربي احترافي',\n  'professional-arabic-writer',\n  'أساس عام للكتابة العربية الحديثة.',\n  'low',"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 1073,
+      "excerpt": "  v_skill uuid;\n  v_version uuid;\n  v_tool uuid;\nbegin\n  select id\n  into v_skill\n  from public.skills\n  where slug = 'professional-arabic-writer';\n\n  if not exists(\n    select 1\n    from public.skill_versions\n    where skill_id = v_skill\n      and version_number = 1\n  ) then\n    insert into public.skill_versions(\n      skill_id,\n      version_number,"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 1078,
+      "excerpt": "  into v_skill\n  from public.skills\n  where slug = 'professional-arabic-writer';\n\n  if not exists(\n    select 1\n    from public.skill_versions\n    where skill_id = v_skill\n      and version_number = 1\n  ) then\n    insert into public.skill_versions(\n      skill_id,\n      version_number,\n      instructions\n    )\n    values (\n      v_skill,\n      1,"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 1082,
+      "excerpt": "  if not exists(\n    select 1\n    from public.skill_versions\n    where skill_id = v_skill\n      and version_number = 1\n  ) then\n    insert into public.skill_versions(\n      skill_id,\n      version_number,\n      instructions\n    )\n    values (\n      v_skill,\n      1,\n      'اكتب باللغة العربية الفصحى الحديثة.\nاستخدم جملًا واضحة وطبيعية.\nتجنب الحشو والتكرار.\nراعِ السوق السعودي والخليجي عندما يكون السياق مناسبًا."
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 1098,
+      "excerpt": "تجنب الحشو والتكرار.\nراعِ السوق السعودي والخليجي عندما يكون السياق مناسبًا.\nلا تخترع حقائق أو أرقامًا غير متوفرة في المدخل.'\n    )\n    returning id into v_version;\n\n    update public.skills\n    set current_version_id = v_version\n    where id = v_skill;\n  end if;\n\n  select id\n  into v_tool\n  from public.tools\n  where slug = 'ai-content-writer';\n\n  insert into public.tool_skills(\n    tool_id,"
+    },
+    {
+      "file": "supabase/migrations/202607060001_web_empire_zero.sql",
+      "line": 1108,
+      "excerpt": "\n  select id\n  into v_tool\n  from public.tools\n  where slug = 'ai-content-writer';\n\n  insert into public.tool_skills(\n    tool_id,\n    skill_id,\n    sort_order\n  )\n  values (\n    v_tool,\n    v_skill,\n    10\n  )\n  on conflict do nothing;\nend $$;"
+    },
+    {
+      "file": "supabase/migrations/202607060003_tool_builder_runtime_billing.sql",
+      "line": 17,
+      "excerpt": "  is_active boolean not null default true,\n  created_at timestamptz not null default now(),\n  updated_at timestamptz not null default now(),\n  check (base_url ~ '^https://')\n);\n\ncreate table if not exists public.workflows (\n  id uuid primary key default gen_random_uuid(),\n  name text not null,\n  slug text not null unique,\n  description text not null default '',\n  is_active boolean not null default true,\n  created_at timestamptz not null default now(),\n  updated_at timestamptz not null default now()\n);\n\ncreate table if not exists public.workflow_steps (\n  id uuid primary key default gen_random_uuid(),"
+    },
+    {
+      "file": "supabase/migrations/202607060003_tool_builder_runtime_billing.sql",
+      "line": 27,
+      "excerpt": "  description text not null default '',\n  is_active boolean not null default true,\n  created_at timestamptz not null default now(),\n  updated_at timestamptz not null default now()\n);\n\ncreate table if not exists public.workflow_steps (\n  id uuid primary key default gen_random_uuid(),\n  workflow_id uuid not null references public.workflows(id) on delete cascade,\n  step_key text not null,\n  name text not null,\n  step_type text not null check (step_type in (\n    'template','formula','http_api','webhook','ai_text','ai_structured'\n  )),\n  sort_order integer not null default 0,\n  config jsonb not null default '{}'::jsonb,\n  continue_on_error boolean not null default false,\n  created_at timestamptz not null default now(),"
+    },
+    {
+      "file": "supabase/migrations/202607060003_tool_builder_runtime_billing.sql",
+      "line": 29,
+      "excerpt": "  created_at timestamptz not null default now(),\n  updated_at timestamptz not null default now()\n);\n\ncreate table if not exists public.workflow_steps (\n  id uuid primary key default gen_random_uuid(),\n  workflow_id uuid not null references public.workflows(id) on delete cascade,\n  step_key text not null,\n  name text not null,\n  step_type text not null check (step_type in (\n    'template','formula','http_api','webhook','ai_text','ai_structured'\n  )),\n  sort_order integer not null default 0,\n  config jsonb not null default '{}'::jsonb,\n  continue_on_error boolean not null default false,\n  created_at timestamptz not null default now(),\n  unique(workflow_id, step_key)\n);"
+    },
+    {
+      "file": "supabase/migrations/202607060003_tool_builder_runtime_billing.sql",
+      "line": 45,
+      "excerpt": "  unique(workflow_id, step_key)\n);\n\ncreate table if not exists public.workflow_step_runs (\n  id uuid primary key default gen_random_uuid(),\n  tool_run_id uuid not null references public.tool_runs(id) on delete cascade,\n  workflow_step_id uuid not null references public.workflow_steps(id) on delete restrict,\n  status text not null default 'running' check (status in ('running','completed','failed','skipped')),\n  input_snapshot jsonb not null default '{}'::jsonb,\n  output_payload jsonb,\n  error_message text,\n  created_at timestamptz not null default now(),\n  completed_at timestamptz\n);\n\ncreate table if not exists public.tool_plan_access (\n  tool_id uuid not null references public.tools(id) on delete cascade,\n  plan_id uuid not null references public.plans(id) on delete cascade,"
+    },
+    {
+      "file": "supabase/migrations/202607060003_tool_builder_runtime_billing.sql",
+      "line": 128,
+      "excerpt": "  credits_granted bigint not null check (credits_granted >= 0),\n  description text,\n  created_at timestamptz not null default now()\n);\n\nalter table public.tool_runs\n  add column if not exists workflow_id uuid references public.workflows(id) on delete set null;\n\ncreate or replace function public.set_runtime_connection_secret(\n  p_connection_id uuid,\n  p_secret text\n)\nreturns uuid\nlanguage plpgsql\nsecurity definer\nset search_path = public, vault\nas $$\ndeclare"
+    },
+    {
+      "file": "supabase/migrations/202607060003_tool_builder_runtime_billing.sql",
+      "line": 500,
+      "excerpt": "revoke all on function public.grant_subscription_credits(uuid, uuid, text, text) from public, anon, authenticated;\ngrant execute on function public.claim_billing_event(uuid, text, text, jsonb) to service_role;\ngrant execute on function public.activate_billing_subscription(uuid, uuid, uuid, text, text, text, timestamptz, timestamptz, boolean) to service_role;\ngrant execute on function public.grant_subscription_credits(uuid, uuid, text, text) to service_role;\n\nalter table public.runtime_connections enable row level security;\nalter table public.workflows enable row level security;\nalter table public.workflow_steps enable row level security;\nalter table public.workflow_step_runs enable row level security;\nalter table public.tool_plan_access enable row level security;\nalter table public.billing_providers enable row level security;\nalter table public.billing_plan_prices enable row level security;\nalter table public.billing_events enable row level security;\nalter table public.subscription_credit_grants enable row level security;\n\ncreate policy \"admins manage runtime connections\" on public.runtime_connections for all using (public.is_admin()) with check (public.is_admin());\ncreate policy \"admins manage workflows\" on public.workflows for all using (public.is_admin()) with check (public.is_admin());\ncreate policy \"admins manage workflow steps\" on public.workflow_steps for all using (public.is_admin()) with check (public.is_admin());"
+    },
+    {
+      "file": "supabase/migrations/202607060003_tool_builder_runtime_billing.sql",
+      "line": 501,
+      "excerpt": "grant execute on function public.claim_billing_event(uuid, text, text, jsonb) to service_role;\ngrant execute on function public.activate_billing_subscription(uuid, uuid, uuid, text, text, text, timestamptz, timestamptz, boolean) to service_role;\ngrant execute on function public.grant_subscription_credits(uuid, uuid, text, text) to service_role;\n\nalter table public.runtime_connections enable row level security;\nalter table public.workflows enable row level security;\nalter table public.workflow_steps enable row level security;\nalter table public.workflow_step_runs enable row level security;\nalter table public.tool_plan_access enable row level security;\nalter table public.billing_providers enable row level security;\nalter table public.billing_plan_prices enable row level security;\nalter table public.billing_events enable row level security;\nalter table public.subscription_credit_grants enable row level security;\n\ncreate policy \"admins manage runtime connections\" on public.runtime_connections for all using (public.is_admin()) with check (public.is_admin());\ncreate policy \"admins manage workflows\" on public.workflows for all using (public.is_admin()) with check (public.is_admin());\ncreate policy \"admins manage workflow steps\" on public.workflow_steps for all using (public.is_admin()) with check (public.is_admin());\ncreate policy \"admins read workflow step runs\" on public.workflow_step_runs for select using (public.is_admin());"
+    },
+    {
+      "file": "supabase/migrations/202607060003_tool_builder_runtime_billing.sql",
+      "line": 510,
+      "excerpt": "alter table public.billing_providers enable row level security;\nalter table public.billing_plan_prices enable row level security;\nalter table public.billing_events enable row level security;\nalter table public.subscription_credit_grants enable row level security;\n\ncreate policy \"admins manage runtime connections\" on public.runtime_connections for all using (public.is_admin()) with check (public.is_admin());\ncreate policy \"admins manage workflows\" on public.workflows for all using (public.is_admin()) with check (public.is_admin());\ncreate policy \"admins manage workflow steps\" on public.workflow_steps for all using (public.is_admin()) with check (public.is_admin());\ncreate policy \"admins read workflow step runs\" on public.workflow_step_runs for select using (public.is_admin());\ncreate policy \"users read own workflow step runs\" on public.workflow_step_runs for select using (\n  exists (\n    select 1 from public.tool_runs r\n    where r.id = tool_run_id and r.user_id = auth.uid()\n  )\n);\ncreate policy \"admins manage tool plan access\" on public.tool_plan_access for all using (public.is_admin()) with check (public.is_admin());\ncreate policy \"admins manage billing providers\" on public.billing_providers for all using (public.is_admin()) with check (public.is_admin());\ncreate policy \"admins manage billing plan prices\" on public.billing_plan_prices for all using (public.is_admin()) with check (public.is_admin());"
+    },
+    {
+      "file": "supabase/migrations/202607060003_tool_builder_runtime_billing.sql",
+      "line": 511,
+      "excerpt": "alter table public.billing_plan_prices enable row level security;\nalter table public.billing_events enable row level security;\nalter table public.subscription_credit_grants enable row level security;\n\ncreate policy \"admins manage runtime connections\" on public.runtime_connections for all using (public.is_admin()) with check (public.is_admin());\ncreate policy \"admins manage workflows\" on public.workflows for all using (public.is_admin()) with check (public.is_admin());\ncreate policy \"admins manage workflow steps\" on public.workflow_steps for all using (public.is_admin()) with check (public.is_admin());\ncreate policy \"admins read workflow step runs\" on public.workflow_step_runs for select using (public.is_admin());\ncreate policy \"users read own workflow step runs\" on public.workflow_step_runs for select using (\n  exists (\n    select 1 from public.tool_runs r\n    where r.id = tool_run_id and r.user_id = auth.uid()\n  )\n);\ncreate policy \"admins manage tool plan access\" on public.tool_plan_access for all using (public.is_admin()) with check (public.is_admin());\ncreate policy \"admins manage billing providers\" on public.billing_providers for all using (public.is_admin()) with check (public.is_admin());\ncreate policy \"admins manage billing plan prices\" on public.billing_plan_prices for all using (public.is_admin()) with check (public.is_admin());\ncreate policy \"admins read billing events\" on public.billing_events for select using (public.is_admin());"
+    },
+    {
+      "file": "supabase/migrations/202607060003_tool_builder_runtime_billing.sql",
+      "line": 526,
+      "excerpt": "create policy \"admins manage billing providers\" on public.billing_providers for all using (public.is_admin()) with check (public.is_admin());\ncreate policy \"admins manage billing plan prices\" on public.billing_plan_prices for all using (public.is_admin()) with check (public.is_admin());\ncreate policy \"admins read billing events\" on public.billing_events for select using (public.is_admin());\ncreate policy \"admins read subscription grants\" on public.subscription_credit_grants for select using (public.is_admin());\ncreate policy \"users read own subscription grants\" on public.subscription_credit_grants for select using (user_id = auth.uid());\n\ncreate index if not exists idx_workflow_steps_order on public.workflow_steps(workflow_id, sort_order);\ncreate index if not exists idx_step_runs_tool_run on public.workflow_step_runs(tool_run_id, created_at);\ncreate index if not exists idx_tool_plan_access_plan on public.tool_plan_access(plan_id, tool_id);\ncreate index if not exists idx_billing_events_status on public.billing_events(status, processing_started_at);\ncreate index if not exists idx_billing_price_plan on public.billing_plan_prices(plan_id, is_active);\ncreate index if not exists idx_subscription_external_customer on public.user_subscriptions(billing_provider_id, external_customer_id);\n\ncreate or replace function public.create_tool_from_builder(\n  p_tool jsonb,\n  p_translations jsonb,\n  p_skill_ids jsonb,\n  p_plan_access jsonb"
+    },
+    {
+      "file": "supabase/migrations/202607060003_tool_builder_runtime_billing.sql",
+      "line": 617,
+      "excerpt": "      nullif(v_item->>'prompt_template_override', '')\n    );\n  end loop;\n\n  for v_item in select value from jsonb_array_elements(coalesce(p_skill_ids, '[]'::jsonb))\n  loop\n    insert into public.tool_skills(tool_id, skill_id, sort_order)\n    values (\n      v_tool_id,\n      trim(both '\"' from v_item::text)::uuid,\n      (\n        select (count(*) + 1) * 10\n        from public.tool_skills\n        where tool_id = v_tool_id\n      )\n    );\n  end loop;\n"
+    },
+    {
+      "file": "supabase/migrations/202607060003_tool_builder_runtime_billing.sql",
+      "line": 623,
+      "excerpt": "    insert into public.tool_skills(tool_id, skill_id, sort_order)\n    values (\n      v_tool_id,\n      trim(both '\"' from v_item::text)::uuid,\n      (\n        select (count(*) + 1) * 10\n        from public.tool_skills\n        where tool_id = v_tool_id\n      )\n    );\n  end loop;\n\n  for v_item in select value from jsonb_array_elements(coalesce(p_plan_access, '[]'::jsonb))\n  loop\n    insert into public.tool_plan_access(\n      tool_id,\n      plan_id,\n      is_allowed,"
+    },
+    {
+      "file": "supabase/migrations/202607140935_fix_gemini_tool_link.sql",
+      "line": 5,
+      "excerpt": "begin;\n\n-- استخدام عنوان Gemini الافتراضي الموجود داخل Adapter.\n-- يمنع وجود curl أو مسار model كامل داخل base_url.\nupdate public.ai_providers\nset\n  name = 'Google Gemini',\n  base_url = null,\n  is_active = true,\n  updated_at = now()\nwhere adapter_type = 'gemini_generate_content';\n\n-- إنشاء نموذج Gemini مستقر وربطه بـ alias موحد.\ninsert into public.ai_models (\n  provider_id,\n  name,"
+    },
+    {
+      "file": "supabase/migrations/202607140935_fix_gemini_tool_link.sql",
+      "line": 14,
+      "excerpt": "  base_url = null,\n  is_active = true,\n  updated_at = now()\nwhere adapter_type = 'gemini_generate_content';\n\n-- إنشاء نموذج Gemini مستقر وربطه بـ alias موحد.\ninsert into public.ai_models (\n  provider_id,\n  name,\n  model_key,\n  alias,\n  capabilities,\n  input_cost_per_million_usd,\n  output_cost_per_million_usd,\n  cached_input_cost_per_million_usd,\n  max_output_tokens,\n  priority,\n  is_active,"
+    },
+    {
+      "file": "supabase/migrations/202607140935_fix_gemini_tool_link.sql",
+      "line": 41,
+      "excerpt": "  0,\n  0,\n  4096,\n  100,\n  true,\n  now()\nfrom public.ai_providers provider\nwhere provider.adapter_type = 'gemini_generate_content'\non conflict (provider_id, model_key, alias) do update\nset\n  name = excluded.name,\n  capabilities = excluded.capabilities,\n  max_output_tokens = excluded.max_output_tokens,\n  priority = excluded.priority,\n  is_active = true;\n\n-- ربط جميع أدوات الذكاء الاصطناعي بالنموذج ذي alias = standard.\nupdate public.tools"
+    }
+  ],
+  "workflow_action_excerpt": "export async function createWorkflowAction(formData: FormData) {\n  await requireAdmin();\n  const supabase = createSupabaseAdminClient();\n  const steps = parseJson(formData.get(\"steps_json\"), []) as Array<{\n    step_key: string;\n    name: string;\n    step_type: string;\n    sort_order: number;\n    config: Record<string, unknown>;\n    continue_on_error: boolean;\n  }>;\n\n  if (!Array.isArray(steps) || !steps.length || steps.length > 30) {\n    throw new Error(\"WORKFLOW_STEPS_INVALID\");\n  }\n\n  const { data: workflow, error } = await supabase\n    .from(\"workflows\")\n    .insert({\n      name: String(formData.get(\"name\") ?? \"\").trim(),\n      slug: String(formData.get(\"slug\") ?? \"\").trim(),\n      description: String(formData.get(\"description\") ?? \"\"),\n      is_active: true,\n    })\n    .select(\"id\")\n    .single();\n\n  if (error) throw new Error(error.message);\n\n  const { error: stepsError } = await supabase.from(\"workflow_steps\").insert(\n    steps.map((step, index) => ({\n      workflow_id: workflow.id,\n      step_key: step.step_key,\n      name: step.name,\n      step_type: step.step_type,\n      sort_order: step.sort_order ?? (index + 1) * 10,\n      config: step.config ?? {},\n      continue_on_error: Boolean(step.continue_on_error),\n    })),\n  );\n\n  if (stepsError) throw new Error(stepsError.message);\n  revalidatePath(\"/admin/workflows\");\n}"
+}
