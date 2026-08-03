@@ -1,0 +1,44 @@
+export async function createWorkflowAction(formData: FormData) {
+  await requireAdmin();
+  const supabase = createSupabaseAdminClient();
+  const steps = parseJson(formData.get("steps_json"), []) as Array<{
+    step_key: string;
+    name: string;
+    step_type: string;
+    sort_order: number;
+    config: Record<string, unknown>;
+    continue_on_error: boolean;
+  }>;
+
+  if (!Array.isArray(steps) || !steps.length || steps.length > 30) {
+    throw new Error("WORKFLOW_STEPS_INVALID");
+  }
+
+  const { data: workflow, error } = await supabase
+    .from("workflows")
+    .insert({
+      name: String(formData.get("name") ?? "").trim(),
+      slug: String(formData.get("slug") ?? "").trim(),
+      description: String(formData.get("description") ?? ""),
+      is_active: true,
+    })
+    .select("id")
+    .single();
+
+  if (error) throw new Error(error.message);
+
+  const { error: stepsError } = await supabase.from("workflow_steps").insert(
+    steps.map((step, index) => ({
+      workflow_id: workflow.id,
+      step_key: step.step_key,
+      name: step.name,
+      step_type: step.step_type,
+      sort_order: step.sort_order ?? (index + 1) * 10,
+      config: step.config ?? {},
+      continue_on_error: Boolean(step.continue_on_error),
+    })),
+  );
+
+  if (stepsError) throw new Error(stepsError.message);
+  revalidatePath("/admin/workflows");
+}
