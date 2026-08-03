@@ -191,9 +191,47 @@ export async function POST(
       });
 
   if (error?.code === "23505") {
+    if (
+      eventType ===
+      "transaction.completed"
+    ) {
+      const {
+        error: processError,
+      } = await supabase.rpc(
+        "process_paddle_transaction_event",
+        {
+          p_event_id: eventId,
+        },
+      );
+
+      if (processError) {
+        console.error(
+          "PADDLE_EVENT_PROCESSING_FAILED",
+          {
+            eventId,
+            message:
+              processError.message,
+          },
+        );
+
+        return NextResponse.json(
+          {
+            error:
+              "PADDLE_EVENT_PROCESSING_FAILED",
+          },
+          {
+            status: 500,
+          },
+        );
+      }
+    }
+
     return NextResponse.json({
       received: true,
       duplicate: true,
+      processed:
+        eventType ===
+        "transaction.completed",
       eventId,
       eventType,
     });
@@ -219,9 +257,63 @@ export async function POST(
     );
   }
 
+  let processed = false;
+
+  if (
+    eventType ===
+    "transaction.completed"
+  ) {
+    const {
+      error: processError,
+    } = await supabase.rpc(
+      "process_paddle_transaction_event",
+      {
+        p_event_id: eventId,
+      },
+    );
+
+    if (processError) {
+      await supabase
+        .from(
+          "paddle_webhook_events",
+        )
+        .update({
+          status: "failed",
+          error_message:
+            processError.message
+              .slice(0, 2000),
+          updated_at:
+            new Date().toISOString(),
+        })
+        .eq("event_id", eventId);
+
+      console.error(
+        "PADDLE_EVENT_PROCESSING_FAILED",
+        {
+          eventId,
+          message:
+            processError.message,
+        },
+      );
+
+      return NextResponse.json(
+        {
+          error:
+            "PADDLE_EVENT_PROCESSING_FAILED",
+        },
+        {
+          status: 500,
+        },
+      );
+    }
+
+    processed = true;
+  }
+
   return NextResponse.json({
     received: true,
     duplicate: false,
+    processed,
     eventId,
     eventType,
   });
