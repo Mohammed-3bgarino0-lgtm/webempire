@@ -43,6 +43,7 @@ const navGroups: NavGroup[] = [
       { label: "لوحة التحكم", href: "/admin", icon: "dashboard" },
       { label: "المستخدمون", href: "/admin/users", icon: "users" },
       { label: "عمليات التشغيل", href: "/admin/runs", icon: "activity" },
+      { label: "مراقبة الإنتاج", href: "/admin/observability", icon: "activity" },
     ],
   },
   {
@@ -71,6 +72,7 @@ const titleMap: Record<string, string> = {
   "/admin": "لوحة التحكم",
   "/admin/users": "إدارة المستخدمين",
   "/admin/runs": "عمليات التشغيل",
+  "/admin/observability": "مراقبة الإنتاج",
   "/admin/tools": "إدارة الأدوات",
   "/admin/plans": "الخطط والنقاط",
   "/admin/providers": "الذكاء الاصطناعي",
