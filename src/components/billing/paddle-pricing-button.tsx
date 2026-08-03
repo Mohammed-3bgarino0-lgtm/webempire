@@ -10,12 +10,15 @@ let paddlePromise:
   | Promise<Paddle | undefined>
   | null = null;
 
-function getPaddle(clientToken: string) {
+function getPaddle(
+  clientToken: string,
+) {
   if (!paddlePromise) {
-    paddlePromise = initializePaddle({
-      token: clientToken,
-      environment: "sandbox",
-    });
+    paddlePromise =
+      initializePaddle({
+        token: clientToken,
+        environment: "sandbox",
+      });
   }
 
   return paddlePromise;
@@ -23,16 +26,19 @@ function getPaddle(clientToken: string) {
 
 type Props = {
   clientToken: string;
-  priceId: string;
-  planSlug: "pro" | "business";
+  planId: string;
   locale: "ar" | "en";
   featured?: boolean;
 };
 
+type TransactionResponse = {
+  transactionId?: string;
+  error?: string;
+};
+
 export function PaddlePricingButton({
   clientToken,
-  priceId,
-  planSlug,
+  planId,
   locale,
   featured = false,
 }: Props) {
@@ -48,21 +54,72 @@ export function PaddlePricingButton({
 
     try {
       if (
-        !clientToken.startsWith("test_")
+        !clientToken.startsWith(
+          "test_",
+        )
       ) {
         throw new Error(
           "PADDLE_SANDBOX_TOKEN_INVALID",
         );
       }
 
-      if (!priceId.startsWith("pri_")) {
+      const response = await fetch(
+        "/api/billing/paddle/transaction",
+        {
+          method: "POST",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify({
+            planId,
+            locale,
+          }),
+        },
+      );
+
+      if (response.status === 401) {
+        const pricingPath =
+          `/${locale}/pricing`;
+
+        const loginUrl =
+          `/${locale}/auth/login` +
+          `?next=${encodeURIComponent(
+            pricingPath,
+          )}`;
+
+        window.location.assign(
+          loginUrl,
+        );
+
+        return;
+      }
+
+      const payload =
+        await response.json() as
+          TransactionResponse;
+
+      if (!response.ok) {
         throw new Error(
-          "PADDLE_PRICE_ID_INVALID",
+          payload.error ??
+            "PADDLE_TRANSACTION_FAILED",
+        );
+      }
+
+      if (
+        !payload.transactionId
+          ?.startsWith("txn_")
+      ) {
+        throw new Error(
+          "PADDLE_TRANSACTION_ID_INVALID",
         );
       }
 
       const paddle =
-        await getPaddle(clientToken);
+        await getPaddle(
+          clientToken,
+        );
 
       if (!paddle) {
         throw new Error(
@@ -71,17 +128,8 @@ export function PaddlePricingButton({
       }
 
       paddle.Checkout.open({
-        items: [
-          {
-            priceId,
-            quantity: 1,
-          },
-        ],
-        customData: {
-          plan_slug: planSlug,
-          source:
-            "webempire_pricing_sandbox",
-        },
+        transactionId:
+          payload.transactionId,
         settings: {
           displayMode: "overlay",
           variant: "one-page",
@@ -90,8 +138,8 @@ export function PaddlePricingButton({
           showAddDiscounts: false,
           successUrl:
             `${window.location.origin}` +
-            `/${locale}/pricing` +
-            "?paddle_checkout=completed",
+            `/${locale}/dashboard` +
+            "?billing=paddle_success",
         },
       });
     } catch (checkoutError) {
@@ -119,11 +167,11 @@ export function PaddlePricingButton({
       >
         {loading
           ? locale === "ar"
-            ? "جارٍ فتح الدفع..."
-            : "Opening checkout..."
+            ? "جارٍ تجهيز الدفع..."
+            : "Preparing checkout..."
           : locale === "ar"
-            ? "جرّب الدفع"
-            : "Test checkout"}
+            ? "اشترك الآن"
+            : "Subscribe now"}
       </button>
 
       {error ? (
