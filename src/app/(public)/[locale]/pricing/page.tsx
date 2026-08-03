@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { PaddlePricingButton } from "@/components/billing/paddle-pricing-button";
+
 import { webEmpireLightAssets } from "@/brand/web-empire-light-assets";
 import { translate } from "@/localization/messages";
 import { getLocaleByCode, getUiMessages } from "@/localization/repository";
@@ -63,6 +65,30 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
   const prefix = `/${locale.code}`;
   const mainPlans = plans.slice(0, 3);
 
+  const paddleEnvironment =
+    process.env.PADDLE_ENV?.trim() ?? "";
+
+  const paddleClientToken =
+    process.env
+      .NEXT_PUBLIC_PADDLE_CLIENT_TOKEN
+      ?.trim() ?? "";
+
+  const paddleProPriceId =
+    process.env
+      .PADDLE_PRO_MONTHLY_PRICE_ID
+      ?.trim() ?? "";
+
+  const paddleBusinessPriceId =
+    process.env
+      .PADDLE_BUSINESS_MONTHLY_PRICE_ID
+      ?.trim() ?? "";
+
+  const paddleSandboxConfigured =
+    paddleEnvironment === "sandbox" &&
+    paddleClientToken.startsWith("test_") &&
+    paddleProPriceId.startsWith("pri_") &&
+    paddleBusinessPriceId.startsWith("pri_");
+
   return (
     <main className="we-page we-pricing-page">
       <section className="we-container we-pricing-shell">
@@ -98,12 +124,43 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
                   {t.support}: {index === 0 ? t.basicSupport : index === 1 ? t.prioritySupport : t.dedicatedSupport}
                 </li>
               </ul>
-              <Link
-                href={`${prefix}/auth/register`}
-                className={`we-pricing-card-action ${index === 1 ? "we-button-primary" : "we-button-ghost"}`}
-              >
-                {index === 1 ? t.start : t.choose}
-              </Link>
+              {index > 0 &&
+              paddleSandboxConfigured ? (
+                <PaddlePricingButton
+                  clientToken={
+                    paddleClientToken
+                  }
+                  priceId={
+                    index === 1
+                      ? paddleProPriceId
+                      : paddleBusinessPriceId
+                  }
+                  planSlug={
+                    index === 1
+                      ? "pro"
+                      : "business"
+                  }
+                  locale={
+                    locale.code === "ar"
+                      ? "ar"
+                      : "en"
+                  }
+                  featured={index === 1}
+                />
+              ) : (
+                <Link
+                  href={`${prefix}/auth/register`}
+                  className={`we-pricing-card-action ${
+                    index === 1
+                      ? "we-button-primary"
+                      : "we-button-ghost"
+                  }`}
+                >
+                  {index === 1
+                    ? t.start
+                    : t.choose}
+                </Link>
+              )}
             </article>
           ))}
         </div>
