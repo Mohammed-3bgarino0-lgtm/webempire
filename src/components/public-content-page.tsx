@@ -3,8 +3,8 @@ import type { CSSProperties } from "react";
 
 type ContentSection = {
   title: string;
-  paragraphs?: string[];
-  items?: string[];
+  paragraphs?: readonly string[];
+  items?: readonly string[];
 };
 
 type PublicContentPageProps = {
@@ -12,7 +12,7 @@ type PublicContentPageProps = {
   title: string;
   intro: string;
   updatedAt: string;
-  sections: ContentSection[];
+  sections: readonly ContentSection[];
   primaryHref: string;
   primaryLabel: string;
   secondaryHref?: string;
