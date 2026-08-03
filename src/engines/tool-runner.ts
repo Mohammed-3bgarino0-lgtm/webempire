@@ -14,6 +14,11 @@ import { executeAiRuntime } from "@/engines/runtime/ai";
 import type { WorkflowContext } from "@/engines/runtime/context";
 import { executeHttpRuntime, type HttpRuntimeConfig } from "@/engines/runtime/http";
 import { executeTextTransform } from "@/engines/runtime/text-transform";
+import {
+  executeLinkedWorkflowRuntime,
+  resolveLinkedWorkflow,
+  type LinkedWorkflowResolution,
+} from "@/engines/runtime/linked-workflow";
 import { executeWorkflowRuntime } from "@/engines/runtime/workflow";
 import { getCurrentUserId } from "@/lib/auth";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
@@ -48,12 +53,9 @@ async function createRun(
   tool: ToolRecord,
   userId: string | null,
   input: Record<string, unknown>,
+  workflowId: string | null,
 ): Promise<string> {
   const supabase = createSupabaseAdminClient();
-  const workflowId =
-    tool.engine_type === "workflow"
-      ? String(tool.runtime_config.workflow_id ?? "") || null
-      : null;
 
   const { data, error } = await supabase
     .from("tool_runs")
@@ -135,7 +137,19 @@ async function executeEngine(
   runId: string,
   maxOutputTokensLimit: number | null,
   localeCode: string,
+  linkedWorkflow: LinkedWorkflowResolution | null,
 ): Promise<EngineResult> {
+  if (linkedWorkflow) {
+    return executeLinkedWorkflowRuntime(
+      tool,
+      linkedWorkflow.id,
+      input,
+      runId,
+      maxOutputTokensLimit,
+      localeCode,
+    );
+  }
+
   if (tool.engine_type === "formula") {
     const result = evaluateFormula(String(tool.runtime_config.expression ?? ""), input);
     return { text: String(result), data: { result }, providerCostSar: 0 };
@@ -197,6 +211,7 @@ export async function runTool(
   input: Record<string, unknown>,
   localeCode = "en",
   userIdOverride?: string,
+  workflowSlugOverride?: string,
 ): Promise<ToolRunResponse> {
   const tool = await getToolRuntimeBySlug(slug);
   if (!tool) throw new Error("TOOL_NOT_FOUND");
@@ -211,7 +226,20 @@ export async function runTool(
   const pointsPerSar =
     tool.pricing_mode === "free" ? 0 : await getPointsPerSar();
   const localizedToolPromise = getToolBySlug(slug, localeCode);
-  const runId = await createRun(tool, userId, input);
+  const linkedWorkflow = await resolveLinkedWorkflow(
+    tool.id,
+    workflowSlugOverride,
+  );
+  const configuredWorkflowId =
+    tool.engine_type === "workflow"
+      ? String(tool.runtime_config.workflow_id ?? "") || null
+      : null;
+  const runId = await createRun(
+    tool,
+    userId,
+    input,
+    linkedWorkflow?.id ?? configuredWorkflowId,
+  );
   let reserved = 0;
 
   try {
@@ -232,6 +260,7 @@ export async function runTool(
       runId,
       access.maxOutputTokens,
       localeCode,
+      linkedWorkflow,
     );
     const actual = calculateProviderCostPoints(
       tool,
