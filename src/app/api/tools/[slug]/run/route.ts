@@ -28,6 +28,7 @@ export async function POST(
     const body = (await request.json()) as {
       input?: Record<string, unknown>;
       locale?: string;
+      workflowSlug?: string;
     };
 
     const result = await runTool(
@@ -35,6 +36,7 @@ export async function POST(
       body.input ?? {},
       body.locale ?? "en",
       userId ?? undefined,
+      body.workflowSlug,
     );
     return corsJson(result);
   } catch (error) {
