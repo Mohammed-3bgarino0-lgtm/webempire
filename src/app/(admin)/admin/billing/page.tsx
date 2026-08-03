@@ -2,11 +2,36 @@ import {
   createBillingProviderAction,
   upsertBillingPlanPriceAction,
 } from "@/actions/admin";
+import { PaddleSandboxCheckout } from "@/components/billing/paddle-sandbox-checkout";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { publicEnv } from "@/lib/env";
 
 export default async function BillingPage() {
   const supabase = createSupabaseAdminClient();
+
+  const paddleEnvironment =
+    process.env.PADDLE_ENV?.trim() ?? "";
+
+  const paddleClientToken =
+    process.env
+      .NEXT_PUBLIC_PADDLE_CLIENT_TOKEN
+      ?.trim() ?? "";
+
+  const paddleProPriceId =
+    process.env
+      .PADDLE_PRO_MONTHLY_PRICE_ID
+      ?.trim() ?? "";
+
+  const paddleBusinessPriceId =
+    process.env
+      .PADDLE_BUSINESS_MONTHLY_PRICE_ID
+      ?.trim() ?? "";
+
+  const paddleSandboxConfigured =
+    paddleEnvironment === "sandbox" &&
+    paddleClientToken.startsWith("test_") &&
+    paddleProPriceId.startsWith("pri_") &&
+    paddleBusinessPriceId.startsWith("pri_");
   const [{ data: providers }, { data: plans }, { data: prices }, { data: events }] = await Promise.all([
     supabase.from("billing_providers").select("id, name, slug, adapter_type, secret_id, webhook_secret_id, priority, is_active").order("priority"),
     supabase.from("plans").select("id, name_ar, price_sar, monthly_credits").eq("is_active", true).order("sort_order"),
@@ -20,6 +45,51 @@ export default async function BillingPage() {
         <div className="eyebrow">BILLING ENGINE</div>
         <h1>الاشتراكات والدفع</h1>
         <p>Stripe Checkout هو أول Adapter فعلي. مفاتيح API وWebhook تحفظ في Vault.</p>
+      </div>
+
+      <div className="section">
+        <h2>Paddle Sandbox Checkout</h2>
+        <p>
+          اختبار فتح الدفع التجريبي فقط.
+          لن يتم تفعيل الاشتراك أو إضافة
+          النقاط قبل إعداد Webhook.
+        </p>
+
+        {paddleSandboxConfigured ? (
+          <div className="feature-grid">
+            <PaddleSandboxCheckout
+              clientToken={paddleClientToken}
+              priceId={paddleProPriceId}
+              planSlug="pro"
+              planName="Web Empire Pro"
+              amountLabel="$7.99"
+            />
+
+            <PaddleSandboxCheckout
+              clientToken={paddleClientToken}
+              priceId={
+                paddleBusinessPriceId
+              }
+              planSlug="business"
+              planName={
+                "Web Empire Business"
+              }
+              amountLabel="$20.99"
+            />
+          </div>
+        ) : (
+          <div className="panel">
+            <strong>
+              إعدادات Paddle Sandbox
+              غير مكتملة.
+            </strong>
+            <p>
+              تحقق من PADDLE_ENV
+              والتوكن ومعرّفات الأسعار
+              داخل .env.local.
+            </p>
+          </div>
+        )}
       </div>
 
       <div className="feature-grid">
