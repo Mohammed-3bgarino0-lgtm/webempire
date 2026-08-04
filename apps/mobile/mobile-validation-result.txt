@@ -1,0 +1,158 @@
+WEB EMPIRE MOBILE V1.2 VALIDATION
+COMMIT=3c01682aad82b5c5ca5fba09dc963036d93d4002
+RUN_AT=2026-08-04T02:23:29Z
+
+===== npm-ci =====
+
+added 849 packages, and audited 850 packages in 16s
+
+165 packages are looking for funding
+  run `npm fund` for details
+
+2 vulnerabilities (1 moderate, 1 high)
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+
+EXIT_CODE=0
+RESULT=PASS
+
+===== typecheck =====
+
+> @web-empire/mobile@1.0.1 typecheck
+> tsc --noEmit
+
+src/app/(tabs)/_layout.tsx(41,34): error TS2322: Type 'ColorValue' is not assignable to type 'string'.
+  Type 'OpaqueColorValue' is not assignable to type 'string'.
+src/app/(tabs)/_layout.tsx(50,34): error TS2322: Type 'ColorValue' is not assignable to type 'string'.
+  Type 'OpaqueColorValue' is not assignable to type 'string'.
+src/app/(tabs)/_layout.tsx(59,34): error TS2322: Type 'ColorValue' is not assignable to type 'string'.
+  Type 'OpaqueColorValue' is not assignable to type 'string'.
+src/app/(tabs)/_layout.tsx(68,34): error TS2322: Type 'ColorValue' is not assignable to type 'string'.
+  Type 'OpaqueColorValue' is not assignable to type 'string'.
+src/app/(tabs)/wallet.tsx(119,13): error TS2322: Type '({ borderWidth: number; padding: number; minHeight: number; } | { backgroundColor: string; })[]' is not assignable to type 'ViewStyle'.
+  Types of property 'filter' are incompatible.
+    Type '{ <S extends { borderWidth: number; padding: number; minHeight: number; } | { backgroundColor: string; }>(predicate: (value: { borderWidth: number; padding: number; minHeight: number; } | { backgroundColor: string; }, index: number, array: ({ ...; } | { ...; })[]) => value is S, thisArg?: any): S[]; (predicate: (val...' is not assignable to type 'string | readonly FilterFunction[] | undefined'.
+src/app/pricing.tsx(79,15): error TS2322: Type '({ padding: number; gap: number; } | { borderColor: string; borderWidth: number; } | undefined)[]' is not assignable to type 'ViewStyle'.
+  Types of property 'filter' are incompatible.
+    Type '{ <S extends { padding: number; gap: number; } | { borderColor: string; borderWidth: number; } | undefined>(predicate: (value: { padding: number; gap: number; } | { borderColor: string; borderWidth: number; } | undefined, index: number, array: ({ ...; } | ... 1 more ... | undefined)[]) => value is S, thisArg?: any):...' is not assignable to type 'string | readonly FilterFunction[] | undefined'.
+
+EXIT_CODE=2
+RESULT=FAIL
+
+===== lint =====
+
+> @web-empire/mobile@1.0.1 lint
+> expo lint
+
+
+EXIT_CODE=0
+RESULT=PASS
+
+===== expo-doctor =====
+
+> @web-empire/mobile@1.0.1 doctor
+> npx --yes expo-doctor@latest
+
+Running 20 checks on your project...
+18/20 checks passed. 2 checks failed. Possible issues detected:
+Use the --verbose flag to see more details about passed checks.
+
+✖ Check Expo config (app.json/ app.config.js) schema
+Error validating asset fields in /home/runner/work/webempire/webempire/apps/mobile/app.json:
+ Field: Android.adaptiveIcon.foregroundImage - cannot access file at './assets/images/android-icon-foreground.png'.
+ Field: Android.adaptiveIcon.monochromeImage - cannot access file at './assets/images/android-icon-monochrome.png'.
+ Field: icon - cannot access file at './assets/images/icon.png'.
+Advice:
+Resolve schema errors in your app config. Learn more: https://docs.expo.dev/workflow/configuration/
+
+✖ Check that packages match versions required by installed Expo SDK
+
+❗ Major version mismatches
+package                       expected  found   
+react-native-gesture-handler  ~3.1.0    2.32.0  
+
+⚠️ Minor version mismatches
+package                       expected  found   
+react-native-screens          ~4.26.0   4.25.2  
+
+🔧 Patch version mismatches
+package                       expected  found   
+expo                          ~57.0.9   57.0.7  
+expo-constants                ~57.0.8   57.0.6  
+expo-linking                  ~57.0.4   57.0.3  
+expo-router                   ~57.0.9   57.0.7  
+expo-splash-screen            ~57.0.5   57.0.4  
+expo-system-ui                ~57.0.2   57.0.1  
+expo-updates                  ~57.0.11  57.0.8  
+expo-web-browser              ~57.0.2   57.0.1  
+react-native                  0.86.2    0.86.0  
+react-native-reanimated       4.5.1     4.5.0   
+react-native-worklets         0.10.1    0.10.0  
+eslint-config-expo            ~57.0.1   57.0.0  
+
+Changelogs:
+- expo-constants → https://github.com/expo/expo/blob/sdk-57/packages/expo-constants/CHANGELOG.md
+- expo-linking → https://github.com/expo/expo/blob/sdk-57/packages/expo-linking/CHANGELOG.md
+- expo-router → https://github.com/expo/expo/blob/sdk-57/packages/expo-router/CHANGELOG.md
+- expo-splash-screen → https://github.com/expo/expo/blob/sdk-57/packages/expo-splash-screen/CHANGELOG.md
+- expo-system-ui → https://github.com/expo/expo/blob/sdk-57/packages/expo-system-ui/CHANGELOG.md
+- expo-updates → https://github.com/expo/expo/blob/sdk-57/packages/expo-updates/CHANGELOG.md
+- expo-web-browser → https://github.com/expo/expo/blob/sdk-57/packages/expo-web-browser/CHANGELOG.md
+
+14 packages out of date.
+Advice:
+Use 'npx expo install --check' to review and upgrade your dependencies.
+To ignore specific packages, add them to "expo.install.exclude" in package.json. Learn more: https://expo.fyi/dependency-validation
+
+2 checks failed, indicating possible issues with the project.
+
+EXIT_CODE=1
+RESULT=FAIL
+
+===== export-android =====
+
+> @web-empire/mobile@1.0.1 export:android
+> expo export --platform android
+
+Using src/app as the root directory for Expo Router.
+React Compiler enabled
+Starting Metro Bundler
+
+Android Bundled 26941ms node_modules/expo-router/entry.js (1741 modules)
+
+› Assets (30):
+assets/images/web-empire-logo-ar-v1.2.png (112KB)
+assets/images/web-empire-logo-en-v1.2.png (123KB)
+assets/images/web-empire-mark-v1.2.png (265KB)
+node_modules/@expo-google-fonts/material-symbols/400Regular/MaterialSymbols_400Regular.ttf (962KB)
+node_modules/expo-router/assets/arrow_down.png (9.5KB)
+node_modules/expo-router/assets/arrow_right.xml (307B)
+node_modules/expo-router/assets/checkmark.xml (312B)
+node_modules/expo-router/assets/error.png (469B)
+node_modules/expo-router/assets/file.png (138B)
+node_modules/expo-router/assets/forward.png (188B)
+node_modules/expo-router/assets/pkg.png (364B)
+node_modules/expo-router/assets/react-navigation/elements/back-icon-mask.png (653B)
+node_modules/expo-router/assets/react-navigation/elements/back-icon.png (4 variations | 152B)
+node_modules/expo-router/assets/react-navigation/elements/clear-icon.png (4 variations | 425B)
+node_modules/expo-router/assets/react-navigation/elements/close-icon.png (4 variations | 235B)
+node_modules/expo-router/assets/react-navigation/elements/search-icon.png (4 variations | 599B)
+node_modules/expo-router/assets/sitemap.png (465B)
+node_modules/expo-router/assets/unmatched.png (4.8KB)
+
+› android bundles (1):
+_expo/static/js/android/entry-04c4b10cfb3f28ad24d2e776a201017f.hbc (4.6MB)
+
+› Files (1):
+metadata.json (2KB)
+
+Exported: dist
+
+EXIT_CODE=0
+RESULT=PASS
+
+
+OVERALL=FAIL
