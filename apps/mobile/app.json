@@ -2,7 +2,7 @@
   "expo": {
     "name": "إمبراطورية الويب",
     "slug": "web-empire",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "webempire",
@@ -21,7 +21,7 @@
     "android": {
       "package": "site.webempire.app",
       "adaptiveIcon": {
-        "backgroundColor": "#061329",
+        "backgroundColor": "#F4F8FD",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
@@ -43,9 +43,13 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#061329",
+          "backgroundColor": "#F4F8FD",
           "image": "./assets/images/splash-icon.png",
-          "imageWidth": 120
+          "imageWidth": 148,
+          "dark": {
+            "backgroundColor": "#061224",
+            "image": "./assets/images/splash-icon.png"
+          }
         }
       ],
       [
