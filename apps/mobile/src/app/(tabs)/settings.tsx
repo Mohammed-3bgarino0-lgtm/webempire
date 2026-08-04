@@ -1,6 +1,6 @@
 import * as Linking from "expo-linking";
 import { router } from "expo-router";
-import { useEffect, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 
 import { BrandLogo } from "@/components/brand-logo";
@@ -219,7 +219,7 @@ function SettingsCard({
   symbol: string;
   title: string;
   description: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   const { colors } = useEmpireTheme();
 
