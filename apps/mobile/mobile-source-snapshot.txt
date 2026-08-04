@@ -1,0 +1,747 @@
+
+===== FILE: apps/mobile/STORE_RELEASE_AR.md =====
+# تشغيل وصيانة تطبيق إمبراطورية الويب
+
+## بيانات التطبيق الثابتة
+
+- حساب Expo: `mohammedsk`
+- مشروع Expo: `@mohammedsk/web-empire`
+- Android package: `site.webempire.app`
+- iOS bundle ID: `site.webempire.app`
+- سياسة الخصوصية: `https://webempire.site/ar/privacy`
+- الدعم: `https://webempire.site/ar/support`
+
+## أنواع التحديث
+
+### تحديث سريع دون انتظار المتجر
+
+يستخدم لإصلاحات JavaScript والمحتوى والتصميم التي لا تضيف مكتبات أصلية جديدة:
+
+```bash
+npm run update:production -- "وصف التحديث"
+```
+
+يصل التحديث للمستخدمين عبر قناة `production`، ويتحقق التطبيق منه عند التشغيل.
+
+### نسخة متجر جديدة
+
+تلزم عند تغيير إصدار Expo أو إضافة مكتبة أصلية أو صلاحية نظام أو تغيير أيقونة التطبيق:
+
+```bash
+npm run build:android:production
+npm run build:ios:production
+```
+
+ثم الإرسال:
+
+```bash
+npm run submit:android
+npm run submit:ios
+```
+
+## مسار آمن لكل إصدار
+
+1. نفّذ `npm run typecheck` و`npm run lint` و`npm run doctor`.
+2. انشر أولًا على قناة `preview` واختبر تسجيل الدخول والأدوات والمحفظة والدفع.
+3. انشر تحديث `production` إن كان التغيير برمجيًا فقط.
+4. ابنِ نسخة متجر عند وجود تغيير أصلي.
+5. احتفظ بملاحظات الإصدار ورقم التذكرة في رسالة التحديث.
+
+## ما يجب الحفاظ عليه
+
+- لا تغيّر `bundleIdentifier` أو `package` بعد أول نشر.
+- لا تحذف مشروع Expo أو مفاتيح توقيع Android من حساب `mohammedsk`.
+- احتفظ بعضوية Apple Developer وحساب Google Play Console نشطين.
+- أضف `EXPO_TOKEN` إلى أسرار GitHub عند تفعيل النشر الآلي مستقبلًا.
+
+===== END FILE =====
+
+===== FILE: apps/mobile/app.json =====
+{
+  "expo": {
+    "name": "إمبراطورية الويب",
+    "slug": "web-empire",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "webempire",
+    "userInterfaceStyle": "automatic",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "site.webempire.app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSFaceIDUsageDescription": "يستخدم إمبراطورية الويب Face ID لحماية جلسة حسابك."
+      }
+    },
+    "android": {
+      "package": "site.webempire.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#061329",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": true
+    },
+    "web": {
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0,
+      "enabled": true,
+      "checkAutomatically": "ON_LOAD",
+      "url": "https://u.expo.dev/14357042-04b3-4a69-9616-6754973c95f3"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-updates",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#061329",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 120
+        }
+      ],
+      [
+        "expo-secure-store",
+        {
+          "configureAndroidBackup": true,
+          "faceIDPermission": "Allow Web Empire to securely access your session."
+        }
+      ],
+      "expo-localization",
+      "expo-status-bar",
+      "expo-web-browser"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "14357042-04b3-4a69-9616-6754973c95f3"
+      }
+    },
+    "owner": "mohammedsk"
+  }
+}
+
+===== END FILE =====
+
+===== FILE: apps/mobile/eas.json =====
+{
+  "cli": {
+    "version": ">= 16.0.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "channel": "development"
+    },
+    "preview": {
+      "distribution": "internal",
+      "channel": "preview",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {
+      "channel": "production",
+      "autoIncrement": true
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
+
+===== END FILE =====
+
+===== FILE: apps/mobile/eslint.config.js =====
+const expoConfig = require("eslint-config-expo/flat");
+const { defineConfig } = require("eslint/config");
+module.exports = defineConfig([expoConfig, { ignores: ["dist/**", ".expo/**"] }]);
+
+===== END FILE =====
+
+===== FILE: apps/mobile/package.json =====
+{
+  "name": "@web-empire/mobile",
+  "main": "expo-router/entry",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "lint": "expo lint",
+    "typecheck": "tsc --noEmit",
+    "export:android": "expo export --platform android",
+    "export:ios": "expo export --platform ios",
+    "update:preview": "eas update --branch preview --message",
+    "update:production": "eas update --branch production --message",
+    "build:android:preview": "eas build -p android --profile preview",
+    "build:android:production": "eas build -p android --profile production",
+    "build:ios:production": "eas build -p ios --profile production",
+    "build:all:production": "eas build --platform all --profile production",
+    "submit:android": "eas submit -p android --profile production --latest",
+    "submit:ios": "eas submit -p ios --profile production --latest",
+    "doctor": "npx --yes expo-doctor@latest"
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "@supabase/supabase-js": "^2.110.0",
+    "expo": "~57.0.7",
+    "expo-constants": "~57.0.3",
+    "expo-linking": "~57.0.3",
+    "expo-localization": "~57.0.1",
+    "expo-router": "~57.0.7",
+    "expo-secure-store": "~57.0.1",
+    "expo-splash-screen": "~57.0.4",
+    "expo-status-bar": "~57.0.1",
+    "expo-system-ui": "~57.0.1",
+    "expo-updates": "~57.0.8",
+    "expo-web-browser": "~57.0.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-native": "0.86.0",
+    "react-native-gesture-handler": "~2.32.0",
+    "react-native-reanimated": "4.5.0",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-screens": "4.25.2",
+    "react-native-url-polyfill": "^3.0.0",
+    "react-native-web": "~0.21.0",
+    "react-native-worklets": "0.10.0"
+  },
+  "devDependencies": {
+    "@types/react": "~19.2.2",
+    "eslint": "^9.39.0",
+    "eslint-config-expo": "57.0.0",
+    "typescript": "~6.0.3"
+  },
+  "overrides": {
+    "uuid": "11.1.1"
+  }
+}
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/app/(tabs)/_layout.tsx =====
+import { Tabs } from "expo-router";
+import { Text } from "react-native";
+import { useEmpire } from "@/contexts/empire";
+import { useEmpireTheme } from "@/contexts/theme";
+export default function TabsLayout(){const {direction}=useEmpire();const {colors}=useEmpireTheme();const ar=direction==="rtl";return <Tabs screenOptions={{headerShown:false,tabBarActiveTintColor:colors.primary,tabBarInactiveTintColor:colors.muted,tabBarStyle:{backgroundColor:colors.surface,borderTopColor:colors.border,height:68,paddingBottom:8,paddingTop:6}}}><Tabs.Screen name="index" options={{title:ar?"الرئيسية":"Home",tabBarIcon:({color})=><Text style={{color,fontSize:20}}>⌂</Text>}}/><Tabs.Screen name="tools" options={{title:ar?"الأدوات":"Tools",tabBarIcon:({color})=><Text style={{color,fontSize:19}}>◈</Text>}}/><Tabs.Screen name="wallet" options={{title:ar?"رصيدي":"Wallet",tabBarIcon:({color})=><Text style={{color,fontSize:19}}>◉</Text>}}/><Tabs.Screen name="settings" options={{title:ar?"الإعدادات":"Settings",tabBarIcon:({color})=><Text style={{color,fontSize:19}}>⚙</Text>}}/></Tabs>}
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/app/(tabs)/index.tsx =====
+import { router } from "expo-router";
+import { Pressable,StyleSheet,View } from "react-native";
+import { ToolCard } from "@/components/tool-card";
+import { AppScreen,AppText,Card,ErrorState,MutedText,PrimaryButton,SectionTitle } from "@/components/ui";
+import { useEmpire } from "@/contexts/empire";
+import { useEmpireTheme } from "@/contexts/theme";
+export default function HomeScreen(){const {bootstrap,direction,error,refresh}=useEmpire();const {colors,radius}=useEmpireTheme();const ar=direction==="rtl";if(error||!bootstrap)return <AppScreen><ErrorState message={error??"BOOTSTRAP_MISSING"} onRetry={()=>void refresh()}/></AppScreen>;const featured=bootstrap.tools.filter(tool=>tool.isFeatured).slice(0,4);return <AppScreen><View style={[styles.hero,{backgroundColor:colors.surface,borderColor:colors.border,borderRadius:Math.max(radius,24)}]}><View style={[styles.brandBadge,{backgroundColor:`${colors.primary}18`}]}><AppText style={[styles.brandBadgeText,{color:colors.primary}]}>♛ WEB EMPIRE</AppText></View><AppText style={styles.heroTitle}>{bootstrap.identity.siteName}</AppText><MutedText style={styles.heroText}>{bootstrap.identity.tagline}</MutedText><PrimaryButton label={ar?"استكشف الأدوات":"Explore tools"} onPress={()=>router.push("/(tabs)/tools")}/><Pressable onPress={()=>router.push("/pricing")}><AppText style={[styles.secondaryLink,{color:colors.primary}]}>{ar?"النقاط والخطط":"Credits & plans"}</AppText></Pressable></View><View style={styles.stats}><Card style={styles.statCard}><AppText style={styles.statValue}>{bootstrap.tools.length}</AppText><MutedText>{ar?"أداة":"Tools"}</MutedText></Card><Card style={styles.statCard}><AppText style={styles.statValue}>{bootstrap.categories.length}</AppText><MutedText>{ar?"تصنيف":"Categories"}</MutedText></Card></View><SectionTitle eyebrow="TOOL FACTORY" title={ar?"أدوات مميزة":"Featured tools"} description={ar?"نفس أدوات webempire.site بحساب ونقاط موحدة.":"The same webempire.site tools with one account and credit balance."}/><View style={styles.list}>{featured.map(tool=><ToolCard key={tool.id} tool={tool}/>)}</View></AppScreen>}
+const styles=StyleSheet.create({hero:{borderWidth:1,padding:24,gap:14},brandBadge:{alignSelf:"flex-start",borderRadius:999,paddingHorizontal:12,paddingVertical:7},brandBadgeText:{fontSize:12,fontWeight:"900",letterSpacing:1},heroTitle:{fontSize:42,lineHeight:50,fontWeight:"900"},heroText:{fontSize:18,lineHeight:29},secondaryLink:{textAlign:"center",fontWeight:"800"},stats:{flexDirection:"row",gap:12},statCard:{flex:1},statValue:{fontSize:30,fontWeight:"900"},list:{gap:14}});
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/app/(tabs)/settings.tsx =====
+import * as Linking from "expo-linking";
+import { router } from "expo-router";
+import { useEffect, useState } from "react";
+import { Pressable,StyleSheet,View } from "react-native";
+import { AppScreen,AppText,Card,MutedText,PrimaryButton,SectionTitle } from "@/components/ui";
+import { useAuth } from "@/contexts/auth";
+import { useEmpire } from "@/contexts/empire";
+import { useEmpireTheme } from "@/contexts/theme";
+import { currentReleaseNote } from "@/lib/release-notes";
+import { checkForUpdates, downloadAndApplyUpdate } from "@/lib/updates";
+import type { ColorMode } from "@/types/api";
+export default function SettingsScreen(){const {session,signOut}=useAuth();const {bootstrap,direction,locale,setLocale}=useEmpire();const {colors,mode,setMode}=useEmpireTheme();const [updateState,setUpdateState]=useState<{status:"idle"|"checking"|"available"|"up-to-date"|"error";message?:string}>({status:"idle"});const ar=direction==="rtl";useEffect(()=>{void (async()=>{setUpdateState({status:"checking"});const result=await checkForUpdates();if(result.error){setUpdateState({status:"error",message:result.error});return;}setUpdateState(result.available?{status:"available",message:ar?"يوجد تحديث جديد":"A newer update is available"}:{status:"up-to-date",message:ar?"أنت تستخدم آخر إصدار":"You are on the latest version"});})();},[ar]);async function handleUpdate(){setUpdateState({status:"checking"});const result=await downloadAndApplyUpdate();if(result.success){setUpdateState({status:"up-to-date",message:ar?"تم تحديث التطبيق":"App updated"});return;}setUpdateState({status:"error",message:result.error});}return <AppScreen><SectionTitle eyebrow="APP" title={ar?"الإعدادات":"Settings"} description={ar?"اللغة والمظهر والحساب.":"Language, appearance, and account."}/><Card><AppText style={styles.title}>{ar?"المظهر":"Appearance"}</AppText><View style={styles.options}>{(["light","dark","system"] as ColorMode[]).map(item=><OptionButton key={item} label={item==="light"?(ar?"فاتح":"Light"):item==="dark"?(ar?"داكن":"Dark"):(ar?"النظام":"System")} active={mode===item} onPress={()=>void setMode(item)}/>)}</View></Card><Card><AppText style={styles.title}>{ar?"اللغة":"Language"}</AppText><View style={styles.options}>{(bootstrap?.locales??[]).map(item=><OptionButton key={item.code} label={item.nativeName} active={locale===item.code} onPress={()=>void setLocale(item.code)}/>)}</View></Card><Card><AppText style={styles.title}>{ar?"التحديثات":"Updates"}</AppText><MutedText>{currentReleaseNote?.title ?? "Web Empire"}</MutedText>{updateState.status==="checking"?<MutedText>{ar?"جاري فحص التحديثات...":"Checking for updates..."}</MutedText>:null}{updateState.status==="available"||updateState.status==="up-to-date"||updateState.status==="error"?<MutedText>{updateState.message}</MutedText>:null}{updateState.status==="available"?<PrimaryButton label={ar?"تحديث الآن":"Update now"} onPress={()=>void handleUpdate()}/>:<PrimaryButton label={ar?"فحص التحديثات":"Check for updates"} onPress={()=>void (async()=>{setUpdateState({status:"checking"});const result=await checkForUpdates();if(result.error){setUpdateState({status:"error",message:result.error});return;}setUpdateState(result.available?{status:"available",message:ar?"يوجد تحديث جديد":"A newer update is available"}:{status:"up-to-date",message:ar?"أنت تستخدم آخر إصدار":"You are on the latest version"});})()}/>}</Card><Card><AppText style={styles.title}>{ar?"الموقع":"Website"}</AppText><MutedText>webempire.site</MutedText><PrimaryButton label={ar?"فتح الموقع":"Open website"} onPress={()=>void Linking.openURL(`https://webempire.site/${locale}`)}/></Card><Card><AppText style={styles.title}>{ar?"الحساب":"Account"}</AppText><MutedText>{session?.user.email??(ar?"لم تسجل الدخول":"Not signed in")}</MutedText>{session?<PrimaryButton label={ar?"تسجيل الخروج":"Sign out"} onPress={()=>void signOut()}/>:<PrimaryButton label={ar?"تسجيل الدخول":"Sign in"} onPress={()=>router.push("/sign-in")}/>}</Card><MutedText style={{textAlign:"center",color:colors.muted}}>Web Empire Mobile 1.0.0</MutedText></AppScreen>}
+function OptionButton({label,active,onPress}:{label:string;active:boolean;onPress():void}){const {colors}=useEmpireTheme();return <Pressable onPress={onPress} style={[styles.option,{backgroundColor:active?colors.primary:colors.background,borderColor:active?colors.primary:colors.border}]}><AppText style={{color:active?"#fff":colors.text,fontWeight:"800",fontSize:13}}>{label}</AppText></Pressable>}
+const styles=StyleSheet.create({title:{fontSize:19,fontWeight:"900"},options:{flexDirection:"row",flexWrap:"wrap",gap:8},option:{borderWidth:1,borderRadius:999,paddingHorizontal:14,paddingVertical:9}});
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/app/(tabs)/tools.tsx =====
+import { useMemo,useState } from "react";
+import { Pressable,StyleSheet,TextInput,View } from "react-native";
+import { ToolCard } from "@/components/tool-card";
+import { AppScreen,AppText,ErrorState,MutedText,SectionTitle } from "@/components/ui";
+import { useEmpire } from "@/contexts/empire";
+import { useEmpireTheme } from "@/contexts/theme";
+export default function ToolsScreen(){const {bootstrap,direction,error,refresh}=useEmpire();const {colors,radius}=useEmpireTheme();const [query,setQuery]=useState("");const [categoryId,setCategoryId]=useState<string|null>(null);const ar=direction==="rtl";const tools=useMemo(()=>{const normalized=query.trim().toLowerCase();return(bootstrap?.tools??[]).filter(tool=>{if(categoryId&&tool.categoryId!==categoryId)return false;return !normalized||`${tool.title} ${tool.description}`.toLowerCase().includes(normalized)})},[bootstrap?.tools,categoryId,query]);if(error||!bootstrap)return <AppScreen><ErrorState message={error??"BOOTSTRAP_MISSING"} onRetry={()=>void refresh()}/></AppScreen>;return <AppScreen><SectionTitle eyebrow="TOOLS" title={ar?"جميع الأدوات":"All tools"} description={ar?"ابحث وشغّل أدواتك مباشرة من الجوال.":"Find and run your tools directly from mobile."}/><TextInput value={query} onChangeText={setQuery} placeholder={ar?"ابحث عن أداة...":"Search tools..."} placeholderTextColor={colors.muted} style={[styles.search,{color:colors.text,backgroundColor:colors.surface,borderColor:colors.border,borderRadius:Math.min(radius,16),textAlign:ar?"right":"left"}]}/><View style={styles.chips}><CategoryChip label={ar?"الكل":"All"} active={!categoryId} onPress={()=>setCategoryId(null)}/>{bootstrap.categories.map(category=><CategoryChip key={category.id} label={category.name} active={categoryId===category.id} onPress={()=>setCategoryId(category.id)}/>)}</View><MutedText>{tools.length} {ar?"أداة":"tools"}</MutedText><View style={styles.list}>{tools.map(tool=><ToolCard key={tool.id} tool={tool}/>)}</View></AppScreen>}
+function CategoryChip({label,active,onPress}:{label:string;active:boolean;onPress():void}){const {colors}=useEmpireTheme();return <Pressable onPress={onPress} style={[styles.chip,{backgroundColor:active?colors.primary:colors.surface,borderColor:active?colors.primary:colors.border}]}><AppText style={{color:active?"#fff":colors.text,fontSize:13,fontWeight:"800"}}>{label}</AppText></Pressable>}
+const styles=StyleSheet.create({search:{borderWidth:1,minHeight:52,paddingHorizontal:16,fontSize:16},chips:{flexDirection:"row",flexWrap:"wrap",gap:8},chip:{borderWidth:1,borderRadius:999,paddingHorizontal:13,paddingVertical:8},list:{gap:14}});
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/app/(tabs)/wallet.tsx =====
+import { router,useFocusEffect } from "expo-router";
+import { useCallback,useState } from "react";
+import { RefreshControl,ScrollView,StyleSheet,View } from "react-native";
+import { AppText,Card,ErrorState,LoadingState,MutedText,PrimaryButton,SectionTitle } from "@/components/ui";
+import { useAuth } from "@/contexts/auth";
+import { useEmpire } from "@/contexts/empire";
+import { useEmpireTheme } from "@/contexts/theme";
+import { getAccount } from "@/lib/api";
+import type { AccountResponse } from "@/types/api";
+export default function WalletScreen(){const {session}=useAuth();const {direction}=useEmpire();const {colors}=useEmpireTheme();const [account,setAccount]=useState<AccountResponse|null>(null);const [loading,setLoading]=useState(false);const [error,setError]=useState<string|null>(null);const ar=direction==="rtl";const accessToken=session?.access_token;const load=useCallback(async()=>{if(!accessToken)return;setLoading(true);setError(null);try{setAccount(await getAccount(accessToken))}catch(caught){setError(caught instanceof Error?caught.message:"ACCOUNT_FAILED")}finally{setLoading(false)}},[accessToken]);useFocusEffect(useCallback(()=>{void load()},[load]));if(!session)return <View style={{flex:1,backgroundColor:colors.background}}><ScrollView contentContainerStyle={styles.guest}><Card><SectionTitle title={ar?"رصيدك في مكان واحد":"One credit balance"} description={ar?"سجل الدخول لمشاهدة الرصيد والخطة وسجل تشغيلات الموقع والتطبيق.":"Sign in to see the same balance, plan, and run history across web and mobile."}/><PrimaryButton label={ar?"تسجيل الدخول":"Sign in"} onPress={()=>router.push("/sign-in")}/></Card></ScrollView></View>;if(loading&&!account)return <View style={{flex:1,backgroundColor:colors.background}}><LoadingState/></View>;if(error&&!account)return <View style={{flex:1,backgroundColor:colors.background,padding:18}}><ErrorState message={error} onRetry={()=>void load()}/></View>;const planRelation=account?.subscription?.plans;const plan=Array.isArray(planRelation)?planRelation[0]:planRelation;return <ScrollView style={{flex:1,backgroundColor:colors.background}} contentContainerStyle={styles.content} refreshControl={<RefreshControl refreshing={loading} onRefresh={()=>void load()} tintColor={colors.primary}/>}><SectionTitle eyebrow="CREDITS" title={ar?"رصيدي وخطتي":"Wallet & plan"} description={account?.user.email??""}/><View style={styles.metrics}><Card style={styles.metric}><MutedText>{ar?"الرصيد":"Balance"}</MutedText><AppText style={styles.metricValue}>{Number(account?.wallet.balance??0).toLocaleString()} pts</AppText></Card><Card style={styles.metric}><MutedText>{ar?"الخطة":"Plan"}</MutedText><AppText style={styles.metricValue}>{plan?(ar?plan.name_ar:plan.name_en):(ar?"مجاني":"Free")}</AppText></Card></View><PrimaryButton label={ar?"عرض الخطط":"View plans"} onPress={()=>router.push("/pricing")}/><SectionTitle title={ar?"آخر التشغيلات":"Recent runs"}/><View style={styles.runs}>{(account?.runs??[]).map(run=>{const relation=run.tools;const tool=Array.isArray(relation)?relation[0]:relation;return <Card key={run.id}><AppText style={styles.runTitle}>{tool?(ar?tool.title_ar:tool.title_en):"Tool"}</AppText><View style={styles.runMeta}><MutedText>{run.status}</MutedText><AppText style={{color:colors.primary,fontWeight:"900"}}>-{run.credits_charged} pts</AppText></View><MutedText style={styles.date}>{new Date(run.created_at).toLocaleString()}</MutedText></Card>})}</View></ScrollView>}
+const styles=StyleSheet.create({guest:{flexGrow:1,justifyContent:"center",padding:18},content:{padding:18,gap:18,paddingBottom:40},metrics:{flexDirection:"row",gap:12},metric:{flex:1},metricValue:{fontSize:24,fontWeight:"900"},runs:{gap:12},runTitle:{fontWeight:"900",fontSize:17},runMeta:{flexDirection:"row",justifyContent:"space-between",alignItems:"center"},date:{fontSize:12}});
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/app/_layout.tsx =====
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
+import { useEffect } from "react";
+import { View } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { LoadingState } from "@/components/ui";
+import { AuthProvider } from "@/contexts/auth";
+import { EmpireProvider,useEmpire } from "@/contexts/empire";
+import { EmpireThemeProvider,useEmpireTheme } from "@/contexts/theme";
+SplashScreen.preventAutoHideAsync();
+export default function RootLayout(){return <GestureHandlerRootView style={{flex:1}}><AuthProvider><EmpireProvider><EmpireThemeProvider><AppNavigator/></EmpireThemeProvider></EmpireProvider></AuthProvider></GestureHandlerRootView>}
+function AppNavigator(){const {loading}=useEmpire();const {resolvedMode,colors}=useEmpireTheme();useEffect(()=>{if(!loading)void SplashScreen.hideAsync()},[loading]);if(loading)return <View style={{flex:1,backgroundColor:colors.background}}><LoadingState label="Web Empire"/></View>;return <><StatusBar style={resolvedMode==="dark"?"light":"dark"}/><Stack screenOptions={{headerStyle:{backgroundColor:colors.surface},headerTintColor:colors.text,contentStyle:{backgroundColor:colors.background},headerShadowVisible:false}}><Stack.Screen name="(tabs)" options={{headerShown:false}}/><Stack.Screen name="tool/[slug]" options={{title:"Web Empire"}}/><Stack.Screen name="pricing" options={{title:"Plans"}}/><Stack.Screen name="sign-in" options={{title:"Account",presentation:"modal"}}/></Stack></>}
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/app/pricing.tsx =====
+import * as WebBrowser from "expo-web-browser";
+import { router } from "expo-router";
+import { useState } from "react";
+import { StyleSheet,View } from "react-native";
+import { AppScreen,AppText,Card,MutedText,PrimaryButton,SectionTitle } from "@/components/ui";
+import { useAuth } from "@/contexts/auth";
+import { useEmpire } from "@/contexts/empire";
+import { useEmpireTheme } from "@/contexts/theme";
+import { createCheckout } from "@/lib/api";
+export default function PricingScreen(){const {session}=useAuth();const {bootstrap,direction,locale}=useEmpire();const {colors}=useEmpireTheme();const [pendingPlan,setPendingPlan]=useState<string|null>(null);const [error,setError]=useState<string|null>(null);const ar=direction==="rtl";async function subscribe(planId:string){if(!session?.access_token){router.push("/sign-in");return}setPendingPlan(planId);setError(null);try{const checkout=await createCheckout(planId,locale,session.access_token);await WebBrowser.openBrowserAsync(checkout.url)}catch(caught){setError(caught instanceof Error?caught.message:"CHECKOUT_FAILED")}finally{setPendingPlan(null)}}return <AppScreen><SectionTitle eyebrow="CREDITS" title={ar?"النقاط والخطط":"Credits & plans"} description={ar?"اشترك من الجوال عبر صفحة الدفع الآمنة ثم حدّث رصيدك.":"Subscribe through secure hosted checkout, then refresh your wallet."}/>{error?<AppText style={{color:colors.danger}}>{error}</AppText>:null}<View style={styles.list}>{(bootstrap?.plans??[]).map(plan=><Card key={plan.id}><View style={styles.planHead}><AppText style={styles.planName}>{plan.name}</AppText><AppText style={[styles.price,{color:colors.primary}]}>{plan.priceSar} SAR</AppText></View><MutedText>{plan.description}</MutedText><AppText style={styles.credits}>{plan.monthlyCredits.toLocaleString()} pts</AppText>{plan.dailyAiRuns?<MutedText>{plan.dailyAiRuns} AI runs/day</MutedText>:null}{plan.maxOutputTokens?<MutedText>{plan.maxOutputTokens.toLocaleString()} max output tokens</MutedText>:null}{plan.priceSar>0?<PrimaryButton label={ar?"اشترك الآن":"Subscribe"} onPress={()=>void subscribe(plan.id)} loading={pendingPlan===plan.id}/>:null}</Card>)}</View></AppScreen>}
+const styles=StyleSheet.create({list:{gap:14},planHead:{flexDirection:"row",justifyContent:"space-between",gap:12,alignItems:"center"},planName:{fontSize:22,fontWeight:"900"},price:{fontSize:20,fontWeight:"900"},credits:{fontSize:30,fontWeight:"900"}});
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/app/sign-in.tsx =====
+import { router } from "expo-router";
+import { useState } from "react";
+import { StyleSheet,TextInput,View } from "react-native";
+import { AppScreen,AppText,Card,MutedText,PrimaryButton,SectionTitle } from "@/components/ui";
+import { useAuth } from "@/contexts/auth";
+import { useEmpire } from "@/contexts/empire";
+import { useEmpireTheme } from "@/contexts/theme";
+export default function SignInScreen(){const {signIn,signUp}=useAuth();const {direction}=useEmpire();const {colors,radius}=useEmpireTheme();const [mode,setMode]=useState<"sign-in"|"sign-up">("sign-in");const [email,setEmail]=useState("");const [password,setPassword]=useState("");const [pending,setPending]=useState(false);const [error,setError]=useState<string|null>(null);const ar=direction==="rtl";async function submit(){setPending(true);setError(null);try{if(mode==="sign-in")await signIn(email.trim(),password);else await signUp(email.trim(),password);router.back()}catch(caught){setError(caught instanceof Error?caught.message:"AUTH_FAILED")}finally{setPending(false)}}const inputStyle=[styles.input,{color:colors.text,backgroundColor:colors.background,borderColor:colors.border,borderRadius:Math.min(radius,16),textAlign:ar?"right" as const:"left" as const}];return <AppScreen contentStyle={styles.container}><Card><SectionTitle eyebrow="WEB EMPIRE" title={mode==="sign-in"?(ar?"تسجيل الدخول":"Sign in"):(ar?"إنشاء حساب":"Create account")} description={ar?"نفس حساب webempire.site ونفس رصيد النقاط.":"The same webempire.site account and credit balance."}/><TextInput autoCapitalize="none" autoComplete="email" keyboardType="email-address" placeholder={ar?"البريد الإلكتروني":"Email"} placeholderTextColor={colors.muted} value={email} onChangeText={setEmail} style={inputStyle}/><TextInput autoCapitalize="none" autoComplete={mode==="sign-in"?"current-password":"new-password"} secureTextEntry placeholder={ar?"كلمة المرور":"Password"} placeholderTextColor={colors.muted} value={password} onChangeText={setPassword} style={inputStyle}/>{error?<AppText style={{color:colors.danger}}>{error}</AppText>:null}<PrimaryButton label={mode==="sign-in"?(ar?"دخول":"Sign in"):(ar?"إنشاء الحساب":"Create account")} onPress={()=>void submit()} loading={pending} disabled={!email.trim()||password.length<8}/><View style={styles.switchRow}><MutedText>{mode==="sign-in"?(ar?"ما عندك حساب؟":"No account?"):(ar?"عندك حساب؟":"Already registered?")}</MutedText><AppText onPress={()=>setMode(mode==="sign-in"?"sign-up":"sign-in")} style={{color:colors.primary,fontWeight:"900"}}>{mode==="sign-in"?(ar?"إنشاء حساب":"Create account"):(ar?"تسجيل الدخول":"Sign in")}</AppText></View></Card></AppScreen>}
+const styles=StyleSheet.create({container:{justifyContent:"center"},input:{minHeight:52,borderWidth:1,paddingHorizontal:15,fontSize:16},switchRow:{flexDirection:"row",justifyContent:"center",gap:8,flexWrap:"wrap"}});
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/app/tool/[slug].tsx =====
+import { router,useLocalSearchParams } from "expo-router";
+import { useEffect,useMemo,useState } from "react";
+import { Pressable,StyleSheet,Switch,TextInput,View } from "react-native";
+import { AppScreen,AppText,Card,ErrorState,LoadingState,MutedText,PrimaryButton,SectionTitle } from "@/components/ui";
+import { useAuth } from "@/contexts/auth";
+import { useEmpire } from "@/contexts/empire";
+import { useEmpireTheme } from "@/contexts/theme";
+import { getTool,runTool } from "@/lib/api";
+import type { ToolDetail,ToolInputField,ToolRunResponse } from "@/types/api";
+export default function ToolScreen(){const params=useLocalSearchParams<{slug:string}>();const slug=String(params.slug??"");const {session}=useAuth();const {direction,locale}=useEmpire();const {colors}=useEmpireTheme();const [tool,setTool]=useState<ToolDetail|null>(null);const [values,setValues]=useState<Record<string,unknown>>({});const [result,setResult]=useState<ToolRunResponse|null>(null);const [loading,setLoading]=useState(true);const [running,setRunning]=useState(false);const [error,setError]=useState<string|null>(null);const ar=direction==="rtl";useEffect(()=>{let active=true;getTool(slug,locale).then(data=>{if(!active)return;setTool(data);setValues(Object.fromEntries(data.inputSchema.fields.filter(field=>field.defaultValue!==undefined).map(field=>[field.key,field.defaultValue])));setError(null)}).catch(caught=>active&&setError(caught instanceof Error?caught.message:"TOOL_FAILED")).finally(()=>active&&setLoading(false));return()=>{active=false}},[slug,locale]);const missingRequired=useMemo(()=>tool?.inputSchema.fields.some(field=>{if(!field.required)return false;const value=values[field.key];return value===undefined||value===null||value===""})??true,[tool?.inputSchema.fields,values]);async function execute(){if(!tool)return;if(tool.requiresAuth&&!session){router.push("/sign-in");return}setRunning(true);setResult(null);setError(null);try{setResult(await runTool(tool.slug,locale,values,session?.access_token))}catch(caught){setError(caught instanceof Error?caught.message:"TOOL_RUN_FAILED")}finally{setRunning(false)}}if(loading)return <View style={{flex:1,backgroundColor:colors.background}}><LoadingState/></View>;if(error&&!tool)return <AppScreen><ErrorState message={error}/></AppScreen>;if(!tool)return <AppScreen><ErrorState message="TOOL_NOT_FOUND"/></AppScreen>;const price=tool.pricingMode==="free"?(ar?"مجاني":"Free"):tool.pricingMode==="fixed"?`${tool.fixedPoints} pts`:`${ar?"من":"From"} ${tool.minimumPoints} pts`;return <AppScreen><SectionTitle eyebrow={tool.engineType.toUpperCase()} title={tool.title} description={tool.description}/><AppText style={[styles.price,{color:colors.primary}]}>{price}</AppText><Card>{tool.inputSchema.fields.map(field=><DynamicField key={field.key} field={field} value={values[field.key]} onChange={value=>setValues(current=>({...current,[field.key]:value}))}/>)}{error?<AppText style={{color:colors.danger}}>{error}</AppText>:null}<PrimaryButton label={tool.inputSchema.submitLabel} onPress={()=>void execute()} loading={running} disabled={missingRequired}/></Card><Card style={styles.resultCard}><AppText style={styles.resultTitle}>{ar?"النتيجة":"Result"}</AppText>{!result?<MutedText>{ar?"شغّل الأداة وستظهر النتيجة هنا.":"Run the tool and the result will appear here."}</MutedText>:<View style={styles.resultContent}>{result.text?<AppText selectable style={styles.resultText}>{result.text}</AppText>:null}{result.data?<AppText selectable style={styles.json}>{JSON.stringify(result.data,null,2)}</AppText>:null}<AppText style={{color:colors.success,fontWeight:"900"}}>{ar?"تم خصم":"Charged"} {result.creditsCharged} pts{typeof result.balanceAfter==="number"?` • ${ar?"الرصيد":"Balance"} ${result.balanceAfter}`:""}</AppText></View>}</Card></AppScreen>}
+function DynamicField({field,value,onChange}:{field:ToolInputField;value:unknown;onChange(value:unknown):void}){const {direction}=useEmpire();const {colors,radius}=useEmpireTheme();const ar=direction==="rtl";const inputStyle=[styles.input,field.type==="textarea"&&styles.textarea,{color:colors.text,backgroundColor:colors.background,borderColor:colors.border,borderRadius:Math.min(radius,16),textAlign:ar?"right" as const:"left" as const}];return <View style={styles.field}><AppText style={styles.label}>{field.label}{field.required?" *":""}</AppText>{field.type==="select"?<View style={styles.options}>{(field.options??[]).map(option=>{const active=String(value??field.defaultValue??"")===option.value;return <Pressable key={option.value} onPress={()=>onChange(option.value)} style={[styles.option,{backgroundColor:active?colors.primary:colors.background,borderColor:active?colors.primary:colors.border}]}><AppText style={{color:active?"#fff":colors.text,fontSize:13,fontWeight:"800"}}>{option.label}</AppText></Pressable>})}</View>:field.type==="checkbox"?<Switch value={Boolean(value)} onValueChange={onChange} trackColor={{true:colors.primary}}/>:<TextInput value={value===undefined||value===null?"":String(value)} onChangeText={text=>onChange(field.type==="number"?(text===""?"":Number(text)):text)} placeholder={field.placeholder} placeholderTextColor={colors.muted} multiline={field.type==="textarea"} keyboardType={field.type==="number"?"decimal-pad":field.type==="email"?"email-address":field.type==="url"?"url":"default"} autoCapitalize={field.type==="email"||field.type==="url"?"none":"sentences"} maxLength={field.maxLength} style={inputStyle}/>} {field.helpText?<MutedText style={styles.help}>{field.helpText}</MutedText>:null}</View>}
+const styles=StyleSheet.create({price:{fontWeight:"900"},field:{gap:8},label:{fontWeight:"800"},input:{minHeight:50,borderWidth:1,paddingHorizontal:14,paddingVertical:12,fontSize:16},textarea:{minHeight:130,textAlignVertical:"top"},options:{flexDirection:"row",flexWrap:"wrap",gap:8},option:{borderWidth:1,borderRadius:999,paddingHorizontal:13,paddingVertical:9},help:{fontSize:12},resultCard:{minHeight:180},resultTitle:{fontSize:20,fontWeight:"900"},resultContent:{gap:14},resultText:{fontSize:17,lineHeight:29},json:{fontFamily:"monospace",fontSize:13}});
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/brand/empire.ts =====
+export const EMPIRE_COLORS = {
+  empireBlack: "#050713",
+  imperialViolet: "#7138F4",
+  crownGold: "#D6B56E",
+  signalCyan: "#23C7E8",
+  empireIvory: "#F4F1E8",
+  darkSurface: "#0B1022",
+  lightSurface: "#FFFCF4",
+  darkInk: "#F7F5EF",
+  lightInk: "#10131F",
+  success: "#0D9488",
+  danger: "#DC2626",
+} as const;
+
+export const EMPIRE_MOTION = {
+  fast: 160,
+  standard: 220,
+  deliberate: 320,
+} as const;
+
+export const EMPIRE_PLATFORM_IDENTITY = {
+  android: "EMPIRE MATERIAL",
+  ios: "EMPIRE GLASS",
+} as const;
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/components/tool-card.tsx =====
+import { router } from "expo-router";
+import { Pressable,StyleSheet,View } from "react-native";
+import { AppText,Card,MutedText } from "@/components/ui";
+import { useEmpire } from "@/contexts/empire";
+import { useEmpireTheme } from "@/contexts/theme";
+import type { ToolSummary } from "@/types/api";
+export function ToolCard({tool}:{tool:ToolSummary}){const {direction}=useEmpire();const {colors}=useEmpireTheme();const price=tool.pricingMode==="free"?(direction==="rtl"?"مجاني":"Free"):tool.pricingMode==="fixed"?`${tool.fixedPoints} pts`:`${direction==="rtl"?"من":"From"} ${tool.minimumPoints} pts`;return <Pressable onPress={()=>router.push(`/tool/${tool.slug}`)}>{({pressed})=><Card style={{opacity:pressed?.8:1}}><View style={[styles.icon,{backgroundColor:`${colors.primary}18`}]}><AppText style={[styles.iconText,{color:colors.primary}]}>{tool.engineType.startsWith("ai_")?"AI":"↗"}</AppText></View><AppText style={styles.title}>{tool.title}</AppText><MutedText numberOfLines={3}>{tool.description}</MutedText><View style={styles.meta}><MutedText style={styles.metaText}>{tool.engineType.replaceAll("_"," ")}</MutedText><AppText style={[styles.price,{color:colors.primary}]}>{price}</AppText></View></Card>}</Pressable>}
+const styles=StyleSheet.create({icon:{width:52,height:52,borderRadius:16,alignItems:"center",justifyContent:"center"},iconText:{fontWeight:"900"},title:{fontWeight:"900",fontSize:20},meta:{flexDirection:"row",justifyContent:"space-between",alignItems:"center",gap:12},metaText:{fontSize:12,textTransform:"uppercase"},price:{fontSize:12,fontWeight:"900"}});
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/components/ui.tsx =====
+import type { PropsWithChildren,ReactNode } from "react";
+import { ActivityIndicator,Pressable,ScrollView,StyleSheet,Text,type TextProps,View,type ViewStyle } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useEmpire } from "@/contexts/empire";
+import { useEmpireTheme } from "@/contexts/theme";
+export function AppScreen({children,scroll=true,contentStyle}:PropsWithChildren<{scroll?:boolean;contentStyle?:ViewStyle}>){const {colors}=useEmpireTheme();const content=<View style={[styles.screenContent,contentStyle]}>{children}</View>;return <SafeAreaView style={[styles.safeArea,{backgroundColor:colors.background}]} edges={["top","left","right"]}>{scroll?<ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>{content}</ScrollView>:content}</SafeAreaView>}
+export function AppText({children,style,...props}:TextProps&{children?:ReactNode}){const {direction}=useEmpire();const {colors}=useEmpireTheme();return <Text {...props} style={[styles.text,{color:colors.text,textAlign:direction==="rtl"?"right":"left",writingDirection:direction},style]}>{children}</Text>}
+export function MutedText(props:TextProps&{children?:ReactNode}){const {colors}=useEmpireTheme();return <AppText {...props} style={[{color:colors.muted},props.style]}/>}
+export function Card({children,style}:PropsWithChildren<{style?:ViewStyle}>){const {colors,radius}=useEmpireTheme();return <View style={[styles.card,{backgroundColor:colors.surface,borderColor:colors.border,borderRadius:Math.max(radius,18)},style]}>{children}</View>}
+export function PrimaryButton({label,onPress,disabled,loading}:{label:string;onPress():void;disabled?:boolean;loading?:boolean}){const {colors,radius}=useEmpireTheme();return <Pressable accessibilityRole="button" disabled={disabled||loading} onPress={onPress} style={({pressed})=>[styles.button,{backgroundColor:colors.primary,borderRadius:Math.min(radius,16),opacity:disabled||loading?.55:pressed?.8:1}]}>{loading?<ActivityIndicator color="#fff"/>:<Text style={styles.buttonText}>{label}</Text>}</Pressable>}
+export function SectionTitle({eyebrow,title,description}:{eyebrow?:string;title:string;description?:string}){const {colors}=useEmpireTheme();return <View style={styles.sectionTitle}>{eyebrow?<AppText style={[styles.eyebrow,{color:colors.primary}]}>{eyebrow}</AppText>:null}<AppText style={styles.heading}>{title}</AppText>{description?<MutedText style={styles.description}>{description}</MutedText>:null}</View>}
+export function LoadingState({label="Loading..."}:{label?:string}){const {colors}=useEmpireTheme();return <View style={styles.loading}><ActivityIndicator color={colors.primary} size="large"/><MutedText>{label}</MutedText></View>}
+export function ErrorState({message,onRetry}:{message:string;onRetry?:()=>void}){const {colors}=useEmpireTheme();return <Card><AppText style={[styles.errorTitle,{color:colors.danger}]}>حدث خطأ</AppText><MutedText>{message}</MutedText>{onRetry?<View style={styles.retry}><PrimaryButton label="إعادة المحاولة" onPress={onRetry}/></View>:null}</Card>}
+const styles=StyleSheet.create({safeArea:{flex:1},scrollContent:{flexGrow:1},screenContent:{flex:1,padding:18,gap:18,paddingBottom:36},text:{fontSize:16,lineHeight:24},card:{borderWidth:1,padding:18,gap:10,shadowColor:"#000",shadowOpacity:0.12,shadowRadius:18,shadowOffset:{width:0,height:10},elevation:2},button:{minHeight:50,alignItems:"center",justifyContent:"center",paddingHorizontal:18},buttonText:{color:"#fff",fontWeight:"800",fontSize:16},sectionTitle:{gap:6},eyebrow:{fontWeight:"900",fontSize:12,letterSpacing:1},heading:{fontSize:30,lineHeight:38,fontWeight:"900"},description:{fontSize:15,lineHeight:24},loading:{flex:1,minHeight:280,alignItems:"center",justifyContent:"center",gap:12},errorTitle:{fontWeight:"900",fontSize:18},retry:{marginTop:8}});
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/contexts/auth.tsx =====
+import type { Session } from "@supabase/supabase-js";
+import { createContext,useContext,useEffect,useMemo,useState } from "react";
+import { supabase } from "@/lib/supabase";
+interface AuthContextValue { session:Session|null; loading:boolean; signIn(email:string,password:string):Promise<void>; signUp(email:string,password:string):Promise<void>; signOut():Promise<void>; }
+const AuthContext=createContext<AuthContextValue|null>(null);
+export function AuthProvider({children}:{children:React.ReactNode}){const [session,setSession]=useState<Session|null>(null);const [loading,setLoading]=useState(true);useEffect(()=>{let mounted=true;supabase.auth.getSession().then(({data})=>{if(!mounted)return;setSession(data.session);setLoading(false);});const {data}=supabase.auth.onAuthStateChange((_event,nextSession)=>{setSession(nextSession);setLoading(false);});return()=>{mounted=false;data.subscription.unsubscribe();};},[]);const value=useMemo<AuthContextValue>(()=>({session,loading,async signIn(email,password){const {error}=await supabase.auth.signInWithPassword({email,password});if(error)throw error;},async signUp(email,password){const {error}=await supabase.auth.signUp({email,password});if(error)throw error;},async signOut(){const {error}=await supabase.auth.signOut();if(error)throw error;}}),[session,loading]);return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>}
+export function useAuth(){const value=useContext(AuthContext);if(!value)throw new Error("useAuth must be used inside AuthProvider");return value;}
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/contexts/empire.tsx =====
+import { createContext,useCallback,useContext,useEffect,useMemo,useState } from "react";
+import { appStorage } from "@/lib/app-storage";
+import { getBootstrap } from "@/lib/api";
+import type { BootstrapResponse,Direction } from "@/types/api";
+const LOCALE_KEY="web-empire-mobile-locale";
+interface EmpireContextValue { bootstrap:BootstrapResponse|null; loading:boolean; error:string|null; locale:string; direction:Direction; refresh():Promise<void>; setLocale(locale:string):Promise<void>; t(key:string,fallback:string):string; }
+const EmpireContext=createContext<EmpireContextValue|null>(null);
+export function EmpireProvider({children}:{children:React.ReactNode}){const [bootstrap,setBootstrap]=useState<BootstrapResponse|null>(null);const [loading,setLoading]=useState(true);const [error,setError]=useState<string|null>(null);const [requestedLocale,setRequestedLocale]=useState("auto");const load=useCallback(async(locale:string)=>{setLoading(true);setError(null);try{const data=await getBootstrap(locale);setBootstrap(data);setRequestedLocale(data.locale.code);await appStorage.setItem(LOCALE_KEY,data.locale.code);}catch(caught){setError(caught instanceof Error?caught.message:"BOOTSTRAP_FAILED");}finally{setLoading(false);}},[]);useEffect(()=>{appStorage.getItem(LOCALE_KEY).then(saved=>load(saved??"auto")).catch(()=>load("auto"));},[load]);const value=useMemo<EmpireContextValue>(()=>({bootstrap,loading,error,locale:bootstrap?.locale.code??requestedLocale,direction:bootstrap?.locale.direction??"ltr",refresh:()=>load(bootstrap?.locale.code??requestedLocale),async setLocale(locale){await load(locale)},t(key,fallback){return bootstrap?.messages[key]??fallback}}),[bootstrap,loading,error,requestedLocale,load]);return <EmpireContext.Provider value={value}>{children}</EmpireContext.Provider>}
+export function useEmpire(){const value=useContext(EmpireContext);if(!value)throw new Error("useEmpire must be used inside EmpireProvider");return value;}
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/contexts/theme.tsx =====
+import { createContext,useContext,useEffect,useMemo,useState } from "react";
+import { useColorScheme } from "react-native";
+import { EMPIRE_COLORS } from "@/brand/empire";
+import { useEmpire } from "@/contexts/empire";
+import { appStorage } from "@/lib/app-storage";
+import type { ColorMode } from "@/types/api";
+const MODE_KEY="web-empire-mobile-color-mode";
+export interface EmpireColors{background:string;surface:string;text:string;muted:string;primary:string;accent:string;border:string;danger:string;success:string;}
+interface ThemeContextValue{mode:ColorMode;resolvedMode:"light"|"dark";colors:EmpireColors;radius:number;setMode(mode:ColorMode):Promise<void>;}
+const ThemeContext=createContext<ThemeContextValue|null>(null);
+export function EmpireThemeProvider({children}:{children:React.ReactNode}){const systemMode=useColorScheme();const {bootstrap}=useEmpire();const [mode,setModeState]=useState<ColorMode>("system");useEffect(()=>{appStorage.getItem(MODE_KEY).then(value=>{if(value==="light"||value==="dark"||value==="system")setModeState(value);else if(bootstrap?.appearance.defaultColorMode)setModeState(bootstrap.appearance.defaultColorMode);});},[bootstrap?.appearance.defaultColorMode]);const value=useMemo<ThemeContextValue>(()=>{const appearance=bootstrap?.appearance;const resolvedMode=mode==="system"?(systemMode==="dark"?"dark":"light"):mode;const dark=resolvedMode==="dark";return{mode,resolvedMode,radius:appearance?.borderRadius??20,colors:{background:dark?appearance?.darkBackgroundColor??EMPIRE_COLORS.empireBlack:appearance?.backgroundColor??EMPIRE_COLORS.empireIvory,surface:dark?appearance?.darkSurfaceColor??EMPIRE_COLORS.darkSurface:appearance?.surfaceColor??EMPIRE_COLORS.lightSurface,text:dark?appearance?.darkInkColor??EMPIRE_COLORS.darkInk:appearance?.inkColor??EMPIRE_COLORS.lightInk,muted:dark?"#9FB0CA":"#667085",primary:appearance?.primaryColor??EMPIRE_COLORS.imperialViolet,accent:appearance?.accentColor??EMPIRE_COLORS.signalCyan,border:dark?"#1F2D44":"#DFE5EF",danger:EMPIRE_COLORS.danger,success:EMPIRE_COLORS.success},async setMode(nextMode){setModeState(nextMode);await appStorage.setItem(MODE_KEY,nextMode);}}},[bootstrap?.appearance,mode,systemMode]);return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>}
+export function useEmpireTheme(){const value=useContext(ThemeContext);if(!value)throw new Error("useEmpireTheme must be used inside EmpireThemeProvider");return value;}
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/lib/api.ts =====
+import { getLocales } from "expo-localization";
+import { mobileEnv } from "@/lib/env";
+import type { AccountResponse,BootstrapResponse,ToolDetail,ToolRunResponse } from "@/types/api";
+interface ApiOptions extends RequestInit { accessToken?:string|null; }
+async function apiFetch<T>(path:string,options:ApiOptions={}):Promise<T>{const {accessToken,headers,...requestOptions}=options;const locale=getLocales()[0]?.languageTag??"en";const response=await fetch(`${mobileEnv.apiUrl}${path}`,{...requestOptions,headers:{Accept:"application/json","Accept-Language":locale,...(accessToken?{Authorization:`Bearer ${accessToken}`}:{ }),...headers}});const payload=await response.json() as T&{error?:string};if(!response.ok)throw new Error(payload.error??`HTTP_${response.status}`);return payload;}
+export const getBootstrap=(locale:string)=>apiFetch<BootstrapResponse>(`/api/mobile/bootstrap?locale=${encodeURIComponent(locale)}`);
+export const getTool=(slug:string,locale:string)=>apiFetch<ToolDetail>(`/api/mobile/tools/${encodeURIComponent(slug)}?locale=${encodeURIComponent(locale)}`);
+export const runTool=(slug:string,locale:string,input:Record<string,unknown>,accessToken?:string|null)=>apiFetch<ToolRunResponse>(`/api/tools/${encodeURIComponent(slug)}/run`,{method:"POST",accessToken,headers:{"Content-Type":"application/json"},body:JSON.stringify({input,locale})});
+export const getAccount=(accessToken:string)=>apiFetch<AccountResponse>("/api/mobile/me",{accessToken});
+export const createCheckout=(planId:string,locale:string,accessToken:string)=>apiFetch<{url:string}>("/api/billing/checkout",{method:"POST",accessToken,headers:{"Content-Type":"application/json"},body:JSON.stringify({planId,locale})});
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/lib/app-storage.ts =====
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Platform } from "react-native";
+
+const memoryStorage = new Map<string, string>();
+
+function getBrowserStorage(): Storage | undefined {
+  if (Platform.OS !== "web" || typeof window === "undefined") return undefined;
+
+  try {
+    return window.localStorage;
+  } catch {
+    return undefined;
+  }
+}
+
+const webStorage = {
+  async getItem(key: string): Promise<string | null> {
+    return getBrowserStorage()?.getItem(key) ?? memoryStorage.get(key) ?? null;
+  },
+  async setItem(key: string, value: string): Promise<void> {
+    const storage = getBrowserStorage();
+    if (storage) storage.setItem(key, value);
+    else memoryStorage.set(key, value);
+  },
+  async removeItem(key: string): Promise<void> {
+    getBrowserStorage()?.removeItem(key);
+    memoryStorage.delete(key);
+  },
+};
+
+export const appStorage = Platform.OS === "web" ? webStorage : AsyncStorage;
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/lib/env.ts =====
+function firstDefined(...values: (string | undefined)[]): string | undefined {
+  return values.find((value) => value && value.trim().length > 0);
+}
+
+function required(name: string, value: string | undefined): string {
+  if (!value) throw new Error(`Missing mobile environment variable: ${name}`);
+  return value;
+}
+
+export const mobileEnv = {
+  apiUrl: firstDefined(process.env.EXPO_PUBLIC_API_URL, process.env.NEXT_PUBLIC_SITE_URL, "https://webempire.site")!.replace(/\/$/, ""),
+  get supabaseUrl() {
+    return required(
+      "EXPO_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_URL",
+      firstDefined(process.env.EXPO_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_URL),
+    );
+  },
+  get supabasePublishableKey() {
+    return required(
+      "EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY or NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+      firstDefined(
+        process.env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+        process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+      ),
+    );
+  },
+};
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/lib/release-notes.ts =====
+export interface ReleaseNotesEntry {
+  version: string;
+  channel: "preview" | "production";
+  title: string;
+  body: string;
+  required: boolean;
+}
+
+export const releaseNotes: ReleaseNotesEntry[] = [
+  {
+    version: "1.0.1",
+    channel: "preview",
+    title: "UI polish and update flow",
+    body: "Improved the mobile experience with stronger visual hierarchy, safer update checks, and more polished settings.",
+    required: false,
+  },
+  {
+    version: "1.0.0",
+    channel: "production",
+    title: "Web Empire mobile launch",
+    body: "Initial mobile release with secure session handling, tools, wallet, and settings.",
+    required: false,
+  },
+];
+
+export const currentReleaseNote = releaseNotes[0];
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/lib/secure-storage.ts =====
+import * as SecureStore from "expo-secure-store";
+import { Platform } from "react-native";
+
+const CHUNK_SIZE = 1800;
+const META_SUFFIX = "__meta";
+const memoryStorage = new Map<string, string>();
+
+const chunkKey = (key: string, index: number) => `${key}__chunk_${index}`;
+
+function getBrowserStorage(): Storage | undefined {
+  if (Platform.OS !== "web" || typeof window === "undefined") return undefined;
+
+  try {
+    return window.localStorage;
+  } catch {
+    return undefined;
+  }
+}
+
+const webStorage = {
+  async getItem(key: string): Promise<string | null> {
+    return getBrowserStorage()?.getItem(key) ?? memoryStorage.get(key) ?? null;
+  },
+  async setItem(key: string, value: string): Promise<void> {
+    const storage = getBrowserStorage();
+    if (storage) storage.setItem(key, value);
+    else memoryStorage.set(key, value);
+  },
+  async removeItem(key: string): Promise<void> {
+    getBrowserStorage()?.removeItem(key);
+    memoryStorage.delete(key);
+  },
+};
+
+async function readChunkCount(key: string): Promise<number> {
+  const raw = await SecureStore.getItemAsync(`${key}${META_SUFFIX}`);
+  const count = Number(raw ?? 0);
+  return Number.isInteger(count) && count > 0 ? count : 0;
+}
+
+async function clearChunks(key: string, count?: number): Promise<void> {
+  const chunkCount = count ?? await readChunkCount(key);
+  await Promise.all([
+    SecureStore.deleteItemAsync(`${key}${META_SUFFIX}`),
+    ...Array.from({ length: chunkCount }, (_, index) => SecureStore.deleteItemAsync(chunkKey(key, index))),
+  ]);
+}
+
+const nativeStorage = {
+  async getItem(key: string): Promise<string | null> {
+    const count = await readChunkCount(key);
+    if (!count) return SecureStore.getItemAsync(key);
+
+    const chunks = await Promise.all(
+      Array.from({ length: count }, (_, index) => SecureStore.getItemAsync(chunkKey(key, index))),
+    );
+    if (chunks.some((value) => value === null)) return null;
+    return chunks.join("");
+  },
+  async setItem(key: string, value: string): Promise<void> {
+    const previousCount = await readChunkCount(key);
+    await clearChunks(key, previousCount);
+    await SecureStore.deleteItemAsync(key);
+
+    if (value.length <= CHUNK_SIZE) {
+      await SecureStore.setItemAsync(key, value);
+      return;
+    }
+
+    const chunks = value.match(new RegExp(`.{1,${CHUNK_SIZE}}`, "gs")) ?? [];
+    await Promise.all(chunks.map((chunk, index) => SecureStore.setItemAsync(chunkKey(key, index), chunk)));
+    await SecureStore.setItemAsync(`${key}${META_SUFFIX}`, String(chunks.length));
+  },
+  async removeItem(key: string): Promise<void> {
+    await clearChunks(key);
+    await SecureStore.deleteItemAsync(key);
+  },
+};
+
+export const secureStorage = Platform.OS === "web" ? webStorage : nativeStorage;
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/lib/supabase.ts =====
+import "react-native-url-polyfill/auto";
+import { createClient } from "@supabase/supabase-js";
+import { mobileEnv } from "@/lib/env";
+import { secureStorage } from "@/lib/secure-storage";
+export const supabase=createClient(mobileEnv.supabaseUrl,mobileEnv.supabasePublishableKey,{auth:{storage:secureStorage,autoRefreshToken:true,persistSession:true,detectSessionInUrl:false}});
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/lib/updates.ts =====
+import * as Updates from "expo-updates";
+
+export interface ReleaseNote {
+  version: string;
+  channel: "preview" | "production";
+  title: string;
+  body: string;
+  required: boolean;
+}
+
+export async function checkForUpdates(): Promise<{ available: boolean; isUpdate: boolean; error?: string }> {
+  if (!Updates?.isEnabled) {
+    return { available: false, isUpdate: false, error: "Expo updates are disabled in this environment." };
+  }
+
+  try {
+    const update = await Updates.checkForUpdateAsync();
+    return { available: update.isAvailable, isUpdate: update.isAvailable };
+  } catch (error) {
+    return {
+      available: false,
+      isUpdate: false,
+      error: error instanceof Error ? error.message : "Unable to check for updates.",
+    };
+  }
+}
+
+export async function downloadAndApplyUpdate(): Promise<{ success: boolean; error?: string }> {
+  if (!Updates?.isEnabled) {
+    return { success: false, error: "Expo updates are disabled in this environment." };
+  }
+
+  try {
+    const update = await Updates.checkForUpdateAsync();
+    if (!update.isAvailable) {
+      return { success: false, error: "No update available." };
+    }
+
+    await Updates.fetchUpdateAsync();
+    await Updates.reloadAsync();
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Unable to install update.",
+    };
+  }
+}
+
+===== END FILE =====
+
+===== FILE: apps/mobile/src/types/api.ts =====
+export type JsonValue = string | number | boolean | null | JsonValue[] | { [key: string]: JsonValue };
+export type Direction = "rtl" | "ltr";
+export type ColorMode = "light" | "dark" | "system";
+export interface AppearanceSettings { presetKey:string; primaryColor:string; accentColor:string; backgroundColor:string; surfaceColor:string; inkColor:string; darkBackgroundColor:string; darkSurfaceColor:string; darkInkColor:string; borderRadius:number; defaultColorMode:ColorMode; fontPreset:string; }
+export interface LocaleSummary { code:string; localeCode:string; name:string; nativeName:string; direction:Direction; }
+export interface ToolSummary { id:string; slug:string; title:string; description:string; engineType:string; pricingMode:"free"|"fixed"|"dynamic"; fixedPoints:number; minimumPoints:number; requiresAuth:boolean; isFeatured:boolean; categoryId:string; }
+export interface CategorySummary { id:string; slug:string; name:string; description:string; icon:string; style_key:string; }
+export interface PlanSummary { id:string; slug:string; name:string; description:string; priceSar:number; monthlyCredits:number; dailyAiRuns:number|null; maxOutputTokens:number|null; }
+export interface BootstrapResponse { locale:{ id:string; code:string; locale_code:string; name:string; native_name:string; direction:Direction }; appearance:AppearanceSettings; locales:LocaleSummary[]; identity:{siteName:string;siteNameEn:string;tagline:string;homeSeoTitle:string;homeSeoDescription:string}; messages:Record<string,string>; categories:CategorySummary[]; tools:ToolSummary[]; plans:PlanSummary[]; }
+export interface ToolFieldOption { label:string; value:string; }
+export interface ToolInputField { key:string; label:string; type:"text"|"textarea"|"number"|"select"|"date"|"email"|"url"|"checkbox"; required?:boolean; placeholder?:string; helpText?:string; min?:number; max?:number; step?:number; maxLength?:number; defaultValue?:string|number|boolean; options?:ToolFieldOption[]; }
+export interface ToolDetail { id:string; slug:string; title:string; description:string; engineType:string; inputSchema:{submitLabel:string;fields:ToolInputField[]}; pricingMode:"free"|"fixed"|"dynamic"; fixedPoints:number; minimumPoints:number; requiresAuth:boolean; categoryId:string; }
+export interface ToolRunResponse { runId:string; title:string; text?:string; data?:JsonValue; creditsCharged:number; balanceAfter?:number; }
+export interface AccountResponse { user:{id:string;email:string|null}; wallet:{balance:number}; subscription:{status:string;current_period_start:string|null;current_period_end:string|null;cancel_at_period_end:boolean;plans:{id:string;slug:string;name_ar:string;name_en:string;monthly_credits:number}|{id:string;slug:string;name_ar:string;name_en:string;monthly_credits:number}[]|null}|null; runs:{id:string;status:string;credits_charged:number;created_at:string;tools:{slug:string;title_ar:string;title_en:string}|{slug:string;title_ar:string;title_en:string}[]|null}[]; }
+
+===== END FILE =====
+
+===== FILE: apps/mobile/tsconfig.json =====
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": { "@/*": ["./src/*"] }
+  },
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
+}
+
+===== END FILE =====
