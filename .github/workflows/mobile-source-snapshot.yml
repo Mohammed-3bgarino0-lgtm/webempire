@@ -1,0 +1,25 @@
+name: Mobile Source Snapshot
+
+on:
+  push:
+    branches:
+      - feat/v7-mobile-v1-2-identity
+
+permissions:
+  contents: read
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Upload mobile source
+        uses: actions/upload-artifact@v4
+        with:
+          name: webempire-mobile-source
+          path: apps/mobile
+          include-hidden-files: true
+          retention-days: 1
+          if-no-files-found: error
