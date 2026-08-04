@@ -84,6 +84,7 @@ jobs:
 
           run_check npm-install npm install || true
           if [ "$overall" -eq 0 ]; then
+            run_check audit-production npm audit --omit=dev --audit-level=high || true
             run_check typecheck npm run typecheck || true
             run_check lint npm run lint || true
             run_check expo-doctor npm run doctor || true
