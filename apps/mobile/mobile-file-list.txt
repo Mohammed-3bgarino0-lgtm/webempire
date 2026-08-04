@@ -24,6 +24,7 @@ apps/mobile/src/app/pricing.tsx
 apps/mobile/src/app/sign-in.tsx
 apps/mobile/src/app/tool/[slug].tsx
 apps/mobile/src/brand/empire.ts
+apps/mobile/src/components/brand-logo.tsx
 apps/mobile/src/components/tool-card.tsx
 apps/mobile/src/components/ui.tsx
 apps/mobile/src/contexts/auth.tsx
