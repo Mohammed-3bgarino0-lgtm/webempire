@@ -16,7 +16,7 @@ jobs:
   validate:
     if: ${{ !contains(github.event.head_commit.message, '[skip mobile validation]') }}
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -31,6 +31,27 @@ jobs:
           cache: npm
           cache-dependency-path: apps/mobile/package-lock.json
 
+      - name: Generate valid V1.2 native assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd apps/mobile
+          if ! command -v convert >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y imagemagick
+          fi
+
+          SOURCE="assets/images/web-empire-mark-v1.2.png"
+          test -f "$SOURCE"
+
+          convert "$SOURCE" -resize 720x720 -gravity center -background '#F4F8FD' -extent 1024x1024 PNG32:assets/images/icon.png
+          convert "$SOURCE" -resize 620x620 -gravity center -background none -extent 1024x1024 PNG32:assets/images/android-icon-foreground.png
+          convert "$SOURCE" -resize 620x620 -colorspace Gray -threshold 45% -gravity center -background none -extent 1024x1024 PNG32:assets/images/android-icon-monochrome.png
+          convert "$SOURCE" -resize 420x420 -gravity center -background none -extent 1024x1024 PNG32:assets/images/splash-icon.png
+          convert "$SOURCE" -resize 360x360 -gravity center -background '#F4F8FD' -extent 512x512 PNG32:assets/images/favicon.png
+
+          file assets/images/icon.png assets/images/android-icon-foreground.png assets/images/android-icon-monochrome.png assets/images/splash-icon.png assets/images/favicon.png
+
       - name: Validate mobile application
         shell: bash
         run: |
@@ -41,6 +62,7 @@ jobs:
           printf 'WEB EMPIRE MOBILE V1.2 VALIDATION\n' >> "$REPORT"
           printf 'COMMIT=%s\n' "$GITHUB_SHA" >> "$REPORT"
           printf 'RUN_AT=%s\n\n' "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "$REPORT"
+          overall=0
 
           run_check() {
             name="$1"
@@ -55,36 +77,44 @@ jobs:
               printf 'RESULT=PASS\n\n' >> "$REPORT"
             else
               printf 'RESULT=FAIL\n\n' >> "$REPORT"
+              overall=1
             fi
-            return 0
+            return "$code"
           }
 
-          run_check npm-ci npm ci
-          if grep -q '===== npm-ci =====' "$REPORT" && grep -A99999 '===== npm-ci =====' "$REPORT" | grep -q 'RESULT=PASS'; then
-            run_check typecheck npm run typecheck
-            run_check lint npm run lint
-            run_check expo-doctor npm run doctor
-            run_check export-android npm run export:android
+          run_check npm-install npm install || true
+          if [ "$overall" -eq 0 ]; then
+            run_check typecheck npm run typecheck || true
+            run_check lint npm run lint || true
+            run_check expo-doctor npm run doctor || true
+            run_check export-android npm run export:android || true
           else
             printf 'DEPENDENCY_INSTALL_FAILED=true\n' >> "$REPORT"
           fi
 
-          if grep -q 'RESULT=FAIL' "$REPORT"; then
-            printf '\nOVERALL=FAIL\n' >> "$REPORT"
-          else
+          if [ "$overall" -eq 0 ]; then
             printf '\nOVERALL=PASS\n' >> "$REPORT"
+          else
+            printf '\nOVERALL=FAIL\n' >> "$REPORT"
           fi
 
-      - name: Commit validation report
+      - name: Commit generated assets, lockfile, and report
         if: always()
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add apps/mobile/mobile-validation-result.txt
+          git add \
+            apps/mobile/assets/images/icon.png \
+            apps/mobile/assets/images/android-icon-foreground.png \
+            apps/mobile/assets/images/android-icon-monochrome.png \
+            apps/mobile/assets/images/splash-icon.png \
+            apps/mobile/assets/images/favicon.png \
+            apps/mobile/package-lock.json \
+            apps/mobile/mobile-validation-result.txt
           if git diff --cached --quiet; then
             exit 0
           fi
-          git commit -m "chore(mobile): record V1.2 validation [skip mobile validation]"
+          git commit -m "chore(mobile): record V1.2 validation assets [skip mobile validation]"
           git push origin HEAD:feat/v7-mobile-v1-2-identity
