@@ -180,7 +180,7 @@ module.exports = defineConfig([expoConfig, { ignores: ["dist/**", ".expo/**"] }]
 {
   "name": "@web-empire/mobile",
   "main": "expo-router/entry",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "start": "expo start",
