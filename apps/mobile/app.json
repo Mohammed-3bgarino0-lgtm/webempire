@@ -34,8 +34,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0,
       "enabled": true,
-      "checkAutomatically": "ON_LOAD",
-      "url": "https://u.expo.dev/14357042-04b3-4a69-9616-6754973c95f3"
+      "checkAutomatically": "ON_LOAD"
     },
     "plugins": [
       "expo-router",
@@ -68,11 +67,8 @@
       "reactCompiler": true
     },
     "extra": {
-      "router": {},
-      "eas": {
-        "projectId": "14357042-04b3-4a69-9616-6754973c95f3"
-      }
+      "router": {}
     },
-    "owner": "mohammedsk"
+    "owner": "3abgarino"
   }
 }
