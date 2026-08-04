@@ -1,12 +1,12 @@
 WEB EMPIRE MOBILE V1.2 VALIDATION
-COMMIT=4226533ce23874d9c533173f114963c222465539
-RUN_AT=2026-08-04T02:29:22Z
+COMMIT=65f448343a069477b58707002046c492b4d74f0d
+RUN_AT=2026-08-04T02:32:13Z
 
 ===== npm-install =====
 
-added 841 packages, and audited 842 packages in 27s
+added 842 packages, and audited 843 packages in 12s
 
-166 packages are looking for funding
+167 packages are looking for funding
   run `npm fund` for details
 
 1 high severity vulnerability
@@ -18,6 +18,24 @@ Run `npm audit` for details.
 
 EXIT_CODE=0
 RESULT=PASS
+
+===== audit-production =====
+# npm audit report
+
+brace-expansion  4.0.0 - 5.0.8
+Severity: high
+brace-expansion: DoS via unbounded expansion length causing an out-of-memory process crash - https://github.com/advisories/GHSA-mh99-v99m-4gvg
+brace-expansion: DoS via unbounded intermediate arrays, bypassing the CVE-2026-14257 mitigation - https://github.com/advisories/GHSA-rgw5-rvv9-x895
+fix available via `npm audit fix`
+node_modules/glob/node_modules/brace-expansion
+
+1 high severity vulnerability
+
+To address all issues, run:
+  npm audit fix
+
+EXIT_CODE=1
+RESULT=FAIL
 
 ===== typecheck =====
 
@@ -57,7 +75,7 @@ Using src/app as the root directory for Expo Router.
 React Compiler enabled
 Starting Metro Bundler
 
-Android Bundled 26183ms node_modules/expo-router/entry.js (1802 modules)
+Android Bundled 19379ms node_modules/expo-router/entry.js (1802 modules)
 
 › Assets (30):
 assets/images/web-empire-logo-ar-v1.2.png (112KB)
@@ -91,4 +109,4 @@ EXIT_CODE=0
 RESULT=PASS
 
 
-OVERALL=PASS
+OVERALL=FAIL
