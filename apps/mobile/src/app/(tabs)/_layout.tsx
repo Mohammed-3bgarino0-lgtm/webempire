@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import { type ColorValue, StyleSheet, Text, View } from "react-native";
 
 import { useEmpire } from "@/contexts/empire";
 import { useEmpireTheme } from "@/contexts/theme";
@@ -73,7 +73,7 @@ export default function TabsLayout() {
   );
 }
 
-function TabGlyph({ symbol, color, focused }: { symbol: string; color: string; focused: boolean }) {
+function TabGlyph({ symbol, color, focused }: { symbol: string; color: ColorValue; focused: boolean }) {
   const { colors } = useEmpireTheme();
 
   return (
