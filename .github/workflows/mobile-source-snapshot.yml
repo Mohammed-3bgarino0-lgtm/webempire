@@ -1,10 +1,11 @@
-name: Mobile Source Snapshot
+name: Mobile V1.2 Validation
 
 on:
   push:
     branches:
       - feat/v7-mobile-v1-2-identity
     paths-ignore:
+      - apps/mobile/mobile-validation-result.txt
       - apps/mobile/mobile-file-list.txt
       - apps/mobile/mobile-source-snapshot.txt
 
@@ -12,9 +13,10 @@ permissions:
   contents: write
 
 jobs:
-  snapshot:
-    if: ${{ !contains(github.event.head_commit.message, '[skip mobile snapshot]') }}
+  validate:
+    if: ${{ !contains(github.event.head_commit.message, '[skip mobile validation]') }}
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -22,38 +24,67 @@ jobs:
           ref: feat/v7-mobile-v1-2-identity
           fetch-depth: 0
 
-      - name: Generate mobile file list and source snapshot
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/mobile/package-lock.json
+
+      - name: Validate mobile application
         shell: bash
         run: |
-          set -euo pipefail
-          find apps/mobile -type f \
-            ! -path '*/node_modules/*' \
-            ! -path '*/.expo/*' \
-            ! -name 'package-lock.json' \
-            ! -name 'mobile-file-list.txt' \
-            ! -name 'mobile-source-snapshot.txt' \
-            | sort > apps/mobile/mobile-file-list.txt
+          set +e
+          cd apps/mobile
+          REPORT="mobile-validation-result.txt"
+          : > "$REPORT"
+          printf 'WEB EMPIRE MOBILE V1.2 VALIDATION\n' >> "$REPORT"
+          printf 'COMMIT=%s\n' "$GITHUB_SHA" >> "$REPORT"
+          printf 'RUN_AT=%s\n\n' "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "$REPORT"
 
-          : > apps/mobile/mobile-source-snapshot.txt
-          while IFS= read -r file; do
-            case "$file" in
-              *.ts|*.tsx|*.js|*.jsx|*.json|*.md|*.css|*.yml|*.yaml)
-                printf '\n===== FILE: %s =====\n' "$file" >> apps/mobile/mobile-source-snapshot.txt
-                cat "$file" >> apps/mobile/mobile-source-snapshot.txt
-                printf '\n===== END FILE =====\n' >> apps/mobile/mobile-source-snapshot.txt
-                ;;
-            esac
-          done < apps/mobile/mobile-file-list.txt
+          run_check() {
+            name="$1"
+            shift
+            log="/tmp/mobile-${name}.log"
+            printf '===== %s =====\n' "$name" >> "$REPORT"
+            "$@" > "$log" 2>&1
+            code=$?
+            cat "$log" >> "$REPORT"
+            printf '\nEXIT_CODE=%s\n' "$code" >> "$REPORT"
+            if [ "$code" -eq 0 ]; then
+              printf 'RESULT=PASS\n\n' >> "$REPORT"
+            else
+              printf 'RESULT=FAIL\n\n' >> "$REPORT"
+            fi
+            return 0
+          }
 
-      - name: Commit generated snapshot
+          run_check npm-ci npm ci
+          if grep -q '===== npm-ci =====' "$REPORT" && grep -A99999 '===== npm-ci =====' "$REPORT" | grep -q 'RESULT=PASS'; then
+            run_check typecheck npm run typecheck
+            run_check lint npm run lint
+            run_check expo-doctor npm run doctor
+            run_check export-android npm run export:android
+          else
+            printf 'DEPENDENCY_INSTALL_FAILED=true\n' >> "$REPORT"
+          fi
+
+          if grep -q 'RESULT=FAIL' "$REPORT"; then
+            printf '\nOVERALL=FAIL\n' >> "$REPORT"
+          else
+            printf '\nOVERALL=PASS\n' >> "$REPORT"
+          fi
+
+      - name: Commit validation report
+        if: always()
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add apps/mobile/mobile-file-list.txt apps/mobile/mobile-source-snapshot.txt
+          git add apps/mobile/mobile-validation-result.txt
           if git diff --cached --quiet; then
             exit 0
           fi
-          git commit -m "chore(mobile): refresh source snapshot [skip mobile snapshot]"
+          git commit -m "chore(mobile): record V1.2 validation [skip mobile validation]"
           git push origin HEAD:feat/v7-mobile-v1-2-identity
