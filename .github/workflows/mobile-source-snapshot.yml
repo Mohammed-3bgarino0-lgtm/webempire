@@ -4,25 +4,56 @@ on:
   push:
     branches:
       - feat/v7-mobile-v1-2-identity
-  pull_request:
-    branches:
-      - main
+    paths-ignore:
+      - apps/mobile/mobile-file-list.txt
+      - apps/mobile/mobile-source-snapshot.txt
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   snapshot:
+    if: ${{ !contains(github.event.head_commit.message, '[skip mobile snapshot]') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Upload mobile source
-        uses: actions/upload-artifact@v4
         with:
-          name: webempire-mobile-source
-          path: apps/mobile
-          include-hidden-files: true
-          retention-days: 1
-          if-no-files-found: error
+          ref: feat/v7-mobile-v1-2-identity
+          fetch-depth: 0
+
+      - name: Generate mobile file list and source snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          find apps/mobile -type f \
+            ! -path '*/node_modules/*' \
+            ! -path '*/.expo/*' \
+            ! -name 'package-lock.json' \
+            ! -name 'mobile-file-list.txt' \
+            ! -name 'mobile-source-snapshot.txt' \
+            | sort > apps/mobile/mobile-file-list.txt
+
+          : > apps/mobile/mobile-source-snapshot.txt
+          while IFS= read -r file; do
+            case "$file" in
+              *.ts|*.tsx|*.js|*.jsx|*.json|*.md|*.css|*.yml|*.yaml)
+                printf '\n===== FILE: %s =====\n' "$file" >> apps/mobile/mobile-source-snapshot.txt
+                cat "$file" >> apps/mobile/mobile-source-snapshot.txt
+                printf '\n===== END FILE =====\n' >> apps/mobile/mobile-source-snapshot.txt
+                ;;
+            esac
+          done < apps/mobile/mobile-file-list.txt
+
+      - name: Commit generated snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add apps/mobile/mobile-file-list.txt apps/mobile/mobile-source-snapshot.txt
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "chore(mobile): refresh source snapshot [skip mobile snapshot]"
+          git push origin HEAD:feat/v7-mobile-v1-2-identity
