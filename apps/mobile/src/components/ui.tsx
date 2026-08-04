@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  type StyleProp,
   type TextProps,
   View,
   type ViewStyle,
@@ -18,7 +19,7 @@ export function AppScreen({
   children,
   scroll = true,
   contentStyle,
-}: PropsWithChildren<{ scroll?: boolean; contentStyle?: ViewStyle }>) {
+}: PropsWithChildren<{ scroll?: boolean; contentStyle?: StyleProp<ViewStyle> }>) {
   const { colors } = useEmpireTheme();
   const content = <View style={[styles.screenContent, contentStyle]}>{children}</View>;
 
@@ -73,7 +74,7 @@ export function MutedText(props: TextProps & { children?: ReactNode }) {
   return <AppText {...props} style={[{ color: colors.muted }, props.style]} />;
 }
 
-export function Card({ children, style }: PropsWithChildren<{ style?: ViewStyle }>) {
+export function Card({ children, style }: PropsWithChildren<{ style?: StyleProp<ViewStyle> }>) {
   const { colors, radius, resolvedMode } = useEmpireTheme();
 
   return (
