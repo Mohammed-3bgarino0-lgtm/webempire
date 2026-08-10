@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { webEmpireLightAssets as assets } from "@/brand/web-empire-light-assets";
 import { translate } from "@/localization/messages";
 import { getActiveLocales, getLocaleByCode, getSiteIdentity, getUiMessages } from "@/localization/repository";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { getActiveCategories, getActivePlans, getActiveTools } from "@/repositories/catalog";
-import { webEmpireLightAssets as assets } from "@/brand/web-empire-light-assets";
 
 const copy = {
   ar: {
@@ -61,9 +62,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const featured = (tools.filter((tool) => tool.is_featured).length ? tools.filter((tool) => tool.is_featured) : tools).slice(0, 6);
   const visibleCategories = categories.slice(0, 8);
   const visiblePlans = plans.slice(0, 3);
+  const websiteSchema = websiteJsonLd(locale.locale_code);
+  const organizationSchema = organizationJsonLd();
 
   return (
     <main className="we-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
+
       <section className="we-hero">
         <div className="we-container we-hero-grid">
           <div className="we-hero-visual we-brand-hero-visual" aria-hidden="true">
