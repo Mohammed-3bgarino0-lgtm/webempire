@@ -1,0 +1,120 @@
+name: AdSense Readiness
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/adsense-readiness.yml"
+      - "public/ads.txt"
+      - "src/app/(public)/**"
+      - "src/app/robots.txt/**"
+      - "src/app/sitemap.xml/**"
+      - "src/repositories/blog.ts"
+      - "src/lib/tool-editorial-*.ts"
+      - "src/content/blog/**"
+      - "scripts/verify-adsense-readiness.mts"
+      - "package.json"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/adsense-readiness.yml"
+      - "public/ads.txt"
+      - "src/app/(public)/**"
+      - "src/app/robots.txt/**"
+      - "src/app/sitemap.xml/**"
+      - "src/repositories/blog.ts"
+      - "src/lib/tool-editorial-*.ts"
+      - "src/content/blog/**"
+      - "scripts/verify-adsense-readiness.mts"
+      - "package.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify AdSense readiness
+        run: npm run verify:adsense
+
+      - name: Verify editorial quality
+        run: npm run verify:editorial
+
+      - name: Verify SEO quality
+        run: npm run verify:seo
+
+      - name: Typecheck
+        run: npm run typecheck
+
+  production-smoke:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: readiness
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - name: Wait for production revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="https://webempire.site"
+          REVISION="adsense-ready-2026-08-10-v1"
+          found=""
+          for attempt in $(seq 1 30); do
+            body="$(curl -fsSL --max-time 20 "$BASE/ar?content_revision=$REVISION&attempt=$attempt" || true)"
+            if printf '%s' "$body" | grep -q 'webempire-content-revision' && printf '%s' "$body" | grep -q "$REVISION"; then
+              found="yes"
+              break
+            fi
+            echo "Production revision not visible yet (attempt $attempt/30)."
+            sleep 20
+          done
+          test "$found" = "yes"
+
+      - name: Verify live AdSense and trust endpoints
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="https://webempire.site"
+
+          home="$(curl -fsSL --max-time 20 "$BASE/ar?adsense_smoke=1")"
+          blog="$(curl -fsSL --max-time 20 "$BASE/ar/blog?adsense_smoke=1")"
+          about="$(curl -fsSL --max-time 20 "$BASE/ar/about?adsense_smoke=1")"
+          editorial="$(curl -fsSL --max-time 20 "$BASE/ar/editorial-policy?adsense_smoke=1")"
+          ads="$(curl -fsSL --max-time 20 "$BASE/ads.txt" | tr -d '\r')"
+          robots="$(curl -fsSL --max-time 20 "$BASE/robots.txt")"
+          sitemap="$(curl -fsSL --max-time 20 "$BASE/sitemap.xml")"
+
+          printf '%s' "$home" | grep -q 'google-adsense-account'
+          printf '%s' "$home" | grep -q 'ca-pub-4001237202734263'
+          ! printf '%s' "$home" | grep -q '99.9%'
+          ! printf '%s' "$home" | grep -q '10,000'
+          ! printf '%s' "$home" | grep -q 'موثوق من قبل آلاف المستخدمين'
+
+          printf '%s' "$blog" | grep -q 'مدونة إمبراطورية الويب'
+          ! printf '%s' "$blog" | grep -q '>قريبًا<'
+          printf '%s' "$about" | grep -q 'من نحن'
+          printf '%s' "$editorial" | grep -q 'السياسة التحريرية'
+
+          test "$ads" = 'google.com, pub-4001237202734263, DIRECT, f08c47fec0942fa0'
+          printf '%s' "$robots" | grep -q 'Sitemap: https://webempire.site/sitemap.xml'
+          ! printf '%s' "$robots" | grep -q 'Disallow: /ads'
+          printf '%s' "$sitemap" | grep -q 'https://webempire.site/ar/about'
+          printf '%s' "$sitemap" | grep -q 'https://webempire.site/ar/editorial-policy'
+          printf '%s' "$sitemap" | grep -q 'https://webempire.site/ar/blog'
+
+          echo 'Production AdSense smoke check: PASS'
