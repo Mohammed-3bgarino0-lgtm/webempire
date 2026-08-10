@@ -13,6 +13,8 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
+  if (locale !== "ar") return { robots: { index: false, follow: true } };
+
   const post = await getBlogPostBySlug(decodeURIComponent(slug));
   if (!post) return {};
 
@@ -20,7 +22,7 @@ export async function generateMetadata({
     title: post.title,
     description: post.description,
     keywords: [post.primary_keyword, post.category, post.intent].filter(Boolean),
-    alternates: { canonical: `/${locale}/blog/${post.slug}` },
+    alternates: { canonical: `/ar/blog/${post.slug}` },
     openGraph: {
       type: "article",
       title: post.title,
@@ -39,15 +41,14 @@ export default async function BlogPostPage({
 }) {
   const { locale: localeCode, slug } = await params;
   const locale = await getLocaleByCode(localeCode);
-  if (!locale) notFound();
+  if (!locale || locale.code !== "ar") notFound();
 
   const post = await getBlogPostBySlug(decodeURIComponent(slug));
   if (!post) notFound();
   const related = await getRelatedBlogPosts(post.related_slugs);
   const prefix = `/${locale.code}`;
-  const adLabel = locale.direction === "rtl" ? "إعلان" : "Ad";
-  const placeholderText =
-    locale.direction === "rtl" ? "مساحة إعلانية" : "Advertising space";
+  const adLabel = "إعلان";
+  const placeholderText = "مساحة إعلانية";
   const articleHtml = injectAdsIntoArticleHtml(post.body_html, {
     label: adLabel,
     placeholderText,
@@ -61,6 +62,7 @@ export default async function BlogPostPage({
     description: post.description,
     datePublished: post.publish_date,
     author: { "@type": "Organization", name: post.author },
+    publisher: { "@type": "Organization", name: "Web Empire" },
     image: post.cover_url,
     mainEntityOfPage: `https://webempire.site${prefix}/blog/${post.slug}`,
   };
