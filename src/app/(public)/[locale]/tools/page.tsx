@@ -99,11 +99,19 @@ export default async function ToolsPage({
     getActiveCategories(locale.code),
   ]);
 
+  // During the AdSense-quality phase, public discovery is intentionally limited
+  // to tools that have formula logic plus sufficiently detailed editorial copy.
+  // Other active tools remain available to authenticated/product workflows, but
+  // they are not promoted from the crawlable public library until reviewed.
+  const publicTools = tools.filter(isEditoriallyIndexableTool);
+  const publicCategoryIds = new Set(publicTools.map((tool) => tool.category_id));
+  const publicCategories = categories.filter((category) => publicCategoryIds.has(category.id));
+
   const categoryMap = new Map(
-    categories.map((category) => [category.id, category.name]),
+    publicCategories.map((category) => [category.id, category.name]),
   );
 
-  const explorerCategories: ToolExplorerCategory[] = categories.map(
+  const explorerCategories: ToolExplorerCategory[] = publicCategories.map(
     (category) => ({
       id: category.id,
       slug: category.slug,
@@ -113,7 +121,7 @@ export default async function ToolsPage({
     }),
   );
 
-  const explorerTools: ToolExplorerItem[] = tools.map((tool, index) => ({
+  const explorerTools: ToolExplorerItem[] = publicTools.map((tool, index) => ({
     slug: tool.slug,
     title: tool.title,
     description: tool.localizedDescription,
@@ -129,7 +137,7 @@ export default async function ToolsPage({
     order: index,
   }));
 
-  const validCategory = categories.some(
+  const validCategory = publicCategories.some(
     (category) => category.slug === query?.category,
   )
     ? query?.category
@@ -141,7 +149,6 @@ export default async function ToolsPage({
     { name: t.home, path: prefix },
     { name: t.tools, path: `${prefix}/tools` },
   ]);
-  const indexableTools = tools.filter(isEditoriallyIndexableTool).slice(0, 30);
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -151,7 +158,7 @@ export default async function ToolsPage({
     inLanguage: locale.locale_code,
     mainEntity: {
       "@type": "ItemList",
-      itemListElement: indexableTools.map((tool, index) => ({
+      itemListElement: publicTools.slice(0, 30).map((tool, index) => ({
         "@type": "ListItem",
         position: index + 1,
         name: tool.title,
