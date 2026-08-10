@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "verify:editorial": "node --experimental-strip-types scripts/verify-editorial-quality.mts",
     "verify:seo": "node --experimental-strip-types scripts/verify-seo.mts",
+    "verify:adsense": "node --experimental-strip-types scripts/verify-adsense-readiness.mts",
     "mobile:install": "npm --prefix apps/mobile ci",
     "mobile:start": "npm --prefix apps/mobile start",
     "mobile:typecheck": "npm --prefix apps/mobile run typecheck",
