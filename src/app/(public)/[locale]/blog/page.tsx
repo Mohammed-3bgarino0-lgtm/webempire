@@ -16,6 +16,10 @@ const copy = {
     description: "أدلة عملية محررة يدويًا عن الأدوات والحسابات والإنتاجية، مع أمثلة قابلة للتحقق وحدود واضحة لكل موضوع.",
     kicker: "المعرفة التي تتحول إلى عمل",
     intro: "أدلة عملية نراجعها قبل النشر، مع أمثلة قابلة لإعادة الحساب وروابط إلى الأدوات ذات الصلة.",
+    reviewTitle: "مكتبة صغيرة ومراجعة بدل آلاف الصفحات المتشابهة",
+    reviewBody: "ننشر هنا فقط المقالات التي أعيدت كتابتها ومراجعتها يدويًا. نتحقق من الأمثلة الحسابية، نحذف الادعاءات غير الموثقة، ونوضح حدود كل دليل قبل إضافته إلى الفهرس.",
+    editorialPolicy: "كيف نراجع المحتوى",
+    about: "عن إمبراطورية الويب",
     articles: "المقالات",
     read: "اقرأ المقال",
     ad: "إعلان",
@@ -30,6 +34,10 @@ const copy = {
     description: "Web Empire editorial guides. The English library is being rebuilt with manually reviewed, source-aware content.",
     kicker: "Reviewed practical guidance",
     intro: "We are rebuilding the English editorial library. We publish only reviewed guides instead of automatically generated near-duplicate articles.",
+    reviewTitle: "A smaller reviewed library instead of thousands of similar pages",
+    reviewBody: "Only manually rewritten and reviewed articles are public here. We check calculation examples, remove unsupported claims, and state the limits of each guide before it is indexed.",
+    editorialPolicy: "How we review content",
+    about: "About Web Empire",
     articles: "Articles",
     read: "Read article",
     ad: "Ad",
@@ -88,6 +96,27 @@ export default async function BlogPage({
         <h1>{t.title}</h1>
         <p>{t.intro}</p>
       </section>
+
+      <aside
+        className="we-container"
+        style={{
+          marginBottom: "clamp(22px, 4vw, 38px)",
+          padding: "clamp(18px, 3vw, 26px)",
+          border: "1px solid var(--we-v12-line, #e5ebf3)",
+          borderRadius: 20,
+          background: "var(--we-v12-surface, #fff)",
+          boxShadow: "0 14px 38px rgba(15, 23, 42, 0.045)",
+        }}
+      >
+        <h2 style={{ margin: 0, fontSize: "clamp(1.08rem, 2vw, 1.35rem)" }}>{t.reviewTitle}</h2>
+        <p style={{ margin: "10px 0 14px", lineHeight: 1.85, color: "var(--we-v12-muted, #66758a)" }}>
+          {t.reviewBody}
+        </p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 14 }}>
+          <Link href={`${prefix}/editorial-policy`} className="empire-section-link">{t.editorialPolicy}</Link>
+          <Link href={`${prefix}/about`} className="empire-section-link">{t.about}</Link>
+        </div>
+      </aside>
 
       <section className="we-container we-blog-grid" aria-label={t.articles}>
         {posts.map((post, index) => (

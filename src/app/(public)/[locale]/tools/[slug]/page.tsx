@@ -12,7 +12,8 @@ import {
   getLocaleByCode,
   getUiMessages,
 } from "@/localization/repository";
-import { getToolEditorialContent, isEditoriallyIndexableTool } from "@/lib/tool-editorial-content";
+import { getEnhancedToolEditorialContent } from "@/lib/tool-editorial-enhancements";
+import { isEditoriallyIndexableTool } from "@/lib/tool-editorial-content";
 import { getToolBySlug } from "@/repositories/catalog";
 
 import styles from "./tool-detail.module.css";
@@ -148,7 +149,7 @@ export default async function ToolPage({
 
   const isArabic = locale.code === "ar";
   const t = isArabic ? copy.ar : copy.en;
-  const editorial = getToolEditorialContent(tool);
+  const editorial = getEnhancedToolEditorialContent(tool);
 
   const pricing =
     tool.pricing_mode === "free"
