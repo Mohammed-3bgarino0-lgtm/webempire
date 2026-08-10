@@ -25,40 +25,63 @@ export type BlogPost = BlogPostSummary & {
 };
 
 const contentRoot = path.join(process.cwd(), "src", "content", "blog");
-let indexPromise: Promise<BlogPostSummary[]> | null = null;
 
-async function readIndex(): Promise<BlogPostSummary[]> {
-  indexPromise ??= fs
-    .readFile(path.join(contentRoot, "index.json"), "utf8")
-    .then((source) => JSON.parse(source) as BlogPostSummary[]);
-  return indexPromise;
-}
+// Only posts that have received a manual editorial rewrite are public.
+// The legacy generated library remains in the repository for archival purposes,
+// but it is not listed or routable until a post is explicitly approved here.
+const editorialApprovedIds = [36, 40] as const;
+let editorialPromise: Promise<BlogPost[]> | null = null;
 
 function isReleased(post: BlogPostSummary) {
   return post.publish_date <= new Date().toISOString().slice(0, 10);
 }
 
+async function readEditorialPosts(): Promise<BlogPost[]> {
+  editorialPromise ??= Promise.all(
+    editorialApprovedIds.map(async (id) => {
+      const source = await fs.readFile(
+        path.join(contentRoot, "posts", `article-${String(id).padStart(4, "0")}.json`),
+        "utf8",
+      );
+      return JSON.parse(source) as BlogPost;
+    }),
+  );
+  return editorialPromise;
+}
+
+function toSummary(post: BlogPost): BlogPostSummary {
+  const {
+    primary_keyword: _primaryKeyword,
+    intent: _intent,
+    body_html: _bodyHtml,
+    related_slugs: _relatedSlugs,
+    ...summary
+  } = post;
+  return summary;
+}
+
 export async function getBlogPosts(page = 1, pageSize = 12) {
-  const released = (await readIndex())
+  const released = (await readEditorialPosts())
     .filter(isReleased)
     .sort((a, b) => b.publish_date.localeCompare(a.publish_date) || b.id - a.id);
   const from = Math.max(0, page - 1) * pageSize;
-  return { posts: released.slice(from, from + pageSize), count: released.length };
+  return {
+    posts: released.slice(from, from + pageSize).map(toSummary),
+    count: released.length,
+  };
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
-  const index = await readIndex();
-  const summary = index.find((post) => post.slug === slug && isReleased(post));
-  if (!summary) return null;
-  const source = await fs.readFile(
-    path.join(contentRoot, "posts", `article-${String(summary.id).padStart(4, "0")}.json`),
-    "utf8",
+  const post = (await readEditorialPosts()).find(
+    (item) => item.slug === slug && isReleased(item),
   );
-  return JSON.parse(source) as BlogPost;
+  return post ?? null;
 }
 
 export async function getRelatedBlogPosts(slugs: string[]) {
   if (!slugs.length) return [];
   const wanted = new Set(slugs);
-  return (await readIndex()).filter((post) => wanted.has(post.slug) && isReleased(post));
+  return (await readEditorialPosts())
+    .filter((post) => wanted.has(post.slug) && isReleased(post))
+    .map(toSummary);
 }
