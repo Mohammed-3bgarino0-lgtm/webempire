@@ -5,6 +5,7 @@ import { webEmpireLightAssets as assets } from "@/brand/web-empire-light-assets"
 import { translate } from "@/localization/messages";
 import { getActiveLocales, getLocaleByCode, getSiteIdentity, getUiMessages } from "@/localization/repository";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
+import { isEditoriallyIndexableTool } from "@/lib/tool-editorial-content";
 import { getActiveCategories, getActivePlans, getActiveTools } from "@/repositories/catalog";
 
 const copy = {
@@ -15,7 +16,7 @@ const copy = {
     start: "ابدأ الآن مجانًا",
     explore: "استكشف الأدوات",
     search: "ابحث عن أداة أو حل...",
-    stats: ["أمثلة وشروحات قابلة للتحقق", "لغات نشطة", "تكلفة الخطة المجانية", "أداة مميزة", "أداة ونموذج جاهز", "مراجعة تحريرية مستمرة"],
+    stats: ["أمثلة وشروحات قابلة للتحقق", "لغات نشطة", "تكلفة الخطة المجانية", "أداة مميزة", "أداة عامة مراجعة", "مراجعة تحريرية مستمرة"],
     featured: "أدوات مميزة",
     categories: "تصفح حسب التصنيف",
     dashboard: "لمحة من لوحة التحكم",
@@ -29,7 +30,7 @@ const copy = {
     start: "Start free",
     explore: "Explore tools",
     search: "Search for a tool or solution...",
-    stats: ["Checkable examples and guidance", "active languages", "Free plan cost", "featured tools", "ready tools and templates", "Ongoing editorial review"],
+    stats: ["Checkable examples and guidance", "active languages", "Free plan cost", "featured tools", "reviewed public tools", "Ongoing editorial review"],
     featured: "Featured tools",
     categories: "Browse by category",
     dashboard: "Dashboard preview",
@@ -58,8 +59,13 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
   const t = locale.code === "ar" ? copy.ar : copy.en;
   const prefix = `/${locale.code}`;
-  const featured = (tools.filter((tool) => tool.is_featured).length ? tools.filter((tool) => tool.is_featured) : tools).slice(0, 6);
-  const visibleCategories = categories.slice(0, 8);
+  const publicTools = tools.filter(isEditoriallyIndexableTool);
+  const featuredCandidates = publicTools.filter((tool) => tool.is_featured);
+  const featured = (featuredCandidates.length ? featuredCandidates : publicTools).slice(0, 6);
+  const publicCategoryIds = new Set(publicTools.map((tool) => tool.category_id));
+  const visibleCategories = categories
+    .filter((category) => publicCategoryIds.has(category.id))
+    .slice(0, 8);
   const visiblePlans = plans.slice(0, 3);
   const websiteSchema = websiteJsonLd(locale.locale_code);
   const organizationSchema = organizationJsonLd();
@@ -104,7 +110,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <div><strong>{locales.length}</strong><small>{t.stats[1]}</small></div>
           <div><strong>0</strong><small>{t.stats[2]}</small></div>
           <div><strong>+{featured.length}</strong><small>{t.stats[3]}</small></div>
-          <div><strong>{tools.length}+</strong><small>{t.stats[4]}</small></div>
+          <div><strong>{publicTools.length}</strong><small>{t.stats[4]}</small></div>
           <div><strong>↻</strong><small>{t.stats[5]}</small></div>
         </div>
       </section>
