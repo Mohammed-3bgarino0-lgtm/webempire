@@ -5,6 +5,8 @@ import type { LocaleRecord, SiteIdentity, UiMessages } from "@/localization/type
 const footerLabels = {
   ar: {
     rights: "جميع الحقوق محفوظة.",
+    about: "من نحن",
+    editorial: "السياسة التحريرية",
     privacy: "سياسة الخصوصية",
     terms: "الشروط والأحكام",
     help: "الدعم والمساعدة",
@@ -12,6 +14,8 @@ const footerLabels = {
   },
   en: {
     rights: "All rights reserved.",
+    about: "About",
+    editorial: "Editorial policy",
     privacy: "Privacy policy",
     terms: "Terms",
     help: "Support",
@@ -34,7 +38,7 @@ export function SiteFooter({
   return (
     <footer className="we-footer">
       <div className="we-container we-footer-inner">
-        <div className="we-footer-social">
+        <div className="we-footer-social" aria-hidden="true">
           <span>𝕏</span>
           <span>in</span>
           <span>◎</span>
@@ -42,6 +46,8 @@ export function SiteFooter({
         </div>
 
         <nav className="we-footer-links" aria-label="Footer">
+          <Link href={`${prefix}/about`}>{t.about}</Link>
+          <Link href={`${prefix}/editorial-policy`}>{t.editorial}</Link>
           <Link href={`${prefix}/terms`}>{t.terms}</Link>
           <Link href={`${prefix}/privacy`}>{t.privacy}</Link>
           <Link href={`${prefix}/contact`}>{t.contact}</Link>
