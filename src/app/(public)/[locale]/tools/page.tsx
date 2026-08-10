@@ -7,8 +7,8 @@ import {
 } from "@/components/tools/tools-explorer";
 import type { ToolExplorerItem } from "@/components/tools/tool-card";
 import { getActiveLocales, getLocaleByCode } from "@/localization/repository";
-import { isEditoriallyIndexableTool } from "@/lib/tool-editorial-content";
 import { absoluteUrl, breadcrumbJsonLd, SEO_LOGO_PATH } from "@/lib/seo";
+import { isEditoriallyIndexableTool } from "@/lib/tool-editorial-content";
 import { getActiveCategories, getActiveTools } from "@/repositories/catalog";
 
 const metadataCopy = {
@@ -26,16 +26,18 @@ const metadataCopy = {
   },
 } as const;
 
+type ToolSearchParams = { category?: string; q?: string };
+
 export async function generateMetadata({
   params,
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams?: Promise<{ category?: string; q?: string }>;
+  searchParams?: Promise<ToolSearchParams>;
 }): Promise<Metadata> {
   const [{ locale }, query, activeLocales] = await Promise.all([
     params,
-    searchParams ?? Promise.resolve({}),
+    searchParams ?? Promise.resolve({} as ToolSearchParams),
     getActiveLocales(),
   ]);
   const t = locale === "ar" ? metadataCopy.ar : metadataCopy.en;
@@ -45,7 +47,17 @@ export async function generateMetadata({
   return {
     title: t.title,
     description: t.description,
-    robots: hasFilter ? { index: false, follow: true } : { index: true, follow: true },
+    robots: {
+      index: !hasFilter,
+      follow: true,
+      googleBot: {
+        index: !hasFilter,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
     alternates: {
       canonical,
       languages: Object.fromEntries([
@@ -74,7 +86,7 @@ export default async function ToolsPage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams?: Promise<{ category?: string; q?: string }>;
+  searchParams?: Promise<ToolSearchParams>;
 }) {
   const { locale: localeCode } = await params;
   const query = await searchParams;
