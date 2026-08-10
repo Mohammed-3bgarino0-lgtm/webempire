@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 
 import { AdSenseSlot } from "@/components/adsense-slot";
 import { getLocaleByCode } from "@/localization/repository";
+import { absoluteUrl, breadcrumbJsonLd, SEO_LOGO_PATH } from "@/lib/seo";
 import { getBlogPosts } from "@/repositories/blog";
 
 const pageSize = 12;
@@ -28,6 +29,8 @@ const copy = {
     emptyBody: "أوقفنا نشر المقالات الآلية المتشابهة، وتظهر هنا فقط المقالات التي اجتازت المراجعة التحريرية.",
     previous: "السابق",
     next: "التالي",
+    home: "الرئيسية",
+    blog: "المدونة",
   },
   en: {
     title: "Web Empire Blog",
@@ -46,21 +49,52 @@ const copy = {
     emptyBody: "For now, our reviewed articles are available in Arabic. English articles will appear here only after manual editorial review.",
     previous: "Previous",
     next: "Next",
+    home: "Home",
+    blog: "Blog",
   },
 } as const;
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ page?: string }>;
 }): Promise<Metadata> {
-  const { locale } = await params;
+  const [{ locale }, query] = await Promise.all([params, searchParams]);
   const t = locale === "ar" ? copy.ar : copy.en;
+  const page = Math.max(1, Number(query.page) || 1);
+  const canonical = page > 1 ? `/${locale}/blog?page=${page}` : `/${locale}/blog`;
+  const indexable = locale === "ar";
+
   return {
-    title: t.title,
+    title: page > 1 ? `${t.title} - ${page}` : t.title,
     description: t.description,
-    alternates: { canonical: `/${locale}/blog` },
-    robots: locale === "ar" ? { index: true, follow: true } : { index: false, follow: true },
+    alternates: { canonical },
+    robots: {
+      index: indexable,
+      follow: true,
+      googleBot: {
+        index: indexable,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
+    openGraph: {
+      type: "website",
+      title: page > 1 ? `${t.title} - ${page}` : t.title,
+      description: t.description,
+      url: canonical,
+      images: [{ url: SEO_LOGO_PATH, width: 768, height: 682, alt: "Web Empire" }],
+    },
+    twitter: {
+      card: "summary",
+      title: page > 1 ? `${t.title} - ${page}` : t.title,
+      description: t.description,
+      images: [SEO_LOGO_PATH],
+    },
   };
 }
 
@@ -88,9 +122,36 @@ export default async function BlogPage({
   const isProduction = process.env.VERCEL_ENV === "production";
   const blogFeedAdsLive = isProduction && /^\d+$/.test(blogFeedSlot ?? "");
   const showBlogFeedPlacement = !isProduction || blogFeedAdsLive;
+  const canonicalPath = page > 1 ? `${prefix}/blog?page=${page}` : `${prefix}/blog`;
+  const breadcrumbSchema = breadcrumbJsonLd([
+    { name: t.home, path: prefix },
+    { name: t.blog, path: `${prefix}/blog` },
+  ]);
+  const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: page > 1 ? `${t.title} - ${page}` : t.title,
+    description: t.description,
+    url: absoluteUrl(canonicalPath),
+    inLanguage: locale.locale_code,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: posts.map((post, index) => ({
+        "@type": "ListItem",
+        position: (page - 1) * pageSize + index + 1,
+        name: post.title,
+        url: absoluteUrl(`${prefix}/blog/${post.slug}`),
+      })),
+    },
+  };
 
   return (
     <main className="we-page we-blog-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      {isArabic ? (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
+      ) : null}
+
       <section className="we-container we-blog-hero">
         <p className="we-simple-kicker">{t.kicker}</p>
         <h1>{t.title}</h1>
@@ -164,9 +225,9 @@ export default async function BlogPage({
 
       {pages > 1 ? (
         <nav className="we-container we-blog-pagination" aria-label={t.articles}>
-          {page > 1 ? <Link href={`${prefix}/blog?page=${page - 1}`}>{t.previous}</Link> : <span />}
+          {page > 1 ? <Link rel="prev" href={`${prefix}/blog?page=${page - 1}`}>{t.previous}</Link> : <span />}
           <strong>{page} / {pages}</strong>
-          {page < pages ? <Link href={`${prefix}/blog?page=${page + 1}`}>{t.next}</Link> : <span />}
+          {page < pages ? <Link rel="next" href={`${prefix}/blog?page=${page + 1}`}>{t.next}</Link> : <span />}
         </nav>
       ) : null}
     </main>

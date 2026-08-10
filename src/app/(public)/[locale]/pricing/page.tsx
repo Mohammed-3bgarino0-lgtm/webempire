@@ -1,17 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { PaddlePricingButton } from "@/components/billing/paddle-pricing-button";
-
 import { webEmpireLightAssets } from "@/brand/web-empire-light-assets";
+import { PaddlePricingButton } from "@/components/billing/paddle-pricing-button";
 import { translate } from "@/localization/messages";
-import { getLocaleByCode, getUiMessages } from "@/localization/repository";
+import { getActiveLocales, getLocaleByCode, getUiMessages } from "@/localization/repository";
+import { breadcrumbJsonLd, SEO_LOGO_PATH } from "@/lib/seo";
 import { getActivePlans } from "@/repositories/catalog";
 
 const labels = {
   ar: {
     title: "خطط واضحة لنمو أعمالك",
     body: "اختر الباقة التي تناسب حجم العمل لديك وابدأ تشغيل أدوات Web Empire بكفاءة أعلى.",
+    seoDescription: "قارن خطط إمبراطورية الويب وعدد النقاط ووصول الأدوات وسجل التشغيل والدعم، ثم اختر الباقة المناسبة لطريقة استخدامك.",
     monthly: "شهريًا",
     start: "ابدأ الآن",
     choose: "اختر الباقة",
@@ -30,10 +32,13 @@ const labels = {
     allTools: "جميع الأدوات",
     unlimited: "غير محدود",
     feature: "الميزة",
+    home: "الرئيسية",
+    pricing: "الخطط والأسعار",
   },
   en: {
     title: "Clear plans for real growth",
     body: "Pick a plan that matches your workload and run Web Empire tools with stronger capacity.",
+    seoDescription: "Compare Web Empire plans, credits, tool access, run history, and support options to choose the plan that fits your workload.",
     monthly: "monthly",
     start: "Start now",
     choose: "Choose plan",
@@ -52,8 +57,42 @@ const labels = {
     allTools: "All tools",
     unlimited: "Unlimited",
     feature: "Feature",
+    home: "Home",
+    pricing: "Pricing",
   },
 };
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const [activeLocales] = await Promise.all([getActiveLocales()]);
+  const t = locale === "ar" ? labels.ar : labels.en;
+  const canonical = `/${locale}/pricing`;
+
+  return {
+    title: t.pricing,
+    description: t.seoDescription,
+    alternates: {
+      canonical,
+      languages: Object.fromEntries([
+        ...activeLocales.map((item) => [item.locale_code, `/${item.code}/pricing`]),
+        ["x-default", "/en/pricing"],
+      ]),
+    },
+    openGraph: {
+      type: "website",
+      title: t.pricing,
+      description: t.seoDescription,
+      url: canonical,
+      images: [{ url: SEO_LOGO_PATH, width: 768, height: 682, alt: "Web Empire" }],
+    },
+    twitter: {
+      card: "summary",
+      title: t.pricing,
+      description: t.seoDescription,
+      images: [SEO_LOGO_PATH],
+    },
+  };
+}
 
 export default async function PricingPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: localeCode } = await params;
@@ -64,6 +103,10 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
   const t = locale.code === "ar" ? labels.ar : labels.en;
   const prefix = `/${locale.code}`;
   const mainPlans = plans.slice(0, 3);
+  const breadcrumbSchema = breadcrumbJsonLd([
+    { name: t.home, path: prefix },
+    { name: t.pricing, path: `${prefix}/pricing` },
+  ]);
 
   const paddleEnvironment =
     process.env.PADDLE_ENV?.trim() ?? "";
@@ -79,6 +122,7 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
 
   return (
     <main className="we-page we-pricing-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <section className="we-container we-pricing-shell">
         <div className="we-pricing-hero">
           <div className="we-pricing-copy">

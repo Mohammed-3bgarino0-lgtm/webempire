@@ -14,6 +14,7 @@ import { appearanceCssVariables, getAppearanceSettings } from "@/appearance/repo
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { publicEnv } from "@/lib/env";
+import { SEO_BRAND_NAME, SEO_LOGO_PATH } from "@/lib/seo";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import {
   getActiveLocales,
@@ -58,11 +59,33 @@ export async function generateMetadata({
 
   return {
     metadataBase: new URL(publicEnv.siteUrl),
+    applicationName: SEO_BRAND_NAME,
     title: {
       default: identity.homeSeoTitle,
       template: `%s | ${identity.siteName}`,
     },
     description: identity.homeSeoDescription,
+    authors: [{ name: SEO_BRAND_NAME }],
+    creator: SEO_BRAND_NAME,
+    publisher: SEO_BRAND_NAME,
+    verification: {
+      google: "fbz_m2uEfEsNpf-7hB-5WAYTGpIahFEah49G4zXHcYo",
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
+    icons: {
+      icon: [{ url: SEO_LOGO_PATH, type: "image/png" }],
+      apple: [{ url: SEO_LOGO_PATH, type: "image/png" }],
+    },
     alternates: {
       canonical: `/${locale.code}`,
       languages: Object.fromEntries([
@@ -77,6 +100,20 @@ export async function generateMetadata({
       siteName: identity.siteName,
       locale: locale.locale_code,
       type: "website",
+      images: [
+        {
+          url: SEO_LOGO_PATH,
+          width: 768,
+          height: 682,
+          alt: identity.siteName,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary",
+      title: identity.homeSeoTitle,
+      description: identity.homeSeoDescription,
+      images: [SEO_LOGO_PATH],
     },
   };
 }
@@ -131,14 +168,13 @@ export default async function LocaleLayout({
 
   return (
     <html
-        lang={locale.locale_code}
-        dir={locale.direction}
-        className={`${inter.variable} ${tajawal.variable} ${
-          locale.direction === "rtl" ? tajawal.className : inter.className
-        }`}
-      >
+      lang={locale.locale_code}
+      dir={locale.direction}
+      className={`${inter.variable} ${tajawal.variable} ${
+        locale.direction === "rtl" ? tajawal.className : inter.className
+      }`}
+    >
       <head>
-        <meta name="google-site-verification" content="fbz_m2uEfEsNpf-7hB-5WAYTGpIahFEah49G4zXHcYo" />
         <meta name="google-adsense-account" content={adsenseClient} />
         {adsRuntimeEnabled ? (
           <Script

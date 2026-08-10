@@ -14,6 +14,7 @@ import {
 } from "@/localization/repository";
 import { getEnhancedToolEditorialContent } from "@/lib/tool-editorial-enhancements";
 import { isEditoriallyIndexableTool } from "@/lib/tool-editorial-content";
+import { absoluteUrl, breadcrumbJsonLd } from "@/lib/seo";
 import { getToolBySlug } from "@/repositories/catalog";
 
 import styles from "./tool-detail.module.css";
@@ -44,6 +45,8 @@ const copy = {
       "اختر الملف، حدد الإعدادات، انتظر اكتمال المعالجة ثم نزّل الملف الناتج.",
     mediaNoteBody:
       "استخدم فقط الملفات التي تملكها أو لديك تصريح بها. لا تدعم الأدوات تجاوز DRM أو حماية المنصات.",
+    home: "الرئيسية",
+    tools: "الأدوات",
   },
   en: {
     instant: "Instant calculator",
@@ -70,6 +73,8 @@ const copy = {
       "Choose the file, set the options, wait for processing, then download the generated file.",
     mediaNoteBody:
       "Use only files you own or are authorized to use. These tools do not bypass DRM or platform protections.",
+    home: "Home",
+    tools: "Tools",
   },
 };
 
@@ -111,14 +116,25 @@ export async function generateMetadata({
 
   if (!tool) return {};
 
+  const canonical = `/${locale}/tools/${slug}`;
+  const indexable = isEditoriallyIndexableTool(tool);
+
   return {
     title: tool.seoTitle,
     description: tool.seoDescription,
-    robots: isEditoriallyIndexableTool(tool)
-      ? { index: true, follow: true }
-      : { index: false, follow: true },
+    robots: {
+      index: indexable,
+      follow: true,
+      googleBot: {
+        index: indexable,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
     alternates: {
-      canonical: `/${locale}/tools/${slug}`,
+      canonical,
       languages: Object.fromEntries([
         ...activeLocales.map((item) => [
           item.locale_code,
@@ -126,6 +142,18 @@ export async function generateMetadata({
         ]),
         ["x-default", `/en/tools/${slug}`],
       ]),
+    },
+    openGraph: {
+      type: "website",
+      title: tool.seoTitle,
+      description: tool.seoDescription,
+      url: canonical,
+      locale,
+    },
+    twitter: {
+      card: "summary",
+      title: tool.seoTitle,
+      description: tool.seoDescription,
     },
   };
 }
@@ -150,6 +178,7 @@ export default async function ToolPage({
   const isArabic = locale.code === "ar";
   const t = isArabic ? copy.ar : copy.en;
   const editorial = getEnhancedToolEditorialContent(tool);
+  const canonicalPath = `/${locale.code}/tools/${tool.slug}`;
 
   const pricing =
     tool.pricing_mode === "free"
@@ -180,18 +209,25 @@ export default async function ToolPage({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "@id": `${absoluteUrl(canonicalPath)}#application`,
     name: tool.title,
+    url: absoluteUrl(canonicalPath),
     applicationCategory: mediaMode ? "MultimediaApplication" : "BusinessApplication",
     operatingSystem: "Web",
     description: tool.localizedDescription,
-    offers: {
-      "@type": "Offer",
-      price:
-        tool.pricing_mode === "free"
-          ? "0"
-          : String(Number(tool.fixed_points ?? tool.minimum_points ?? 0)),
-      priceCurrency: "SAR",
-    },
+    inLanguage: locale.locale_code,
+    isAccessibleForFree: tool.pricing_mode === "free",
+    provider: { "@id": `${absoluteUrl("/")}#organization` },
+    ...(tool.pricing_mode === "free"
+      ? {
+          offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "SAR",
+            availability: "https://schema.org/InStock",
+          },
+        }
+      : {}),
   };
 
   const faqSchema = {
@@ -204,6 +240,12 @@ export default async function ToolPage({
     })),
   };
 
+  const breadcrumbSchema = breadcrumbJsonLd([
+    { name: t.home, path: `/${locale.code}` },
+    { name: t.tools, path: `/${locale.code}/tools` },
+    { name: tool.title, path: canonicalPath },
+  ]);
+
   return (
     <main className={`${styles.page} we-page`}>
       <script
@@ -212,6 +254,10 @@ export default async function ToolPage({
       />
       <script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        type="application/ld+json"
+      />
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
         type="application/ld+json"
       />
 
