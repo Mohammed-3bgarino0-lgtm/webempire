@@ -9,32 +9,32 @@ import { getActiveCategories, getActivePlans, getActiveTools } from "@/repositor
 
 const copy = {
   ar: {
-    h1a: "كل أداة تحتاجها.",
-    h1b: "في نظام واحد.",
-    body: "مجموعة متكاملة من الأدوات الذكية لمساعدتك على إنجاز عملك بدقة وسرعة.",
+    h1a: "حاسبات وأدوات رقمية.",
+    h1b: "في منصة واحدة.",
+    body: "استخدم حاسبات وأدوات تحويل وإنتاجية متعددة اللغات مع شروحات للمدخلات وطريقة مراجعة النتائج في الأدوات الأساسية.",
     start: "ابدأ الآن مجانًا",
     explore: "استكشف الأدوات",
     search: "ابحث عن أداة أو حل...",
-    stats: ["موثوق من قبل آلاف المستخدمين", "جاهزية النظام", "تكلفة التجربة بدون بطاقة", "أداة مميزة", "أداة ونموذج جاهز", "انضم إلى أكثر من 10,000 مستخدم"],
+    stats: ["أمثلة وشروحات قابلة للتحقق", "لغات نشطة", "تكلفة الخطة المجانية", "أداة مميزة", "أداة ونموذج جاهز", "مراجعة تحريرية مستمرة"],
     featured: "أدوات مميزة",
     categories: "تصفح حسب التصنيف",
     dashboard: "لمحة من لوحة التحكم",
     pricing: "باقات مناسبة للجميع",
-    cta: "جاهز لتجربة قوة الأدوات الذكية؟",
+    cta: "جاهز لتجربة أدوات إمبراطورية الويب؟",
   },
   en: {
-    h1a: "Every tool you need.",
-    h1b: "In one system.",
-    body: "A complete collection of smart tools to help you finish work faster, cleaner, and with more control.",
+    h1a: "Calculators and digital tools.",
+    h1b: "In one platform.",
+    body: "Use multilingual calculators, converters, and productivity tools with input guidance and result-checking notes on core tools.",
     start: "Start free",
     explore: "Explore tools",
     search: "Search for a tool or solution...",
-    stats: ["Trusted by thousands", "System readiness", "No-card trial cost", "featured tools", "ready tools and templates", "Join 10,000+ users"],
+    stats: ["Checkable examples and guidance", "active languages", "Free plan cost", "featured tools", "ready tools and templates", "Ongoing editorial review"],
     featured: "Featured tools",
     categories: "Browse by category",
     dashboard: "Dashboard preview",
     pricing: "Plans for everyone",
-    cta: "Ready to experience smart tools?",
+    cta: "Ready to try Web Empire tools?",
   },
 };
 
@@ -55,7 +55,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   ]);
 
   void identity;
-  void locales;
 
   const t = locale.code === "ar" ? copy.ar : copy.en;
   const prefix = `/${locale.code}`;
@@ -101,12 +100,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
 
         <div className="we-container we-stats">
-          <div><strong>🏅</strong><small>{t.stats[0]}</small></div>
-          <div><strong>99.9%</strong><small>{t.stats[1]}</small></div>
+          <div><strong>✓</strong><small>{t.stats[0]}</small></div>
+          <div><strong>{locales.length}</strong><small>{t.stats[1]}</small></div>
           <div><strong>0</strong><small>{t.stats[2]}</small></div>
           <div><strong>+{featured.length}</strong><small>{t.stats[3]}</small></div>
           <div><strong>{tools.length}+</strong><small>{t.stats[4]}</small></div>
-          <div><strong>👥</strong><small>{t.stats[5]}</small></div>
+          <div><strong>↻</strong><small>{t.stats[5]}</small></div>
         </div>
       </section>
 
