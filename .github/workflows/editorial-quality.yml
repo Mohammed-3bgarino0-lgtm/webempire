@@ -7,8 +7,8 @@ on:
       - "src/content/blog/**"
       - "src/repositories/blog.ts"
       - "src/lib/tool-editorial-*.ts"
-      - "src/app/(public)/[locale]/blog/**"
-      - "src/app/(public)/[locale]/tools/**"
+      - "src/app/**/blog/**"
+      - "src/app/**/tools/**"
       - "scripts/verify-editorial-quality.mts"
       - "package.json"
   push:
@@ -19,8 +19,8 @@ on:
       - "src/content/blog/**"
       - "src/repositories/blog.ts"
       - "src/lib/tool-editorial-*.ts"
-      - "src/app/(public)/[locale]/blog/**"
-      - "src/app/(public)/[locale]/tools/**"
+      - "src/app/**/blog/**"
+      - "src/app/**/tools/**"
       - "scripts/verify-editorial-quality.mts"
       - "package.json"
 
