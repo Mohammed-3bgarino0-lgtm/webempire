@@ -7,6 +7,8 @@ import { injectAdsIntoArticleHtml, hasInlineRelatedSection } from "@/lib/blog-ad
 import { getLocaleByCode } from "@/localization/repository";
 import { getBlogPostBySlug, getRelatedBlogPosts } from "@/repositories/blog";
 
+const editorialReviewDate = "2026-08-10";
+
 export async function generateMetadata({
   params,
 }: {
@@ -28,6 +30,7 @@ export async function generateMetadata({
       title: post.title,
       description: post.description,
       publishedTime: post.publish_date,
+      modifiedTime: editorialReviewDate,
       authors: [post.author],
       images: [{ url: post.cover_url, width: 1200, height: 630, alt: post.cover_alt }],
     },
@@ -61,6 +64,7 @@ export default async function BlogPostPage({
     headline: post.title,
     description: post.description,
     datePublished: post.publish_date,
+    dateModified: editorialReviewDate,
     author: { "@type": "Organization", name: post.author },
     publisher: { "@type": "Organization", name: "Web Empire" },
     image: post.cover_url,
@@ -75,6 +79,24 @@ export default async function BlogPostPage({
       </nav>
       <div className="we-container we-blog-article" dangerouslySetInnerHTML={{ __html: articleHtml }} />
       <AdSenseHydrator />
+
+      <aside
+        className="we-container we-blog-related"
+        aria-label="معلومات المراجعة التحريرية"
+      >
+        <h2>مراجعة وتحديث المحتوى</h2>
+        <p>
+          راجع فريق إمبراطورية الويب هذا الدليل يدويًا في 10 أغسطس 2026، مع فحص الأمثلة الحسابية وإزالة الادعاءات غير القابلة للتحقق. إذا وجدت خطأً أو مثالًا يحتاج إلى تصحيح، أرسل رابط الصفحة عبر صفحة التواصل.
+        </p>
+        <p>
+          <Link href={`${prefix}/editorial-policy`}>السياسة التحريرية</Link>
+          {" · "}
+          <Link href={`${prefix}/about`}>من نحن</Link>
+          {" · "}
+          <Link href={`${prefix}/contact`}>الإبلاغ عن خطأ</Link>
+        </p>
+      </aside>
+
       {related.length && !bodyContainsRelated ? (
         <aside className="we-container we-blog-related">
           <h2>مقالات مرتبطة</h2>
