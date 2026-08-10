@@ -183,7 +183,7 @@ gtag('config', 'G-2H0DD95M9W');`}
             isAuthenticated={Boolean(user)}
           />
           {children}
-          <SiteFooter identity={identity} />
+          <SiteFooter locale={locale} identity={identity} />
         </div>
       </body>
     </html>
