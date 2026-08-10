@@ -12,6 +12,7 @@ import {
   getLocaleByCode,
   getUiMessages,
 } from "@/localization/repository";
+import { getToolEditorialContent, isEditoriallyIndexableTool } from "@/lib/tool-editorial-content";
 import { getToolBySlug } from "@/repositories/catalog";
 
 import styles from "./tool-detail.module.css";
@@ -112,6 +113,9 @@ export async function generateMetadata({
   return {
     title: tool.seoTitle,
     description: tool.seoDescription,
+    robots: isEditoriallyIndexableTool(tool)
+      ? { index: true, follow: true }
+      : { index: false, follow: true },
     alternates: {
       canonical: `/${locale}/tools/${slug}`,
       languages: Object.fromEntries([
@@ -144,6 +148,7 @@ export default async function ToolPage({
 
   const isArabic = locale.code === "ar";
   const t = isArabic ? copy.ar : copy.en;
+  const editorial = getToolEditorialContent(tool);
 
   const pricing =
     tool.pricing_mode === "free"
@@ -188,10 +193,24 @@ export default async function ToolPage({
     },
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: editorial.faq.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  };
+
   return (
     <main className={`${styles.page} we-page`}>
       <script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        type="application/ld+json"
+      />
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         type="application/ld+json"
       />
 
@@ -272,6 +291,54 @@ export default async function ToolPage({
             </article>
           </div>
         </section>
+
+        {!mediaMode ? (
+          <section className={styles.editorial} aria-label={editorial.overviewTitle}>
+            <article>
+              <h2>{editorial.overviewTitle}</h2>
+              <p>{editorial.overview}</p>
+            </article>
+
+            <article>
+              <h2>{editorial.inputsTitle}</h2>
+              <p>{editorial.inputsIntro}</p>
+              <ul>
+                {editorial.inputItems.map((item) => <li key={item}>{item}</li>)}
+              </ul>
+            </article>
+
+            <article>
+              <h2>{editorial.methodTitle}</h2>
+              {editorial.method.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            </article>
+
+            <article>
+              <h2>{editorial.exampleTitle}</h2>
+              <p>{editorial.example}</p>
+            </article>
+
+            <article>
+              <h2>{editorial.validationTitle}</h2>
+              <ul>
+                {editorial.validation.map((item) => <li key={item}>{item}</li>)}
+              </ul>
+            </article>
+
+            <article>
+              <h2>{editorial.faqTitle}</h2>
+              <div className={styles.faqList}>
+                {editorial.faq.map((item) => (
+                  <details key={item.question}>
+                    <summary>{item.question}</summary>
+                    <p>{item.answer}</p>
+                  </details>
+                ))}
+              </div>
+            </article>
+
+            <aside className={styles.disclaimer}>{editorial.disclaimer}</aside>
+          </section>
+        ) : null}
       </div>
     </main>
   );
