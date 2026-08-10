@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { publicEnv } from "@/lib/env";
 
 export const SEO_BRAND_NAME = "Web Empire";
@@ -8,6 +10,61 @@ export function absoluteUrl(pathname = "/") {
   const base = publicEnv.siteUrl.replace(/\/$/, "");
   const path = pathname.startsWith("/") ? pathname : `/${pathname}`;
   return `${base}${path}`;
+}
+
+export function localizedPageMetadata({
+  locale,
+  title,
+  description,
+  path,
+  activeLocales,
+  index = true,
+}: {
+  locale: string;
+  title: string;
+  description: string;
+  path: string;
+  activeLocales: Array<{ code: string; locale_code: string }>;
+  index?: boolean;
+}): Metadata {
+  const suffix = path.startsWith("/") ? path : `/${path}`;
+  const canonical = `/${locale}${suffix}`;
+
+  return {
+    title,
+    description,
+    robots: {
+      index,
+      follow: true,
+      googleBot: {
+        index,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
+    alternates: {
+      canonical,
+      languages: Object.fromEntries([
+        ...activeLocales.map((item) => [item.locale_code, `/${item.code}${suffix}`]),
+        ["x-default", `/en${suffix}`],
+      ]),
+    },
+    openGraph: {
+      type: "website",
+      title,
+      description,
+      url: canonical,
+      images: [{ url: SEO_LOGO_PATH, width: 768, height: 682, alt: SEO_BRAND_NAME }],
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+      images: [SEO_LOGO_PATH],
+    },
+  };
 }
 
 export function breadcrumbJsonLd(
