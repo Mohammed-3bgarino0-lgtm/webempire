@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import {
@@ -7,6 +8,22 @@ import {
 import type { ToolExplorerItem } from "@/components/tools/tool-card";
 import { getLocaleByCode } from "@/localization/repository";
 import { getActiveCategories, getActiveTools } from "@/repositories/catalog";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isArabic = locale === "ar";
+  return {
+    title: isArabic ? "مكتبة الأدوات" : "Tools Library",
+    description: isArabic
+      ? "استكشف أدوات إمبراطورية الويب للحساب والتحويل والإنتاجية، وابحث حسب الفئة أو اسم الأداة."
+      : "Explore Web Empire calculators, converters, and productivity tools. Search by category or tool name.",
+    alternates: { canonical: `/${locale}/tools` },
+  };
+}
 
 export default async function ToolsPage({
   params,
