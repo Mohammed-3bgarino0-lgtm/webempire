@@ -1,0 +1,51 @@
+name: SEO Quality
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/seo-quality.yml"
+      - "src/app/**"
+      - "src/lib/seo.ts"
+      - "src/lib/tool-editorial-*.ts"
+      - "src/repositories/**"
+      - "scripts/verify-seo.mts"
+      - "package.json"
+      - "package-lock.json"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/seo-quality.yml"
+      - "src/app/**"
+      - "src/lib/seo.ts"
+      - "src/lib/tool-editorial-*.ts"
+      - "src/repositories/**"
+      - "scripts/verify-seo.mts"
+      - "package.json"
+      - "package-lock.json"
+
+permissions:
+  contents: read
+
+jobs:
+  seo-quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify SEO invariants
+        run: npm run verify:seo
+
+      - name: Typecheck
+        run: npm run typecheck
