@@ -29,7 +29,7 @@ const contentRoot = path.join(process.cwd(), "src", "content", "blog");
 // Only posts that have received a manual editorial rewrite are public.
 // The legacy generated library remains in the repository for archival purposes,
 // but it is not listed or routable until a post is explicitly approved here.
-const editorialApprovedIds = [36, 40] as const;
+const editorialApprovedIds = [3, 6, 9, 17, 36, 40] as const;
 let editorialPromise: Promise<BlogPost[]> | null = null;
 
 function isReleased(post: BlogPostSummary) {
