@@ -1,7 +1,8 @@
 import { publicEnv } from "@/lib/env";
-import { isPriorityToolSlug } from "@/lib/tool-index-policy";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getActiveLocales } from "@/localization/repository";
+import { isEditoriallyIndexableTool } from "@/lib/tool-editorial-content";
 import { getBlogPosts } from "@/repositories/blog";
+import { getActiveTools } from "@/repositories/catalog";
 
 function escapeXml(value: string): string {
   return value
@@ -13,22 +14,14 @@ function escapeXml(value: string): string {
 }
 
 export async function GET() {
-  const supabase = await createSupabaseServerClient();
-  const [{ data: locales }, { data: tools }, { posts: blogPosts }] = await Promise.all([
-    supabase.from("locales").select("code").eq("is_active", true).order("sort_order"),
-    supabase
-      .from("tools")
-      .select("slug, updated_at, engine_type")
-      .eq("is_active", true)
-      .eq("engine_type", "formula")
-      .order("sort_order"),
+  const [locales, { posts: blogPosts }] = await Promise.all([
+    getActiveLocales(),
     getBlogPosts(1, 10000),
   ]);
 
-  const indexableTools = (tools ?? []).filter((tool) => isPriorityToolSlug(tool.slug));
   const entries: Array<{ url: string; lastmod?: string }> = [];
 
-  for (const locale of locales ?? []) {
+  for (const locale of locales) {
     const prefix = `${publicEnv.siteUrl}/${locale.code}`;
     entries.push({ url: prefix });
     entries.push({ url: `${prefix}/tools` });
@@ -40,11 +33,11 @@ export async function GET() {
     entries.push({ url: `${prefix}/contact` });
     entries.push({ url: `${prefix}/support` });
 
+    const localizedTools = await getActiveTools(locale.code);
+    const indexableTools = localizedTools.filter(isEditoriallyIndexableTool);
+
     for (const tool of indexableTools) {
-      entries.push({
-        url: `${prefix}/tools/${tool.slug}`,
-        lastmod: tool.updated_at ?? undefined,
-      });
+      entries.push({ url: `${prefix}/tools/${tool.slug}` });
     }
   }
 
