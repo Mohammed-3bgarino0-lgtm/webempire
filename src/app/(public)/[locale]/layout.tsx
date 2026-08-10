@@ -23,6 +23,8 @@ import {
   getUiMessages,
 } from "@/localization/repository";
 
+const CONTENT_REVISION = "adsense-ready-2026-08-10-v1";
+
 function relationRecord(value: unknown): Record<string, unknown> {
   if (Array.isArray(value)) {
     const first = value[0];
@@ -164,7 +166,7 @@ export default async function LocaleLayout({
     process.env.NEXT_PUBLIC_ADSENSE_CLIENT?.trim() ||
     "ca-pub-4001237202734263";
   const adsRuntimeEnabled =
-    process.env.VERCEL_ENV === "production" && !hasPaidSubscription;
+    process.env.NODE_ENV === "production" && !hasPaidSubscription;
 
   return (
     <html
@@ -176,6 +178,7 @@ export default async function LocaleLayout({
     >
       <head>
         <meta name="google-adsense-account" content={adsenseClient} />
+        <meta name="webempire-content-revision" content={CONTENT_REVISION} />
         {adsRuntimeEnabled ? (
           <Script
             async
