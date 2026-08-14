@@ -10,8 +10,8 @@ export const releaseNotes: ReleaseNotesEntry[] = [
   {
     version: "1.0.1",
     channel: "preview",
-    title: "UI polish and update flow",
-    body: "Improved the mobile experience with stronger visual hierarchy, safer update checks, and more polished settings.",
+    title: "Web Empire V1.2 identity",
+    body: "A complete visual refresh with the approved blue, white, and silver identity; new app icon and splash screen; redesigned home, tools, wallet, pricing, authentication, settings, and tool workspace; plus Expo SDK compatibility and security updates.",
     required: false,
   },
   {

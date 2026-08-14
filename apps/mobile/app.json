@@ -2,7 +2,7 @@
   "expo": {
     "name": "إمبراطورية الويب",
     "slug": "web-empire",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "webempire",
@@ -21,7 +21,7 @@
     "android": {
       "package": "site.webempire.app",
       "adaptiveIcon": {
-        "backgroundColor": "#061329",
+        "backgroundColor": "#F4F8FD",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
@@ -35,7 +35,7 @@
       "fallbackToCacheTimeout": 0,
       "enabled": true,
       "checkAutomatically": "ON_LOAD",
-      "url": "https://u.expo.dev/14357042-04b3-4a69-9616-6754973c95f3"
+      "url": "https://u.expo.dev/6deb83ae-fc3c-4b59-806b-eecaad36c68d"
     },
     "plugins": [
       "expo-router",
@@ -43,9 +43,13 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#061329",
+          "backgroundColor": "#F4F8FD",
           "image": "./assets/images/splash-icon.png",
-          "imageWidth": 120
+          "imageWidth": 148,
+          "dark": {
+            "backgroundColor": "#061224",
+            "image": "./assets/images/splash-icon.png"
+          }
         }
       ],
       [
@@ -66,9 +70,9 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "14357042-04b3-4a69-9616-6754973c95f3"
+        "projectId": "6deb83ae-fc3c-4b59-806b-eecaad36c68d"
       }
     },
-    "owner": "mohammedsk"
+    "owner": "3abgarino"
   }
 }
