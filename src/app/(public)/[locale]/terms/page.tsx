@@ -7,15 +7,15 @@ const copy = {
   ar: {
     title: "الشروط والأحكام",
     intro:
-      "تنظم هذه الشروط استخدام منصة إمبراطورية الويب وحساباتها وأدواتها وخطط الاشتراك والنقاط. باستخدامك للمنصة فإنك تقر بأنك قرأت هذه الشروط ووافقت عليها.",
-    updatedAt: "آخر تحديث: 4 أغسطس 2026",
-    primaryLabel: "عرض الأسعار",
+      "تنظم هذه الشروط استخدام منصة إمبراطورية الويب وحساباتها وأدواتها الرقمية. لا تقدم المنصة حاليًا خطط اشتراك مدفوعة أو نظام فوترة للمستخدمين.",
+    updatedAt: "آخر تحديث: 28 أغسطس 2026",
+    primaryLabel: "استكشف الأدوات",
     secondaryLabel: "تواصل معنا",
     sections: [
       {
         title: "1. التعريف بالمنصة",
         paragraphs: [
-          "إمبراطورية الويب منصة برمجية تقدم أدوات رقمية وخدمات مدعومة بالذكاء الاصطناعي لمعالجة المحتوى والإنتاجية والأتمتة. قد تتغير الأدوات والخصائص المتاحة مع تطوير الخدمة.",
+          "إمبراطورية الويب منصة تقدم أدوات رقمية وحاسبات ومحولات وأدوات إنتاجية. قد تتغير الأدوات والخصائص المتاحة مع تطوير الخدمة.",
         ],
       },
       {
@@ -24,81 +24,60 @@ const copy = {
           "يجب تقديم بيانات صحيحة ومحدثة عند إنشاء الحساب.",
           "أنت مسؤول عن حماية بيانات الدخول وعن جميع الأنشطة التي تتم من خلال حسابك.",
           "يجب إبلاغنا فورًا عند الاشتباه في استخدام غير مصرح به للحساب.",
-          "لا يجوز إنشاء حسابات بغرض إساءة الاستخدام أو تجاوز القيود الفنية أو المالية.",
+          "لا يجوز إنشاء حسابات بغرض إساءة الاستخدام أو تجاوز القيود الفنية أو الأمنية.",
         ],
       },
       {
-        title: "3. الخطط والاشتراكات والدفع",
+        title: "3. إتاحة الأدوات",
         items: [
-          "توضح صفحة الأسعار قيمة كل خطة والمزايا والنقاط الشهرية المخصصة لها.",
-          "الاشتراكات المدفوعة تتجدد تلقائيًا في نهاية دورة الفوترة ما لم يتم إلغاؤها قبل موعد التجديد.",
-          "قد تشمل الفاتورة ضرائب أو رسومًا واجبة بحسب بلد العميل والأنظمة المطبقة.",
-          "تتم معالجة المدفوعات والفواتير بواسطة Paddle بصفتها جهة معالجة الدفع والتاجر المسجل، ولا نخزن بيانات البطاقة كاملة داخل أنظمتنا.",
-          "لا يصبح الاشتراك فعالًا إلا بعد تأكيد نجاح المعاملة من مزود الدفع.",
+          "الأدوات المنشورة حاليًا متاحة دون اشتراك مدفوع.",
+          "قد تتطلب بعض الأدوات تسجيل الدخول لأسباب تشغيلية أو أمنية دون أن يعني ذلك وجود اشتراك مدفوع.",
+          "يجوز إضافة أدوات أو تعديلها أو إيقافها عند الحاجة إلى الصيانة أو تحسين الخدمة.",
         ],
       },
       {
-        title: "4. النقاط وحدود الاستخدام",
-        items: [
-          "تُستخدم النقاط لتشغيل الأدوات والخدمات داخل المنصة، وتختلف التكلفة حسب الأداة وطريقة التشغيل.",
-          "النقاط ليست عملة نقدية ولا يمكن تحويلها أو بيعها أو سحبها خارج المنصة.",
-          "قد تنتهي النقاط أو يعاد ضبط الرصيد وفق شروط الخطة ودورة الاشتراك المبينة في صفحة الأسعار أو لوحة الحساب.",
-          "أي محاولة للتلاعب بالرصيد أو إعادة استخدام طلبات الدفع أو استغلال أخطاء النظام قد تؤدي إلى تعليق الحساب.",
-        ],
-      },
-      {
-        title: "5. الاستخدام المقبول",
+        title: "4. الاستخدام المقبول",
         items: [
           "يحظر استخدام المنصة في أي نشاط غير مشروع أو احتيالي أو ينتهك حقوق الآخرين.",
           "يحظر رفع محتوى ضار أو برمجيات خبيثة أو بيانات لا تملك حق استخدامها.",
-          "يحظر محاولة اختراق المنصة أو تعطيلها أو تجاوز الحماية أو حدود الاستخدام.",
-          "يبقى المستخدم مسؤولًا عن مراجعة النتائج قبل نشرها أو الاعتماد عليها مهنيًا أو قانونيًا أو ماليًا.",
+          "يحظر محاولة اختراق المنصة أو تعطيلها أو تجاوز الحماية أو القيود الفنية.",
+          "يبقى المستخدم مسؤولًا عن مراجعة النتائج قبل الاعتماد عليها مهنيًا أو قانونيًا أو ماليًا.",
         ],
       },
       {
-        title: "6. مخرجات الذكاء الاصطناعي",
+        title: "5. دقة النتائج",
         paragraphs: [
-          "قد تنتج الأدوات محتوى آليًا يحتمل الخطأ أو النقص. لا تمثل المخرجات استشارة قانونية أو طبية أو مالية أو مهنية، ويجب التحقق منها قبل استخدامها في القرارات المهمة.",
+          "تقدم الأدوات نتائج حسابية أو تحويلية أو نصية بحسب البيانات المدخلة وقواعد كل أداة. يجب التحقق من النتائج قبل استخدامها في القرارات المهمة، ولا تمثل النتائج استشارة قانونية أو طبية أو مالية أو مهنية.",
         ],
       },
       {
-        title: "7. الملكية الفكرية",
+        title: "6. الملكية الفكرية",
         paragraphs: [
-          "تظل العلامة التجارية والتصميم والبرمجيات والمحتوى الأصلي للمنصة مملوكة لإمبراطورية الويب أو لأصحاب التراخيص. يحتفظ المستخدم بحقوقه في المحتوى الذي يرفعه، ويمنح المنصة الإذن الفني اللازم لمعالجته وتشغيل الخدمة المطلوبة.",
+          "تظل العلامة التجارية والتصميم والبرمجيات والمحتوى الأصلي للمنصة مملوكة لإمبراطورية الويب أو لأصحاب التراخيص. يحتفظ المستخدم بحقوقه في المحتوى الذي يقدمه، ويمنح المنصة الإذن الفني اللازم لمعالجته لتقديم الوظيفة المطلوبة.",
         ],
       },
       {
-        title: "8. الإلغاء وسياسة الاسترداد",
-        items: [
-          "يمكن طلب إلغاء الاشتراك، ويستمر الوصول إلى المزايا حتى نهاية الفترة المدفوعة ما لم توضح صفحة الإلغاء خلاف ذلك.",
-          "يمكن تقديم طلب استرداد خلال 14 يومًا من أول عملية شراء عند عدم استخدام الرصيد أو في حال وجود خصم مكرر أو خلل تقني جوهري يمنع استخدام الخدمة.",
-          "تُراجع طلبات الاسترداد بحسب حالة الاستخدام وسجل المعاملة والحقوق النظامية للعميل، وقد تتم معالجتها من خلال Paddle.",
-          "لا يشمل الاسترداد عادةً النقاط أو الخدمات التي تم استهلاكها بالفعل، إلا إذا أوجب النظام المعمول به خلاف ذلك.",
-          "لطلب الإلغاء أو الاسترداد تواصل عبر البريد: mohammed-alsakran@hotmail.com مع ذكر بريد الحساب ورقم المعاملة وسبب الطلب.",
-        ],
-      },
-      {
-        title: "9. توفر الخدمة والتغييرات",
+        title: "7. توفر الخدمة والتغييرات",
         paragraphs: [
-          "نسعى إلى توفير المنصة بصورة مستقرة، لكن قد تحدث صيانة أو أعطال أو تغييرات في مزودي الخدمات الخارجيين. يجوز تحديث الأدوات أو الأسعار أو الحدود مع نشر التغييرات المهمة قبل سريانها متى كان ذلك مناسبًا.",
+          "نسعى إلى توفير المنصة بصورة مستقرة، لكن قد تحدث صيانة أو أعطال أو تغييرات في الخدمات الخارجية. يجوز تحديث الأدوات أو الحدود الفنية مع نشر التغييرات المهمة عند الحاجة.",
         ],
       },
       {
-        title: "10. تعليق الحساب وإنهاؤه",
+        title: "8. تعليق الحساب وإنهاؤه",
         paragraphs: [
-          "يجوز تعليق الحساب أو إنهاؤه عند مخالفة هذه الشروط أو إساءة الاستخدام أو وجود مخاطر أمنية أو مطالبات دفع غير مشروعة. سنحاول إشعار المستخدم متى كان ذلك ممكنًا، مع الاحتفاظ بالحقوق والالتزامات النظامية.",
+          "يجوز تعليق الحساب أو إنهاؤه عند مخالفة هذه الشروط أو إساءة الاستخدام أو وجود مخاطر أمنية. سنحاول إشعار المستخدم متى كان ذلك ممكنًا، مع الاحتفاظ بالحقوق والالتزامات النظامية.",
         ],
       },
       {
-        title: "11. المسؤولية",
+        title: "9. المسؤولية",
         paragraphs: [
-          "تقدم الخدمة بحسب حالتها المتاحة. وفي الحدود التي يسمح بها النظام، لا نتحمل الأضرار غير المباشرة الناتجة عن سوء استخدام المنصة أو الاعتماد غير المتحقق على المخرجات أو تعطل خدمات طرف ثالث.",
+          "تقدم الخدمة بحسب حالتها المتاحة. وفي الحدود التي يسمح بها النظام، لا نتحمل الأضرار غير المباشرة الناتجة عن سوء استخدام المنصة أو الاعتماد غير المتحقق على النتائج أو تعطل خدمات طرف ثالث.",
         ],
       },
       {
-        title: "12. القانون والتواصل",
+        title: "10. القانون والتواصل",
         paragraphs: [
-          "تخضع هذه الشروط للأنظمة المعمول بها في المملكة العربية السعودية دون الإخلال بحقوق المستهلك الإلزامية في بلد إقامته. للاستفسارات القانونية أو المتعلقة بالفوترة تواصل عبر البريد: mohammed-alsakran@hotmail.com.",
+          "تخضع هذه الشروط للأنظمة المعمول بها في المملكة العربية السعودية دون الإخلال بحقوق المستهلك الإلزامية في بلد إقامته. للاستفسارات تواصل معنا من صفحة التواصل.",
         ],
       },
     ],
@@ -106,39 +85,51 @@ const copy = {
   en: {
     title: "Terms and Conditions",
     intro:
-      "These terms govern the use of Web Empire accounts, tools, subscriptions, and credits.",
-    updatedAt: "Last updated: August 4, 2026",
-    primaryLabel: "View pricing",
+      "These terms govern the use of Web Empire accounts and digital tools. Web Empire currently does not offer paid subscription plans or user billing.",
+    updatedAt: "Last updated: August 28, 2026",
+    primaryLabel: "Explore tools",
     secondaryLabel: "Contact us",
     sections: [
       {
-        title: "Service and accounts",
+        title: "Service",
         paragraphs: [
-          "Web Empire provides digital and AI-powered tools. Users must provide accurate account information, protect their credentials, and use the service lawfully.",
+          "Web Empire provides digital tools, calculators, converters, and productivity utilities. Available tools and features may change as the service develops.",
         ],
       },
       {
-        title: "Subscriptions and billing",
+        title: "Accounts",
         paragraphs: [
-          "Paid subscriptions renew automatically unless canceled. Payments and invoices are processed by Paddle. A subscription becomes active only after successful payment confirmation.",
+          "Users must provide accurate account information, protect their credentials, and promptly report suspected unauthorized access.",
         ],
       },
       {
-        title: "Credits and acceptable use",
+        title: "Tool access",
         paragraphs: [
-          "Credits are used only inside Web Empire and have no cash value. Abuse, fraud, security attacks, or attempts to manipulate balances may result in account suspension.",
+          "Published tools are currently available without a paid subscription. Some tools may require sign-in for operational or security reasons.",
         ],
       },
       {
-        title: "Cancellation and refunds",
+        title: "Acceptable use",
         paragraphs: [
-          "Refund requests may be submitted within 14 days of the first purchase when credits remain unused, or in cases of duplicate charging or a material technical failure. Contact mohammed-alsakran@hotmail.com with the account email and transaction reference.",
+          "Users may not misuse the service, attempt unauthorized access, upload malicious content, violate third-party rights, or interfere with the platform's operation.",
+        ],
+      },
+      {
+        title: "Results and responsibility",
+        paragraphs: [
+          "Tool results should be reviewed before use in important decisions and do not constitute legal, medical, financial, or other professional advice.",
+        ],
+      },
+      {
+        title: "Intellectual property and availability",
+        paragraphs: [
+          "Web Empire branding, software, design, and original content remain protected. The service may be changed, maintained, suspended, or updated when necessary.",
         ],
       },
       {
         title: "Contact",
         paragraphs: [
-          "These terms are governed by the applicable laws of the Kingdom of Saudi Arabia, without limiting mandatory consumer rights. Contact: mohammed-alsakran@hotmail.com.",
+          "These terms are governed by the applicable laws of the Kingdom of Saudi Arabia without limiting mandatory consumer rights. Use the contact page for questions.",
         ],
       },
     ],
@@ -163,7 +154,7 @@ export default async function TermsPage({
       intro={t.intro}
       updatedAt={t.updatedAt}
       sections={[...t.sections]}
-      primaryHref={`${prefix}/pricing`}
+      primaryHref={`${prefix}/tools`}
       primaryLabel={t.primaryLabel}
       secondaryHref={`${prefix}/contact`}
       secondaryLabel={t.secondaryLabel}
