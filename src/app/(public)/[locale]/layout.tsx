@@ -23,15 +23,7 @@ import {
   getUiMessages,
 } from "@/localization/repository";
 
-const CONTENT_REVISION = "adsense-ready-2026-08-10-v1";
-
-function relationRecord(value: unknown): Record<string, unknown> {
-  if (Array.isArray(value)) {
-    const first = value[0];
-    return first && typeof first === "object" ? (first as Record<string, unknown>) : {};
-  }
-  return value && typeof value === "object" ? (value as Record<string, unknown>) : {};
-}
+const CONTENT_REVISION = "factual-public-content-2026-08-29-v1";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -148,25 +140,10 @@ export default async function LocaleLayout({
   ]);
 
   const style = appearanceCssVariables(appearance) as CSSProperties;
-  const { data: subscription } = user
-    ? await supabase
-        .from("user_subscriptions")
-        .select("expires_at, plans(slug, price_sar)")
-        .eq("user_id", user.id)
-        .eq("status", "active")
-        .or("expires_at.is.null,expires_at.gt.now")
-        .maybeSingle()
-    : { data: null };
-  const subscribedPlan = relationRecord(subscription?.plans);
-  const hasPaidSubscription =
-    Boolean(subscription) &&
-    subscribedPlan.slug !== "free" &&
-    Number(subscribedPlan.price_sar ?? 0) > 0;
   const adsenseClient =
     process.env.NEXT_PUBLIC_ADSENSE_CLIENT?.trim() ||
     "ca-pub-4001237202734263";
-  const adsRuntimeEnabled =
-    process.env.NODE_ENV === "production" && !hasPaidSubscription;
+  const adsRuntimeEnabled = process.env.NODE_ENV === "production";
 
   return (
     <html
@@ -209,7 +186,6 @@ gtag('config', 'G-2H0DD95M9W');`}
           data-density={appearance.uiDensity}
           data-font-preset={appearance.fontPreset}
           data-color-mode={appearance.defaultColorMode}
-          data-ads-access={hasPaidSubscription ? "paid" : "eligible"}
           data-ads-runtime={adsRuntimeEnabled ? "live" : "preview"}
         >
           <SiteHeader
