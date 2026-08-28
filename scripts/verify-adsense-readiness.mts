@@ -36,6 +36,10 @@ const forbiddenHomeClaims = [
   "10,000+ users",
   "أكثر من 10,000 مستخدم",
   "99.9%",
+  "603+",
+  "باقات مناسبة للجميع",
+  "أدوات وذكاء اصطناعي",
+  "Tools and AI",
 ];
 for (const claim of forbiddenHomeClaims) {
   assert(!home.includes(claim), `Unverified homepage claim is still present: ${claim}`);
@@ -50,7 +54,7 @@ assert(layout.includes('name="google-adsense-account"'), "AdSense account meta t
 assert(layout.includes("ca-pub-4001237202734263"), "Expected AdSense client ID is missing from the public layout.");
 assert(layout.includes('process.env.NODE_ENV === "production"'), "Ad runtime must be enabled by the generic production environment, not a host-specific variable.");
 assert(layout.includes('webempire-content-revision'), "Production content revision marker is missing.");
-assert(layout.includes('adsense-ready-2026-08-10-v1'), "Unexpected AdSense readiness revision marker.");
+assert(layout.includes('factual-public-content-2026-08-29-v1'), "Unexpected public-content revision marker.");
 
 assert(robots.includes('"Allow: /"'), "robots.txt must allow public crawling.");
 assert(!robots.includes("Disallow: /ads"), "robots.txt must not block ads.txt.");
