@@ -50,9 +50,7 @@ const navGroups: NavGroup[] = [
     title: "الإدارة والتشغيل",
     items: [
       { label: "الأدوات", href: "/admin/tools", icon: "tools" },
-      { label: "الخطط والنقاط", href: "/admin/plans", icon: "plans" },
       { label: "الذكاء الاصطناعي", href: "/admin/providers", icon: "ai" },
-      { label: "الفوترة", href: "/admin/billing", icon: "activity" },
     ],
   },
   {
@@ -74,9 +72,7 @@ const titleMap: Record<string, string> = {
   "/admin/runs": "عمليات التشغيل",
   "/admin/observability": "مراقبة الإنتاج",
   "/admin/tools": "إدارة الأدوات",
-  "/admin/plans": "الخطط والنقاط",
   "/admin/providers": "الذكاء الاصطناعي",
-  "/admin/billing": "الفوترة",
   "/admin/audit": "سجل الإجراءات",
   "/admin/localization": "اللغات والترجمة",
   "/admin/appearance": "الهوية والمظهر",
