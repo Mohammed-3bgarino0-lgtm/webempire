@@ -8,7 +8,7 @@ const copy = {
     title: "سياسة الخصوصية",
     intro:
       "توضح هذه السياسة نوع البيانات التي تجمعها إمبراطورية الويب، وكيف نستخدمها ونحميها، والخيارات المتاحة لك عند استخدام الحساب والأدوات المجانية.",
-    updatedAt: "آخر تحديث: 28 أغسطس 2026",
+    updatedAt: "آخر تحديث: 29 أغسطس 2026",
     primaryLabel: "تواصل معنا",
     secondaryLabel: "الشروط والأحكام",
     sections: [
@@ -26,7 +26,7 @@ const copy = {
         title: "2. كيف نستخدم البيانات",
         items: [
           "إنشاء الحساب وتسجيل الدخول وحمايته.",
-          "تشغيل الأدوات ومعالجة الطلبات واحتساب النقاط.",
+          "تشغيل الأدوات ومعالجة الطلبات وتسجيل حالة التشغيل.",
           "تقديم الدعم الفني والرد على الاستفسارات والشكاوى.",
           "تحسين الأداء وتجربة المستخدم واكتشاف الأعطال وإساءة الاستخدام.",
           "الوفاء بالالتزامات النظامية وحماية حقوق المنصة والمستخدمين.",
@@ -103,7 +103,7 @@ const copy = {
     title: "Privacy Policy",
     intro:
       "This policy explains what data Web Empire collects, how it is used, and the choices available to users.",
-    updatedAt: "Last updated: August 28, 2026",
+    updatedAt: "Last updated: August 29, 2026",
     primaryLabel: "Contact us",
     secondaryLabel: "Terms and conditions",
     sections: [
@@ -116,7 +116,7 @@ const copy = {
       {
         title: "How we use data",
         paragraphs: [
-          "We use data to operate accounts and tools, provide support, improve security and performance, and meet legal obligations.",
+          "We use data to operate accounts and tools, record execution status, provide support, improve security and performance, and meet legal obligations.",
         ],
       },
       {
