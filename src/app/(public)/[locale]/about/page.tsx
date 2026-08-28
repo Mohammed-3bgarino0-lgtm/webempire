@@ -9,15 +9,15 @@ const copy = {
     title: "من نحن",
     description: "تعرف على إمبراطورية الويب، طريقة بناء الأدوات، وما الذي نلتزم به عند نشر المحتوى والنتائج.",
     intro:
-      "إمبراطورية الويب منصة أدوات رقمية متعددة اللغات تساعد الأفراد وأصحاب الأعمال على إنجاز حسابات ومهام إنتاجية متكررة من مكان واحد، مع شرح واضح لما تفعله الأداة وكيف يمكن مراجعة نتيجتها.",
-    updatedAt: "آخر تحديث: 10 أغسطس 2026",
+      "إمبراطورية الويب منصة أدوات رقمية متعددة اللغات تجمع حاسبات ومحولات وأدوات نصية وإنتاجية في مكان واحد، مع توضيح المدخلات وطريقة استخدام كل أداة قدر الإمكان.",
+    updatedAt: "آخر تحديث: 29 أغسطس 2026",
     primaryLabel: "استكشف الأدوات",
     secondaryLabel: "السياسة التحريرية",
     sections: [
       {
         title: "ماذا تقدم إمبراطورية الويب؟",
         paragraphs: [
-          "تجمع المنصة أدوات حسابية، تحويلات، أدوات نصية وذكاء اصطناعي ووسائط في واجهة واحدة. الهدف هو تقليل الخطوات اليدوية مع إبقاء المدخلات والنتيجة وطريقة الاستخدام مفهومة للمستخدم.",
+          "تضم المنصة حاسبات وأدوات تحويل وأدوات نصية وإنتاجية منشورة للاستخدام عبر الويب. لا ندّعي أن كل أداة تناسب كل حالة، لذلك يجب قراءة وصف الأداة ومدخلاتها ومراجعة النتيجة قبل الاعتماد عليها.",
         ],
       },
       {
@@ -25,84 +25,84 @@ const copy = {
         items: [
           "نحدد الغرض من الأداة والمدخلات التي يحتاجها المستخدم قبل بناء الواجهة.",
           "الأدوات الحسابية تعتمد على منطق أو معادلات محددة وتعرض الحقول المطلوبة بوضوح.",
-          "الأدوات الذكية توضّح أنها تعتمد على معالجة آلية وقد تختلف مخرجاتها بحسب المدخلات والسياق.",
-          "نراجع تجربة الاستخدام على الهاتف والكمبيوتر ونحاول تقليل الحقول غير الضرورية.",
-          "نضيف شروحات للتحقق من النتيجة بدل الاكتفاء بعرض مخرج بلا سياق.",
+          "أدوات التحويل والنصوص تنفذ عمليات محددة يمكن وصفها للمستخدم بصورة مباشرة.",
+          "نختبر الواجهة على أحجام شاشات مختلفة ونحاول تقليل الحقول غير الضرورية.",
+          "نضيف شرحًا أو مثالًا عندما يساعد ذلك على فهم النتيجة أو مراجعتها.",
         ],
       },
       {
-        title: "من يكتب المحتوى؟",
+        title: "المحتوى والمراجعة",
         paragraphs: [
-          "يُنشر المحتوى باسم فريق إمبراطورية الويب عندما يكون دليلًا عامًا أعده فريق المنصة. المقالات والإرشادات التي تتضمن أرقامًا أو قواعد قابلة للتغير يجب أن تُراجع قبل النشر، مع تجنب اختلاق دراسات أو نسب أو نتائج لا نستطيع توثيقها.",
+          "تُنشر الأدلة والشروحات باسم فريق إمبراطورية الويب. نتجنب نسب أرقام إلى دراسات أو تجارب داخلية ما لم توجد بيانات فعلية تدعمها، ونوضح عندما يكون الرقم مجرد مثال حسابي أو سيناريو توضيحي.",
         ],
       },
       {
         title: "حدود الأدوات",
         paragraphs: [
-          "الأداة تساعد في الحساب أو التنظيم أو إنشاء مسودة، لكنها لا تستبدل الوثيقة الرسمية أو رأي المختص عندما يكون القرار طبيًا أو قانونيًا أو ضريبيًا أو ماليًا عالي الأثر. دقة المخرجات تعتمد أيضًا على صحة المدخلات التي يقدمها المستخدم.",
+          "الأداة تساعد في الحساب أو التنظيم أو معالجة النص، لكنها لا تستبدل الوثيقة الرسمية أو رأي المختص عندما يكون القرار طبيًا أو قانونيًا أو ضريبيًا أو ماليًا عالي الأثر. دقة النتيجة تعتمد أيضًا على صحة المدخلات التي يقدمها المستخدم.",
         ],
       },
       {
-        title: "الإعلانات والاستدامة",
+        title: "الإعلانات",
         paragraphs: [
-          "قد تعرض بعض الصفحات إعلانات للمستخدمين المؤهلين لذلك. الإعلانات منفصلة عن منطق الأدوات والمحتوى التحريري، ولا نكتب نتائج الأدوات أو المقالات لخدمة معلن بعينه.",
+          "قد تعرض بعض الصفحات العامة إعلانات. الإعلانات منفصلة عن منطق الأدوات والمحتوى التحريري ولا تغيّر نتيجة الأداة.",
         ],
       },
       {
         title: "التواصل والتصحيح",
         paragraphs: [
-          "إذا وجدت خطأ في أداة أو شرح، أرسل رابط الصفحة ووصف المشكلة عبر صفحة التواصل. نراجع البلاغات القابلة لإعادة الإنتاج ونحدث المحتوى أو الأداة عند الحاجة.",
+          "إذا وجدت خطأ في أداة أو شرح، أرسل رابط الصفحة ووصف المشكلة عبر صفحة التواصل حتى يمكن مراجعتها وتصحيحها عند الحاجة.",
         ],
       },
     ],
   },
   en: {
     title: "About Web Empire",
-    description: "Learn how Web Empire builds tools, publishes guidance, and reviews the information shown around tool results.",
+    description: "Learn what Web Empire currently provides and how its tools and guidance are maintained.",
     intro:
-      "Web Empire is a multilingual digital-tools platform for recurring calculations and productivity tasks. We aim to make the input, output, and verification steps understandable instead of presenting unexplained results.",
-    updatedAt: "Last updated: August 10, 2026",
+      "Web Empire is a multilingual digital-tools platform that brings calculators, converters, text utilities, and productivity tools into one place, with practical input and usage guidance where available.",
+    updatedAt: "Last updated: August 29, 2026",
     primaryLabel: "Explore tools",
     secondaryLabel: "Editorial policy",
     sections: [
       {
         title: "What Web Empire provides",
         paragraphs: [
-          "The platform brings calculators, converters, text utilities, AI-assisted tools, and media workflows into one interface. The goal is to reduce repetitive manual steps while keeping the purpose and limitations of each tool visible.",
+          "The platform currently publishes calculators, converters, text utilities, and productivity tools for web use. No tool is presented as suitable for every situation, so users should read the tool description and review important results before relying on them.",
         ],
       },
       {
-        title: "How we build tools",
+        title: "How tools are built",
         items: [
-          "We define the user goal and required inputs before designing the interface.",
-          "Formula tools use explicit calculation logic and expose the fields needed for the calculation.",
-          "AI-assisted tools are identified as automated and their outputs can vary with input and context.",
-          "We review desktop and mobile usability and try to remove fields that do not help the task.",
-          "We add result-checking guidance so users can validate important outputs independently.",
+          "We define the purpose of a tool and its required inputs before designing the interface.",
+          "Calculation tools use defined formulas or logic and expose the fields needed for the calculation.",
+          "Conversion and text tools perform specific operations that can be described directly to users.",
+          "We test interfaces across different screen sizes and try to remove unnecessary fields.",
+          "We add an explanation or example when it improves understanding or result checking.",
         ],
       },
       {
-        title: "Who writes the content",
+        title: "Content and review",
         paragraphs: [
-          "General guides are published under the Web Empire team name when prepared by the platform team. Content involving changeable rates, rules, or figures should be reviewed before publication, and we avoid invented studies, percentages, or claims that cannot be supported.",
+          "Guides are published under the Web Empire team name. We avoid presenting percentages, studies, or internal experiments unless supporting data actually exists, and we label illustrative numbers as examples rather than evidence.",
         ],
       },
       {
         title: "Limits of the tools",
         paragraphs: [
-          "A tool can support a calculation, workflow, or draft, but it does not replace an official document or a qualified professional for high-impact medical, legal, tax, or financial decisions. Output quality also depends on the accuracy of the user's inputs.",
+          "A tool can support calculations, organization, or text processing, but it does not replace an official document or qualified professional for high-impact medical, legal, tax, or financial decisions. Result quality also depends on the accuracy of user inputs.",
         ],
       },
       {
-        title: "Advertising and sustainability",
+        title: "Advertising",
         paragraphs: [
-          "Some eligible users may see advertising on public pages. Advertising is separate from tool logic and editorial content, and we do not shape tool results or articles for a specific advertiser.",
+          "Some public pages may display advertising. Advertising is separate from tool logic and editorial content and does not change a tool result.",
         ],
       },
       {
         title: "Corrections and contact",
         paragraphs: [
-          "If you find an error in a tool or guide, send the page URL and a clear description through the contact page. We review reproducible reports and update the content or tool when needed.",
+          "If you find an error in a tool or guide, send the page URL and a clear description through the contact page so it can be reviewed and corrected when necessary.",
         ],
       },
     ],
