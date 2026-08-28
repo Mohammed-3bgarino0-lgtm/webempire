@@ -75,12 +75,6 @@ export async function createToolAction(formData: FormData) {
     .map((value) => value.trim())
     .filter(Boolean);
 
-  const planAccess = parseJson(formData.get("plan_access_json"), []) as Array<{
-    plan_id: string;
-    is_allowed: boolean;
-    daily_run_limit?: number | null;
-    max_output_tokens?: number | null;
-  }>;
 
   const { error } = await supabase.rpc("create_tool_from_builder", {
     p_tool: toolPayload,
