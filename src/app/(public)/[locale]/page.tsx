@@ -12,28 +12,26 @@ const copy = {
   ar: {
     h1a: "حاسبات وأدوات رقمية.",
     h1b: "في منصة واحدة.",
-    body: "استخدم حاسبات وأدوات تحويل وإنتاجية متعددة اللغات مع شروحات للمدخلات وطريقة مراجعة النتائج في الأدوات الأساسية.",
+    body: "استخدم حاسبات وأدوات تحويل ونصوص وإنتاجية متعددة اللغات. تعرض كل أداة منشورة وصفًا لعملها ومدخلاتها المتاحة.",
     start: "ابدأ الآن مجانًا",
     explore: "استكشف الأدوات",
     search: "ابحث عن أداة أو حل...",
-    stats: ["أمثلة وشروحات قابلة للتحقق", "لغات نشطة", "استخدام مجاني", "أداة مميزة", "أداة عامة مراجعة", "مراجعة تحريرية مستمرة"],
+    stats: ["أداة عامة متاحة", "لغات نشطة", "أدوات مميزة معروضة", "تصنيفات ظاهرة"],
     featured: "أدوات مميزة",
     categories: "تصفح حسب التصنيف",
-    dashboard: "لمحة من لوحة التحكم",
-    cta: "جاهز لتجربة أدوات إمبراطورية الويب؟",
+    cta: "استكشف الأدوات المتاحة حاليًا",
   },
   en: {
     h1a: "Calculators and digital tools.",
     h1b: "In one platform.",
-    body: "Use multilingual calculators, converters, and productivity tools with input guidance and result-checking notes on core tools.",
+    body: "Use multilingual calculators, converters, text utilities, and productivity tools. Each published tool includes a description of its purpose and available inputs.",
     start: "Start free",
     explore: "Explore tools",
     search: "Search for a tool or solution...",
-    stats: ["Checkable examples and guidance", "active languages", "Free to use", "featured tools", "reviewed public tools", "Ongoing editorial review"],
+    stats: ["public tools available", "active languages", "featured tools shown", "visible categories"],
     featured: "Featured tools",
     categories: "Browse by category",
-    dashboard: "Dashboard preview",
-    cta: "Ready to try Web Empire tools?",
+    cta: "Explore the tools currently available",
   },
 };
 
@@ -102,12 +100,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
 
         <div className="we-container we-stats">
-          <div><strong>✓</strong><small>{t.stats[0]}</small></div>
+          <div><strong>{publicTools.length}</strong><small>{t.stats[0]}</small></div>
           <div><strong>{locales.length}</strong><small>{t.stats[1]}</small></div>
-          <div><strong>✓</strong><small>{t.stats[2]}</small></div>
-          <div><strong>+{featured.length}</strong><small>{t.stats[3]}</small></div>
-          <div><strong>{publicTools.length}</strong><small>{t.stats[4]}</small></div>
-          <div><strong>↻</strong><small>{t.stats[5]}</small></div>
+          <div><strong>{featured.length}</strong><small>{t.stats[2]}</small></div>
+          <div><strong>{visibleCategories.length}</strong><small>{t.stats[3]}</small></div>
         </div>
       </section>
 
@@ -136,13 +132,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               {category.name}
             </Link>
           ))}
-        </div>
-      </section>
-
-      <section className="we-container we-section">
-        <div className="we-dashboard-card">
-          <h2>{t.dashboard}</h2>
-          <img src={assets.dashboardPreview} alt="" />
         </div>
       </section>
 
