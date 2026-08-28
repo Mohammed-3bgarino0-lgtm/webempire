@@ -38,13 +38,6 @@ export function SiteFooter({
   return (
     <footer className="we-footer">
       <div className="we-container we-footer-inner">
-        <div className="we-footer-social" aria-hidden="true">
-          <span>𝕏</span>
-          <span>in</span>
-          <span>◎</span>
-          <span>▶</span>
-        </div>
-
         <nav className="we-footer-links" aria-label="Footer">
           <Link href={`${prefix}/about`}>{t.about}</Link>
           <Link href={`${prefix}/editorial-policy`}>{t.editorial}</Link>
