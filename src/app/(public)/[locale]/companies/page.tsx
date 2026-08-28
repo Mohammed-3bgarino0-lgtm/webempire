@@ -5,16 +5,16 @@ import { getLocaleByCode } from "@/localization/repository";
 
 const labels = {
   ar: {
-    title: "حلول للشركات",
-    body: "نظام أدوات قابل للتوسع للفرق، العمليات، التقارير، وتحسين الإنتاجية.",
-    coming: "قريبًا",
-    cta: "ابدأ الآن",
+    title: "صفحة الشركات قيد الإعداد",
+    body: "لم نطلق حتى الآن خدمة مستقلة أو باقات مخصصة للشركات. يمكنك استخدام الأدوات العامة المتاحة حاليًا أو التواصل معنا إذا كان لديك اقتراح أو احتياج محدد.",
+    coming: "قيد الإعداد",
+    cta: "استكشف الأدوات",
   },
   en: {
-    title: "Solutions for Companies",
-    body: "A scalable tool system for teams, operations, reporting, and productivity.",
-    coming: "Coming soon",
-    cta: "Start now",
+    title: "Company page in progress",
+    body: "Web Empire does not currently offer a separate company service or paid company plans. You can use the public tools that are available now or contact us with a specific need or suggestion.",
+    coming: "In progress",
+    cta: "Explore tools",
   },
 };
 
@@ -37,7 +37,7 @@ export default async function CompaniesPage({
         <p className="we-simple-kicker">{t.coming}</p>
         <h1>{t.title}</h1>
         <p>{t.body}</p>
-        <Link href={`${prefix}/auth/register`} className="we-button-primary">
+        <Link href={`${prefix}/tools`} className="we-button-primary">
           {t.cta}
         </Link>
       </section>
