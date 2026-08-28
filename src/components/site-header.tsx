@@ -14,7 +14,6 @@ import { translate } from "@/localization/messages";
 
 const labels = {
   ar: {
-    pricing: "الأسعار",
     sectors: "التصنيفات",
     blog: "المدونة",
     companies: "الشركات",
@@ -24,7 +23,6 @@ const labels = {
     menu: "فتح قائمة التنقل",
   },
   en: {
-    pricing: "Pricing",
     sectors: "Categories",
     blog: "Blog",
     companies: "Companies",
@@ -64,7 +62,6 @@ export function SiteHeader({
     { href: prefix, label: translate(messages, "nav.home") },
     { href: `${prefix}/tools`, label: translate(messages, "nav.tools") },
     { href: `${prefix}/tools#categories`, label: t.sectors },
-    { href: `${prefix}/pricing`, label: t.pricing },
     { href: `${prefix}/blog`, label: t.blog },
     { href: `${prefix}/companies`, label: t.companies },
   ];
