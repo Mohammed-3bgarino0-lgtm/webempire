@@ -7,15 +7,15 @@ const copy = {
   ar: {
     title: "تواصل معنا",
     intro:
-      "يسعدنا استقبال استفساراتك المتعلقة بالحسابات والاشتراكات والدعم الفني والشراكات والملاحظات العامة حول منصة إمبراطورية الويب.",
-    updatedAt: "آخر تحديث: 4 أغسطس 2026",
+      "يسعدنا استقبال استفساراتك المتعلقة بالحسابات والدعم الفني والشراكات والملاحظات العامة حول منصة إمبراطورية الويب.",
+    updatedAt: "آخر تحديث: 28 أغسطس 2026",
     primaryLabel: "إرسال بريد إلكتروني",
     secondaryLabel: "الدعم والمساعدة",
     sections: [
       {
         title: "البريد الإلكتروني الرسمي",
         paragraphs: [
-          "يمكنك التواصل معنا عبر البريد: mohammed-alsakran@hotmail.com. يرجى استخدام البريد المرتبط بحسابك عند الاستفسار عن الاشتراكات أو النقاط أو المدفوعات.",
+          "يمكنك التواصل معنا عبر البريد: mohammed-alsakran@hotmail.com. يرجى استخدام البريد المرتبط بحسابك عند الاستفسار عن الحساب أو مشكلة تقنية.",
         ],
       },
       {
@@ -23,17 +23,6 @@ const copy = {
         items: [
           "مشاكل تسجيل الدخول أو استعادة الحساب.",
           "تعطل أداة أو ظهور رسالة خطأ أثناء التشغيل.",
-          "عدم تحديث الرصيد أو النقاط بعد الدفع.",
-          "مشاكل الوصول إلى مزايا الخطة المدفوعة.",
-        ],
-      },
-      {
-        title: "الفوترة والاشتراكات",
-        items: [
-          "الاستفسار عن عملية دفع أو فاتورة.",
-          "طلب إلغاء اشتراك أو مراجعة تجديد.",
-          "طلب استرداد وفق سياسة الاسترداد والإلغاء.",
-          "الإبلاغ عن خصم مكرر أو معاملة غير معروفة.",
         ],
       },
       {
@@ -46,28 +35,27 @@ const copy = {
         title: "ماذا تكتب في الرسالة؟",
         items: [
           "الاسم والبريد المرتبط بالحساب.",
-          "نوع الطلب: دعم، فوترة، استرداد، شراكة، أو اقتراح.",
+          "نوع الطلب: دعم، شراكة، اقتراح، أو ملاحظة.",
           "شرح واضح للمشكلة والخطوات التي سبقتها.",
-          "رقم المعاملة أو الاشتراك عند وجود مشكلة دفع.",
-          "لقطة شاشة لرسالة الخطأ دون إظهار كلمات المرور أو بيانات البطاقة.",
+          "لقطة شاشة لرسالة الخطأ دون إظهار كلمات المرور أو أي بيانات حساسة.",
         ],
       },
       {
         title: "زمن الاستجابة",
         paragraphs: [
-          "نسعى للرد على الرسائل خلال يومي عمل. قد تستغرق الطلبات المتعلقة بالدفع أو التحقيقات الأمنية وقتًا إضافيًا بسبب الحاجة إلى مراجعة مزود الدفع أو سجلات النظام.",
+          "نسعى للرد على الرسائل خلال يومي عمل. قد تستغرق التحقيقات الأمنية أو الأعطال المعقدة وقتًا إضافيًا بسبب الحاجة إلى مراجعة سجلات النظام.",
         ],
       },
       {
         title: "الأمان والخصوصية",
         paragraphs: [
-          "لن نطلب منك إرسال كلمة المرور أو رقم البطاقة الكامل أو رمز الحماية. لا ترسل بيانات مالية حساسة عبر البريد الإلكتروني. عند الإبلاغ عن مشكلة أمنية اكتب في عنوان الرسالة: بلاغ أمني.",
+          "لن نطلب منك إرسال كلمة المرور أو رموز التحقق. لا ترسل بيانات حساسة عبر البريد الإلكتروني. عند الإبلاغ عن مشكلة أمنية اكتب في عنوان الرسالة: بلاغ أمني.",
         ],
       },
       {
         title: "بيانات النشاط",
         paragraphs: [
-          "إمبراطورية الويب منصة برمجية رقمية تعمل من المملكة العربية السعودية وتقدم أدوات إنتاجية وذكاء اصطناعي وخطط اشتراك شهرية للمستخدمين والأعمال.",
+          "إمبراطورية الويب منصة برمجية رقمية تعمل من المملكة العربية السعودية وتقدم أدوات رقمية مجانية للمستخدمين.",
         ],
       },
     ],
@@ -75,15 +63,15 @@ const copy = {
   en: {
     title: "Contact Us",
     intro:
-      "Contact Web Empire for account, billing, technical support, partnerships, and general inquiries.",
-    updatedAt: "Last updated: August 4, 2026",
+      "Contact Web Empire for account help, technical support, partnerships, and general inquiries.",
+    updatedAt: "Last updated: August 28, 2026",
     primaryLabel: "Send email",
     secondaryLabel: "Support",
     sections: [
       {
         title: "Official email",
         paragraphs: [
-          "Email us at mohammed-alsakran@hotmail.com. For account or billing requests, use the email address linked to your Web Empire account.",
+          "Email us at mohammed-alsakran@hotmail.com. For account requests, use the email address linked to your Web Empire account.",
         ],
       },
       {
@@ -91,14 +79,13 @@ const copy = {
         items: [
           "Your account email and request category.",
           "A clear description of the issue.",
-          "The transaction or subscription reference when relevant.",
-          "A screenshot that does not expose passwords or complete card details.",
+          "A screenshot that does not expose passwords or sensitive information.",
         ],
       },
       {
         title: "Response time",
         paragraphs: [
-          "We aim to respond within two business days. Billing and security investigations may take longer.",
+          "We aim to respond within two business days. Security investigations or complex technical issues may take longer.",
         ],
       },
     ],

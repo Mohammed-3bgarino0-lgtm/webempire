@@ -7,7 +7,7 @@ const copy = {
   ar: {
     title: "الشروط والأحكام",
     intro:
-      "تنظم هذه الشروط استخدام منصة إمبراطورية الويب وحساباتها وأدواتها الرقمية. لا تقدم المنصة حاليًا خطط اشتراك مدفوعة أو نظام فوترة للمستخدمين.",
+      "تنظم هذه الشروط استخدام منصة إمبراطورية الويب وحساباتها وأدواتها الرقمية المتاحة مجانًا للمستخدمين.",
     updatedAt: "آخر تحديث: 28 أغسطس 2026",
     primaryLabel: "استكشف الأدوات",
     secondaryLabel: "تواصل معنا",
@@ -30,8 +30,8 @@ const copy = {
       {
         title: "3. إتاحة الأدوات",
         items: [
-          "الأدوات المنشورة حاليًا متاحة دون اشتراك مدفوع.",
-          "قد تتطلب بعض الأدوات تسجيل الدخول لأسباب تشغيلية أو أمنية دون أن يعني ذلك وجود اشتراك مدفوع.",
+          "الأدوات المنشورة حاليًا متاحة مجانًا.",
+          "قد تتطلب بعض الأدوات تسجيل الدخول لأسباب تشغيلية أو أمنية.",
           "يجوز إضافة أدوات أو تعديلها أو إيقافها عند الحاجة إلى الصيانة أو تحسين الخدمة.",
         ],
       },
@@ -85,7 +85,7 @@ const copy = {
   en: {
     title: "Terms and Conditions",
     intro:
-      "These terms govern the use of Web Empire accounts and digital tools. Web Empire currently does not offer paid subscription plans or user billing.",
+      "These terms govern the use of Web Empire accounts and digital tools currently available free of charge.",
     updatedAt: "Last updated: August 28, 2026",
     primaryLabel: "Explore tools",
     secondaryLabel: "Contact us",
@@ -105,7 +105,7 @@ const copy = {
       {
         title: "Tool access",
         paragraphs: [
-          "Published tools are currently available without a paid subscription. Some tools may require sign-in for operational or security reasons.",
+          "Published tools are currently available free of charge. Some tools may require sign-in for operational or security reasons.",
         ],
       },
       {

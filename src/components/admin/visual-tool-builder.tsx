@@ -13,7 +13,6 @@ interface OptionItem {
 interface Props {
   categories: OptionItem[];
   skills: OptionItem[];
-  plans: OptionItem[];
   connections: OptionItem[];
   workflows: OptionItem[];
 }
@@ -34,7 +33,6 @@ const STEPS = [
   "حقول الأداة",
   "المحرك",
   "المهارات",
-  "النقاط والخطط",
   "SEO",
   "المعاينة",
 ] as const;
@@ -77,7 +75,6 @@ function parseOptions(text: string) {
 export function VisualToolBuilder({
   categories,
   skills,
-  plans,
   connections,
   workflows,
 }: Props) {
@@ -105,19 +102,6 @@ export function VisualToolBuilder({
   const [reservationPoints, setReservationPoints] = useState("100");
   const [outputSchema, setOutputSchema] = useState("{}");
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
-  const [planAccess, setPlanAccess] = useState<Record<string, {
-    allowed: boolean;
-    dailyRunLimit: string;
-    maxOutputTokens: string;
-  }>>(() => Object.fromEntries(plans.map((plan) => [plan.id, {
-    allowed: true,
-    dailyRunLimit: "",
-    maxOutputTokens: "",
-  }])));
-  const [pricingMode, setPricingMode] = useState("dynamic");
-  const [fixedPoints, setFixedPoints] = useState("10");
-  const [minimumPoints, setMinimumPoints] = useState("5");
-  const [costMultiplier, setCostMultiplier] = useState("1");
   const [seoTitle, setSeoTitle] = useState("");
   const [seoTitleAr, setSeoTitleAr] = useState("");
   const [seoDescription, setSeoDescription] = useState("");
@@ -202,25 +186,7 @@ export function VisualToolBuilder({
       <input type="hidden" name="provider_strategy" value={providerStrategy} />
       <input type="hidden" name="model_alias" value={modelAlias} />
       <input type="hidden" name="prompt_template" value={promptTemplate} />
-      <input type="hidden" name="pricing_mode" value={pricingMode} />
-      <input type="hidden" name="fixed_points" value={fixedPoints} />
-      <input type="hidden" name="minimum_points" value={minimumPoints} />
-      <input type="hidden" name="cost_multiplier" value={costMultiplier} />
       <input type="hidden" name="skill_ids" value={selectedSkills.join(",")} />
-      <input
-        type="hidden"
-        name="plan_access_json"
-        value={JSON.stringify(plans.map((plan) => ({
-          plan_id: plan.id,
-          is_allowed: planAccess[plan.id]?.allowed ?? false,
-          daily_run_limit: planAccess[plan.id]?.dailyRunLimit
-            ? Number(planAccess[plan.id]?.dailyRunLimit)
-            : null,
-          max_output_tokens: planAccess[plan.id]?.maxOutputTokens
-            ? Number(planAccess[plan.id]?.maxOutputTokens)
-            : null,
-        })))}
-      />
       <input type="hidden" name="seo_title" value={seoTitle} />
       <input type="hidden" name="seo_title_ar" value={seoTitleAr} />
       <input type="hidden" name="seo_description" value={seoDescription} />
@@ -287,32 +253,9 @@ export function VisualToolBuilder({
 
         {step === 3 ? <div className="check-grid">{skills.length ? skills.map((skill) => <label className={selectedSkills.includes(skill.id) ? "check-card selected" : "check-card"} key={skill.id}><input type="checkbox" checked={selectedSkills.includes(skill.id)} onChange={() => toggle(selectedSkills, skill.id, setSelectedSkills)} />{skill.name}</label>) : <p>لا توجد Skills بعد. أضفها من صفحة Skills.</p>}</div> : null}
 
-        {step === 4 ? (
-          <div className="builder-stack">
-            <div className="form-grid">
-              <label>Pricing Mode<select value={pricingMode} onChange={(event) => setPricingMode(event.target.value)}><option value="free">Free</option><option value="fixed">Fixed</option><option value="dynamic">Dynamic</option></select></label>
-              {pricingMode === "fixed" ? <label>Fixed Points<input type="number" value={fixedPoints} onChange={(event) => setFixedPoints(event.target.value)} /></label> : null}
-              {pricingMode === "dynamic" ? <><label>Minimum Points<input type="number" value={minimumPoints} onChange={(event) => setMinimumPoints(event.target.value)} /></label><label>Cost Multiplier<input type="number" step="0.1" value={costMultiplier} onChange={(event) => setCostMultiplier(event.target.value)} /></label></> : null}
-            </div>
-            <h3>حدود الخطط</h3>
-            <div className="plan-access-grid">
-              {plans.map((plan) => {
-                const access = planAccess[plan.id] ?? { allowed: false, dailyRunLimit: "", maxOutputTokens: "" };
-                return (
-                  <article className={access.allowed ? "plan-access-card selected" : "plan-access-card"} key={plan.id}>
-                    <label className="plan-access-title"><input type="checkbox" checked={access.allowed} onChange={(event) => setPlanAccess((current) => ({ ...current, [plan.id]: { ...access, allowed: event.target.checked } }))} />{plan.name}</label>
-                    <label>Daily Run Limit<input type="number" min="1" value={access.dailyRunLimit} disabled={!access.allowed} onChange={(event) => setPlanAccess((current) => ({ ...current, [plan.id]: { ...access, dailyRunLimit: event.target.value } }))} placeholder="بدون حد" /></label>
-                    <label>Max Output Tokens<input type="number" min="1" value={access.maxOutputTokens} disabled={!access.allowed} onChange={(event) => setPlanAccess((current) => ({ ...current, [plan.id]: { ...access, maxOutputTokens: event.target.value } }))} placeholder="حد المحرك" /></label>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        ) : null}
+        {step === 4 ? <div className="form-grid"><label>SEO Title EN<input value={seoTitle} onChange={(event) => setSeoTitle(event.target.value)} /></label><label>SEO Title AR<input value={seoTitleAr} onChange={(event) => setSeoTitleAr(event.target.value)} /></label><label className="full">SEO Description<textarea value={seoDescription} onChange={(event) => setSeoDescription(event.target.value)} /></label></div> : null}
 
-        {step === 5 ? <div className="form-grid"><label>SEO Title EN<input value={seoTitle} onChange={(event) => setSeoTitle(event.target.value)} /></label><label>SEO Title AR<input value={seoTitleAr} onChange={(event) => setSeoTitleAr(event.target.value)} /></label><label className="full">SEO Description<textarea value={seoDescription} onChange={(event) => setSeoDescription(event.target.value)} /></label></div> : null}
-
-        {step === 6 ? <div className="builder-preview"><div className="eyebrow">{engine}</div><h2>{titleAr || "اسم الأداة"}</h2><p>{description || "وصف الأداة"}</p><div className="preview-fields">{inputSchema.fields.map((field) => <div className="preview-field" key={field.key}><strong>{field.label}</strong><span>{field.type} • {field.key}</span></div>)}</div><div className="tool-meta"><span>{pricingMode}</span><span>{Object.values(planAccess).filter((access) => access.allowed).length} خطط • {selectedSkills.length} Skills</span></div></div> : null}
+        {step === 5 ? <div className="builder-preview"><div className="eyebrow">{engine}</div><h2>{titleAr || "اسم الأداة"}</h2><p>{description || "وصف الأداة"}</p><div className="preview-fields">{inputSchema.fields.map((field) => <div className="preview-field" key={field.key}><strong>{field.label}</strong><span>{field.type} • {field.key}</span></div>)}</div><div className="tool-meta"><span>مجاني</span><span>{selectedSkills.length} Skills</span></div></div> : null}
       </div>
 
       <div className="builder-actions">

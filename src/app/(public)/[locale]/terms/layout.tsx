@@ -14,8 +14,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     activeLocales,
     title: isArabic ? "الشروط والأحكام" : "Terms and Conditions",
     description: isArabic
-      ? "راجع شروط استخدام إمبراطورية الويب والحسابات والأدوات والاشتراكات والنقاط وسياسة الإلغاء والاسترداد والاستخدام المقبول."
-      : "Review the terms governing Web Empire accounts, tools, subscriptions, credits, cancellation, refunds, and acceptable use.",
+      ? "راجع شروط استخدام إمبراطورية الويب والحسابات والأدوات والاستخدام المقبول والمسؤوليات المتعلقة بالخدمة."
+      : "Review the terms governing Web Empire accounts, digital tools, acceptable use, service availability, and user responsibilities.",
   });
 }
 

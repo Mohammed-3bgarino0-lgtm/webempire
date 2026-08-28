@@ -46,10 +46,10 @@ export async function createToolAction(formData: FormData) {
     prompt_template: promptTemplate,
     seo_title: seoTitle,
     seo_description: seoDescription,
-    pricing_mode: String(formData.get("pricing_mode") ?? "dynamic"),
-    fixed_points: Number(formData.get("fixed_points") ?? 0),
-    minimum_points: Number(formData.get("minimum_points") ?? 5),
-    cost_multiplier: Number(formData.get("cost_multiplier") ?? 1),
+    pricing_mode: "free",
+    fixed_points: 0,
+    minimum_points: 0,
+    cost_multiplier: 1,
     requires_auth: formData.get("requires_auth") === "on",
     is_featured: formData.get("is_featured") === "on",
     is_active: formData.get("is_active") === "on",
@@ -86,7 +86,7 @@ export async function createToolAction(formData: FormData) {
     p_tool: toolPayload,
     p_translations: translations,
     p_skill_ids: skillIds,
-    p_plan_access: Array.isArray(planAccess) ? planAccess : [],
+    p_plan_access: [],
   });
 
   if (error) throw new Error(error.message);
@@ -218,30 +218,6 @@ export async function bindSkillToToolAction(formData: FormData) {
   if (error) throw new Error(error.message);
   revalidatePath("/admin/skills");
 }
-
-export async function updatePlanCreditsAction(formData: FormData) {
-  await requireAdmin();
-  const supabase = createSupabaseAdminClient();
-
-  const { error } = await supabase
-    .from("plans")
-    .update({
-      monthly_credits: Number(formData.get("monthly_credits") ?? 0),
-      price_sar: Number(formData.get("price_sar") ?? 0),
-      daily_ai_runs: String(formData.get("daily_ai_runs") ?? "").trim()
-        ? Number(formData.get("daily_ai_runs"))
-        : null,
-      max_output_tokens: String(formData.get("max_output_tokens") ?? "").trim()
-        ? Number(formData.get("max_output_tokens"))
-        : null,
-    })
-    .eq("id", String(formData.get("id") ?? ""));
-
-  if (error) throw new Error(error.message);
-  revalidatePath("/admin/plans");
-  revalidatePath("/pricing");
-}
-
 
 export async function createLocaleAction(formData: FormData) {
   await requireAdmin();

@@ -8,7 +8,7 @@ const copy = {
     title: "الدعم والمساعدة",
     intro:
       "تجد هنا إرشادات سريعة للحسابات والأدوات المجانية، إضافة إلى طريقة رفع طلب دعم واضح لتسريع الحل.",
-    updatedAt: "آخر تحديث: 4 أغسطس 2026",
+    updatedAt: "آخر تحديث: 28 أغسطس 2026",
     primaryLabel: "تواصل مع الدعم",
     secondaryLabel: "الشروط والأحكام",
     sections: [
@@ -33,7 +33,7 @@ const copy = {
       {
         title: "الخدمة المجانية",
         items: [
-          "الأدوات المتاحة للمستخدمين حاليًا مجانية ولا تتطلب خطة مدفوعة.",
+          "الأدوات المتاحة للمستخدمين حاليًا مجانية.",
           "إذا تعذر تشغيل أداة، أرسل اسم الأداة ووقت المحاولة ورسالة الخطأ.",
           "يمكن مراجعة سجل التشغيلات من لوحة الحساب عند تسجيل الدخول.",
         ],
@@ -75,7 +75,7 @@ const copy = {
     title: "Support",
     intro:
       "Find help for accounts and free tools, along with the information needed for a support request.",
-    updatedAt: "Last updated: August 4, 2026",
+    updatedAt: "Last updated: August 28, 2026",
     primaryLabel: "Contact support",
     secondaryLabel: "Terms and conditions",
     sections: [
@@ -88,7 +88,7 @@ const copy = {
       {
         title: "Free service",
         paragraphs: [
-          "The tools currently available to users are free and do not require a paid subscription.",
+          "The tools currently available to users are free to use.",
         ],
       },
       {

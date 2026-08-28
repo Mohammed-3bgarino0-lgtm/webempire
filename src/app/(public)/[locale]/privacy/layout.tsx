@@ -14,8 +14,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     activeLocales,
     title: isArabic ? "سياسة الخصوصية" : "Privacy Policy",
     description: isArabic
-      ? "تعرف على البيانات التي تجمعها إمبراطورية الويب وكيف نستخدمها ونحميها وخيارات الخصوصية المتاحة عند استخدام الحساب والأدوات والاشتراكات."
-      : "Learn what data Web Empire collects, how it is used and protected, and the privacy choices available when using accounts, tools, and subscriptions.",
+      ? "تعرف على البيانات التي تجمعها إمبراطورية الويب وكيف نستخدمها ونحميها وخيارات الخصوصية المتاحة عند استخدام الحساب والأدوات."
+      : "Learn what data Web Empire collects, how it is used and protected, and the privacy choices available when using accounts and tools.",
   });
 }
 

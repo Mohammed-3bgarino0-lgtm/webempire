@@ -14,8 +14,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     activeLocales,
     title: isArabic ? "تواصل معنا" : "Contact Web Empire",
     description: isArabic
-      ? "تواصل مع إمبراطورية الويب بشأن الحسابات والاشتراكات والدعم الفني والشراكات والملاحظات أو الإبلاغ عن مشكلة في أداة أو محتوى."
-      : "Contact Web Empire about accounts, subscriptions, technical support, partnerships, feedback, or an issue with a tool or article.",
+      ? "تواصل مع إمبراطورية الويب بشأن الحسابات والدعم الفني والشراكات والملاحظات أو الإبلاغ عن مشكلة في أداة أو محتوى."
+      : "Contact Web Empire about accounts, technical support, partnerships, feedback, or an issue with a tool or article.",
   });
 }
 

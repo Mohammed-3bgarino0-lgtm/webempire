@@ -14,8 +14,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     activeLocales,
     title: isArabic ? "الدعم والمساعدة" : "Support & Help",
     description: isArabic
-      ? "إرشادات ودعم لاستخدام حسابات وأدوات ونقاط واشتراكات ومدفوعات إمبراطورية الويب، مع طريقة رفع طلب دعم واضح لتسريع الحل."
-      : "Get help with Web Empire accounts, tools, credits, subscriptions, and payments, plus guidance for submitting a clear support request.",
+      ? "إرشادات ودعم لاستخدام حسابات وأدوات إمبراطورية الويب، مع طريقة رفع طلب دعم واضح لتسريع الحل."
+      : "Get help with Web Empire accounts and tools, plus guidance for submitting a clear support request.",
   });
 }
 
