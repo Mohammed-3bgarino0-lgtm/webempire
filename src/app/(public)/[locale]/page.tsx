@@ -6,7 +6,7 @@ import { translate } from "@/localization/messages";
 import { getActiveLocales, getLocaleByCode, getSiteIdentity, getUiMessages } from "@/localization/repository";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { isEditoriallyIndexableTool } from "@/lib/tool-editorial-content";
-import { getActiveCategories, getActivePlans, getActiveTools } from "@/repositories/catalog";
+import { getActiveCategories, getActiveTools } from "@/repositories/catalog";
 
 const copy = {
   ar: {
@@ -16,11 +16,10 @@ const copy = {
     start: "ابدأ الآن مجانًا",
     explore: "استكشف الأدوات",
     search: "ابحث عن أداة أو حل...",
-    stats: ["أمثلة وشروحات قابلة للتحقق", "لغات نشطة", "تكلفة الخطة المجانية", "أداة مميزة", "أداة عامة مراجعة", "مراجعة تحريرية مستمرة"],
+    stats: ["أمثلة وشروحات قابلة للتحقق", "لغات نشطة", "استخدام مجاني", "أداة مميزة", "أداة عامة مراجعة", "مراجعة تحريرية مستمرة"],
     featured: "أدوات مميزة",
     categories: "تصفح حسب التصنيف",
     dashboard: "لمحة من لوحة التحكم",
-    pricing: "باقات مناسبة للجميع",
     cta: "جاهز لتجربة أدوات إمبراطورية الويب؟",
   },
   en: {
@@ -30,11 +29,10 @@ const copy = {
     start: "Start free",
     explore: "Explore tools",
     search: "Search for a tool or solution...",
-    stats: ["Checkable examples and guidance", "active languages", "Free plan cost", "featured tools", "reviewed public tools", "Ongoing editorial review"],
+    stats: ["Checkable examples and guidance", "active languages", "Free to use", "featured tools", "reviewed public tools", "Ongoing editorial review"],
     featured: "Featured tools",
     categories: "Browse by category",
     dashboard: "Dashboard preview",
-    pricing: "Plans for everyone",
     cta: "Ready to try Web Empire tools?",
   },
 };
@@ -46,13 +44,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const locale = await getLocaleByCode(localeCode);
   if (!locale) notFound();
 
-  const [identity, messages, locales, tools, categories, plans] = await Promise.all([
+  const [identity, messages, locales, tools, categories] = await Promise.all([
     getSiteIdentity(locale),
     getUiMessages(locale),
     getActiveLocales(),
     getActiveTools(locale.code),
     getActiveCategories(locale.code),
-    getActivePlans(locale.code),
   ]);
 
   void identity;
@@ -66,7 +63,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const visibleCategories = categories
     .filter((category) => publicCategoryIds.has(category.id))
     .slice(0, 8);
-  const visiblePlans = plans.slice(0, 3);
   const websiteSchema = websiteJsonLd(locale.locale_code);
   const organizationSchema = organizationJsonLd();
 
@@ -108,7 +104,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="we-container we-stats">
           <div><strong>✓</strong><small>{t.stats[0]}</small></div>
           <div><strong>{locales.length}</strong><small>{t.stats[1]}</small></div>
-          <div><strong>0</strong><small>{t.stats[2]}</small></div>
+          <div><strong>✓</strong><small>{t.stats[2]}</small></div>
           <div><strong>+{featured.length}</strong><small>{t.stats[3]}</small></div>
           <div><strong>{publicTools.length}</strong><small>{t.stats[4]}</small></div>
           <div><strong>↻</strong><small>{t.stats[5]}</small></div>
@@ -143,22 +139,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
       </section>
 
-      <section className="we-container we-section we-bottom-grid">
+      <section className="we-container we-section">
         <div className="we-dashboard-card">
           <h2>{t.dashboard}</h2>
           <img src={assets.dashboardPreview} alt="" />
-        </div>
-        <div className="we-pricing-panel">
-          <h2>{t.pricing}</h2>
-          <div className="we-pricing-mini">
-            {visiblePlans.map((plan) => (
-              <Link href={`${prefix}/pricing`} key={plan.slug}>
-                <span>{plan.name}</span>
-                <strong>{Number(plan.price_sar)} SAR</strong>
-                <small>{Number(plan.monthly_credits).toLocaleString(locale.locale_code)} {translate(messages, "common.points")}</small>
-              </Link>
-            ))}
-          </div>
         </div>
       </section>
 
