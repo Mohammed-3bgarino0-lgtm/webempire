@@ -2,7 +2,7 @@ import { getAppearanceSettings } from "@/appearance/repository";
 import { corsJson, corsOptions } from "@/lib/api-cors";
 import { getActiveLocales, getLocaleByCode, getSiteIdentity, getUiMessages } from "@/localization/repository";
 import { resolveRequestLocale } from "@/localization/resolve";
-import { getActiveCategories, getActivePlans, getActiveTools } from "@/repositories/catalog";
+import { getActiveCategories, getActiveTools } from "@/repositories/catalog";
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +24,7 @@ export async function GET(request: Request) {
       return corsJson({ error: "LOCALE_NOT_SUPPORTED" }, { status: 400 });
     }
 
-    const [appearance, locales, identity, messages, categories, tools, plans] =
+    const [appearance, locales, identity, messages, categories, tools] =
       await Promise.all([
         getAppearanceSettings(),
         getActiveLocales(),
@@ -32,7 +32,6 @@ export async function GET(request: Request) {
         getUiMessages(locale),
         getActiveCategories(locale.code),
         getActiveTools(locale.code),
-        getActivePlans(locale.code),
       ]);
 
     return corsJson({
@@ -60,16 +59,6 @@ export async function GET(request: Request) {
         requiresAuth: tool.requires_auth,
         isFeatured: tool.is_featured,
         categoryId: tool.category_id,
-      })),
-      plans: plans.map((plan) => ({
-        id: plan.id,
-        slug: plan.slug,
-        name: plan.localizedName,
-        description: plan.localizedDescription,
-        priceSar: Number(plan.price_sar),
-        monthlyCredits: Number(plan.monthly_credits),
-        dailyAiRuns: plan.daily_ai_runs,
-        maxOutputTokens: plan.max_output_tokens,
       })),
     });
   } catch (error) {
