@@ -9,8 +9,8 @@ const copy = {
     title: "السياسة التحريرية",
     description: "كيف نكتب ونراجع ونحدّث شروحات الأدوات ومقالات إمبراطورية الويب.",
     intro:
-      "توضح هذه السياسة كيف نقرر ما يستحق النشر، وكيف نفرق بين المحتوى التعليمي والمعلومة القابلة للتغير، وكيف نتعامل مع التصحيحات والمحتوى الذي تساعد الأدوات الآلية في إنتاجه.",
-    updatedAt: "آخر تحديث: 10 أغسطس 2026",
+      "توضح هذه السياسة كيف نقرر ما يستحق النشر، وكيف نفرق بين المحتوى التعليمي والمعلومة القابلة للتغير، وكيف نتعامل مع التصحيحات وأي مساعدة آلية قد تدخل في إعداد المحتوى.",
+    updatedAt: "آخر تحديث: 29 أغسطس 2026",
     primaryLabel: "اقرأ المدونة",
     secondaryLabel: "من نحن",
     sections: [
@@ -45,9 +45,9 @@ const copy = {
         ],
       },
       {
-        title: "5. استخدام الذكاء الاصطناعي",
+        title: "5. المساعدة الآلية",
         paragraphs: [
-          "قد نستخدم أدوات آلية للمساعدة في البحث الداخلي أو الصياغة أو التلخيص، لكن ذلك لا يعفي المحتوى من المراجعة. لا نعتبر النص الآلي مصدرًا بحد ذاته، ولا ننشر ادعاءات واقعية لمجرد أن نموذجًا لغويًا أنشأها.",
+          "إذا استُخدمت أدوات آلية للمساعدة في الصياغة أو التلخيص، فلا تُعامل مخرجاتها كمصدر بحد ذاتها، ولا يجوز نشر ادعاء واقعي لمجرد أن أداة آلية أنشأته. يجب أن يكون الادعاء قابلًا للمراجعة من بيانات أو مصدر مناسب.",
         ],
       },
       {
@@ -74,8 +74,8 @@ const copy = {
     title: "Editorial Policy",
     description: "How Web Empire writes, reviews, updates, and corrects tool guidance and editorial content.",
     intro:
-      "This policy explains what we consider publishable value, how we handle changeable facts, how we review tool guidance, and how automated assistance can be used without turning generated text into an unsupported source.",
-    updatedAt: "Last updated: August 10, 2026",
+      "This policy explains what we consider publishable value, how we handle changeable facts, how we review tool guidance, and how any automated assistance must be treated when preparing content.",
+    updatedAt: "Last updated: August 29, 2026",
     primaryLabel: "Read the blog",
     secondaryLabel: "About Web Empire",
     sections: [
@@ -110,9 +110,9 @@ const copy = {
         ],
       },
       {
-        title: "5. Use of AI assistance",
+        title: "5. Automated assistance",
         paragraphs: [
-          "Automated tools may assist with internal research, drafting, or summarization, but the output still requires review. Generated text is not treated as a source, and factual claims are not published merely because a language model produced them.",
+          "If automated tools are used to assist drafting or summarization, their output is not treated as a source by itself. A factual claim must not be published merely because an automated tool produced it; it should be reviewable against appropriate data or a suitable source.",
         ],
       },
       {
