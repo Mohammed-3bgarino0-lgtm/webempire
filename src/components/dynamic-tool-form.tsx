@@ -85,7 +85,6 @@ const copy = {
     loginRequired: "يلزم تسجيل الدخول لتشغيل هذه الأداة.",
     loginAction: "تسجيل الدخول",
     insufficientCredits: "الرصيد غير كافٍ لتشغيل هذه الأداة.",
-    pricingAction: "عرض الخطط",
     accessRestricted: "الوصول مقيّد لهذه الأداة.",
     genericError: "تعذر تشغيل الأداة. تحقق من البيانات وحاول مرة أخرى.",
     required: "هذا الحقل مطلوب.",
@@ -123,8 +122,6 @@ const copy = {
     actionFailed: "Unable to complete the action.",
     loginRequired: "Sign in is required to run this tool.",
     loginAction: "Sign in",
-    insufficientCredits: "You do not have enough credits to run this tool.",
-    pricingAction: "View plans",
     accessRestricted: "Access to this tool is restricted.",
     genericError: "Unable to run the tool. Check your input and try again.",
     required: "This field is required.",
@@ -593,8 +590,8 @@ export function DynamicToolForm({
         setStatusCode(response.status);
 
         if (response.status === 401) setError(t.loginRequired);
-        else if (response.status === 402) setError(t.insufficientCredits);
-        else if (response.status === 403) setError(t.accessRestricted);
+        else if (response.status === 402 || response.status === 403)
+          setError(t.accessRestricted);
         else setError(t.genericError);
 
         setMobileTab("result");
@@ -1057,11 +1054,6 @@ window.addEventListener("load", () => {
                 {statusCode === 401 ? (
                   <Link href={`/${locale}/auth/login`}>
                     {t.loginAction}
-                  </Link>
-                ) : null}
-                {statusCode === 402 || statusCode === 403 ? (
-                  <Link href={`/${locale}/pricing`}>
-                    {t.pricingAction}
                   </Link>
                 ) : null}
               </div>

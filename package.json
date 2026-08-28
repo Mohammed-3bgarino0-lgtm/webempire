@@ -18,14 +18,11 @@
     "test:tools:wave1": "node --experimental-strip-types scripts/verify-tool-wave1.mts"
   },
   "dependencies": {
-    "@paddle/paddle-js": "^1.6.4",
-    "@paddle/paddle-node-sdk": "^3.8.0",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.108.2",
     "next": "16.2.12",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "stripe": "^22.3.0",
     "zod": "^4.1.12"
   },
   "devDependencies": {

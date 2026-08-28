@@ -7,10 +7,10 @@ const copy = {
   ar: {
     title: "الدعم والمساعدة",
     intro:
-      "تجد هنا إرشادات سريعة للحسابات والأدوات والنقاط والاشتراكات والمدفوعات، إضافة إلى طريقة رفع طلب دعم واضح لتسريع الحل.",
+      "تجد هنا إرشادات سريعة للحسابات والأدوات المجانية، إضافة إلى طريقة رفع طلب دعم واضح لتسريع الحل.",
     updatedAt: "آخر تحديث: 4 أغسطس 2026",
     primaryLabel: "تواصل مع الدعم",
-    secondaryLabel: "الشروط والاسترداد",
+    secondaryLabel: "الشروط والأحكام",
     sections: [
       {
         title: "مشاكل تسجيل الدخول",
@@ -26,32 +26,16 @@ const copy = {
         items: [
           "تحقق من اكتمال الحقول المطلوبة قبل تشغيل الأداة.",
           "تجنب رفع ملفات محمية بكلمة مرور أو بتنسيقات غير مدعومة.",
-          "عند ظهور خطأ، لا تكرر التشغيل مرات كثيرة قبل التأكد من حالة الرصيد.",
+          "عند ظهور خطأ، لا تكرر التشغيل مرات كثيرة قبل التأكد من حالة الطلب.",
           "أرسل اسم الأداة ووقت التشغيل ورسالة الخطأ عند طلب الدعم.",
         ],
       },
       {
-        title: "النقاط والرصيد",
+        title: "الخدمة المجانية",
         items: [
-          "يظهر الرصيد الحالي داخل لوحة الحساب.",
-          "يتم خصم النقاط بحسب تكلفة الأداة وطريقة التشغيل.",
-          "بعد نجاح الاشتراك قد يستغرق تحديث الرصيد لحظات حتى يصل تأكيد مزود الدفع.",
-          "إذا تم الخصم دون نتيجة، أرسل رقم التشغيل أو وقته لمراجعة السجل.",
-        ],
-      },
-      {
-        title: "الاشتراكات والمدفوعات",
-        items: [
-          "يتم تفعيل الخطة بعد وصول تأكيد الدفع الناجح.",
-          "تتجدد الاشتراكات المدفوعة تلقائيًا حتى يتم إلغاؤها.",
-          "تتم معالجة المدفوعات والفواتير بواسطة Paddle.",
-          "عند وجود خصم مكرر أو عملية غير معروفة، تواصل فورًا مع ذكر رقم المعاملة.",
-        ],
-      },
-      {
-        title: "الإلغاء والاسترداد",
-        paragraphs: [
-          "لطلب إلغاء الاشتراك أو استرداد دفعة، أرسل رسالة إلى mohammed-alsakran@hotmail.com من البريد المرتبط بالحساب. اذكر رقم المعاملة وسبب الطلب. تخضع الطلبات لسياسة الاسترداد الموجودة ضمن الشروط والأحكام وللحقوق النظامية المطبقة.",
+          "الأدوات المتاحة للمستخدمين حاليًا مجانية ولا تتطلب خطة مدفوعة.",
+          "إذا تعذر تشغيل أداة، أرسل اسم الأداة ووقت المحاولة ورسالة الخطأ.",
+          "يمكن مراجعة سجل التشغيلات من لوحة الحساب عند تسجيل الدخول.",
         ],
       },
       {
@@ -59,30 +43,30 @@ const copy = {
         items: [
           "سجل الخروج ثم الدخول مرة أخرى.",
           "حدّث الصفحة تحديثًا كاملًا أو جرّب متصفحًا حديثًا.",
-          "تحقق من اتصال الإنترنت ومن عدم حظر النوافذ المنبثقة عند الدفع.",
-          "احتفظ بلقطة شاشة للخطأ دون كشف كلمة المرور أو بيانات البطاقة.",
+          "تحقق من اتصال الإنترنت وجرّب متصفحًا حديثًا.",
+          "احتفظ بلقطة شاشة للخطأ دون كشف كلمة المرور أو أي بيانات حساسة.",
         ],
       },
       {
         title: "معلومات مطلوبة لتسريع الحل",
         items: [
           "البريد المرتبط بالحساب.",
-          "اسم الأداة أو الخطة.",
+          "اسم الأداة.",
           "التاريخ والوقت التقريبي للمشكلة.",
-          "رقم المعاملة أو التشغيل إن وجد.",
+          "رقم التشغيل إن وجد.",
           "وصف الخطوات التي أدت إلى المشكلة.",
         ],
       },
       {
         title: "الأولوية والاستجابة",
         paragraphs: [
-          "نعطي الأولوية للمشكلات الأمنية، وفشل الدفع، وعدم تفعيل الاشتراك بعد نجاح العملية، وتعطل الحساب بالكامل. نسعى للرد خلال يومي عمل، وقد تتطلب بعض الحالات مراجعة إضافية.",
+          "نعطي الأولوية للمشكلات الأمنية وتعطل الحساب بالكامل والأعطال التي تمنع تشغيل الأدوات. نسعى للرد خلال يومي عمل، وقد تتطلب بعض الحالات مراجعة إضافية.",
         ],
       },
       {
         title: "الإبلاغ عن مشكلة أمنية",
         paragraphs: [
-          "عند الاشتباه في اختراق حساب أو تسرب بيانات، غيّر كلمة المرور فورًا ثم أرسل رسالة بعنوان بلاغ أمني إلى mohammed-alsakran@hotmail.com. لا ترسل كلمات المرور أو رموز التحقق أو بيانات البطاقة.",
+          "عند الاشتباه في اختراق حساب أو تسرب بيانات، غيّر كلمة المرور فورًا ثم أرسل رسالة بعنوان بلاغ أمني إلى mohammed-alsakran@hotmail.com. لا ترسل كلمات المرور أو رموز التحقق أو أي بيانات حساسة.",
         ],
       },
     ],
@@ -90,10 +74,10 @@ const copy = {
   en: {
     title: "Support",
     intro:
-      "Find help for accounts, tools, credits, subscriptions, and payments, along with the information needed for a support request.",
+      "Find help for accounts and free tools, along with the information needed for a support request.",
     updatedAt: "Last updated: August 4, 2026",
     primaryLabel: "Contact support",
-    secondaryLabel: "Terms and refunds",
+    secondaryLabel: "Terms and conditions",
     sections: [
       {
         title: "Accounts and tools",
@@ -102,21 +86,15 @@ const copy = {
         ],
       },
       {
-        title: "Credits and subscriptions",
+        title: "Free service",
         paragraphs: [
-          "Credits are deducted based on tool usage. Paid plans activate after successful payment confirmation from Paddle.",
-        ],
-      },
-      {
-        title: "Cancellation and refunds",
-        paragraphs: [
-          "Email mohammed-alsakran@hotmail.com from your account email and include the transaction reference and reason for the request.",
+          "The tools currently available to users are free and do not require a paid subscription.",
         ],
       },
       {
         title: "Response time",
         paragraphs: [
-          "We aim to respond within two business days, with priority given to security, billing, and account access issues.",
+          "We aim to respond within two business days, with priority given to security, account access, and service availability issues.",
         ],
       },
     ],
