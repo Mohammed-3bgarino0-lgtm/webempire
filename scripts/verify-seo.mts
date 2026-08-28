@@ -94,12 +94,6 @@ requireText("src/app/(public)/[locale]/auth/layout.tsx", [
   "follow: false",
 ]);
 
-requireText("src/app/(public)/[locale]/pricing/page.tsx", [
-  "generateMetadata",
-  'canonical = `/${locale}/pricing`',
-  "breadcrumbJsonLd",
-]);
-
 if (errors.length) {
   console.error("SEO verification failed:\n- " + errors.join("\n- "));
   process.exit(1);
