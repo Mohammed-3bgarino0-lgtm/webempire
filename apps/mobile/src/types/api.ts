@@ -39,17 +39,6 @@ export interface ToolSummary {
   categoryId: string;
 }
 
-export interface PlanSummary {
-  id: string;
-  slug: string;
-  name: string;
-  description: string;
-  priceSar: number;
-  monthlyCredits: number;
-  dailyAiRuns: number | null;
-  maxOutputTokens: number | null;
-}
-
 export interface BootstrapResponse {
   locale: {
     id: string;
@@ -71,7 +60,6 @@ export interface BootstrapResponse {
   messages: Record<string, string>;
   categories: CategorySummary[];
   tools: ToolSummary[];
-  plans: PlanSummary[];
 }
 
 export interface CategorySummary {
