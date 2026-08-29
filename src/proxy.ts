@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 
-import { isReviewedPublicToolSlug } from "./src/lib/reviewed-tools";
+import { isReviewedPublicToolSlug } from "@/lib/reviewed-tools";
 import { updateSupabaseSession } from "@/lib/supabase/proxy";
 
 export async function proxy(request: NextRequest) {

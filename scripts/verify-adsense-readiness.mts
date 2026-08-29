@@ -44,7 +44,7 @@ const [
   read("src/components/adsense-runtime.tsx"),
   read("src/lib/reviewed-tools.ts"),
   read("src/lib/reviewed-tool-editorial.ts"),
-  read("proxy.ts"),
+  read("src/proxy.ts"),
   read("src/app/robots.txt/route.ts"),
   read("src/app/sitemap.xml/route.ts"),
   read("src/repositories/blog.ts"),
@@ -96,7 +96,7 @@ assert(layout.includes('process.env.NODE_ENV === "production"'), "Ad runtime mus
 assert(layout.includes("<AdSenseRuntime"), "Public layout must use the controlled AdSense runtime component.");
 assert(!layout.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"), "Public layout must not load AdSense globally on every route.");
 assert(layout.includes('webempire-content-revision'), "Production content revision marker is missing.");
-assert(layout.includes('adsense-quality-2026-08-29-v2'), "Unexpected public-content revision marker.");
+assert(layout.includes('adsense-quality-2026-08-29-v3'), "Unexpected public-content revision marker.");
 
 assert(adsRuntime.includes('section === "auth"'), "AdSense runtime must exclude authentication screens.");
 assert(adsRuntime.includes('section === "dashboard"'), "AdSense runtime must exclude dashboard screens.");

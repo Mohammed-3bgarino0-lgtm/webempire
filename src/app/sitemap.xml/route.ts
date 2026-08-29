@@ -1,7 +1,6 @@
 import { publicEnv } from "@/lib/env";
 import { getActiveLocales } from "@/localization/repository";
 import { isReviewedPublicToolSlug } from "@/lib/reviewed-tools";
-import { isEditoriallyIndexableTool } from "@/lib/tool-editorial-content";
 import { getBlogPosts } from "@/repositories/blog";
 import { getActiveTools } from "@/repositories/catalog";
 
@@ -34,8 +33,8 @@ export async function GET() {
     entries.push({ url: `${prefix}/support` });
 
     const localizedTools = await getActiveTools(locale.code);
-    const indexableTools = localizedTools.filter(
-      (tool) => isEditoriallyIndexableTool(tool) && isReviewedPublicToolSlug(tool.slug),
+    const indexableTools = localizedTools.filter((tool) =>
+      isReviewedPublicToolSlug(tool.slug),
     );
 
     for (const tool of indexableTools) {

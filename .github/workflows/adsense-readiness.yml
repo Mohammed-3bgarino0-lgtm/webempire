@@ -10,6 +10,9 @@ on:
       - "src/app/(public)/**"
       - "src/app/robots.txt/**"
       - "src/app/sitemap.xml/**"
+      - "src/proxy.ts"
+      - "src/lib/reviewed-tools.ts"
+      - "src/components/adsense-runtime.tsx"
       - "src/repositories/blog.ts"
       - "src/lib/reviewed-tools.ts"
       - "src/lib/reviewed-tool-editorial.ts"
@@ -28,6 +31,9 @@ on:
       - "src/app/(public)/**"
       - "src/app/robots.txt/**"
       - "src/app/sitemap.xml/**"
+      - "src/proxy.ts"
+      - "src/lib/reviewed-tools.ts"
+      - "src/components/adsense-runtime.tsx"
       - "src/repositories/blog.ts"
       - "src/lib/reviewed-tools.ts"
       - "src/lib/reviewed-tool-editorial.ts"
@@ -80,7 +86,7 @@ jobs:
         run: |
           set -euo pipefail
           BASE="https://webempire.site"
-          REVISION="adsense-quality-2026-08-29-v2"
+          REVISION="adsense-quality-2026-08-29-v3"
           found=""
           for attempt in $(seq 1 30); do
             body="$(curl -fsSL --max-time 20 "$BASE/ar?content_revision=$REVISION&attempt=$attempt" || true)"
@@ -111,7 +117,7 @@ jobs:
           tools_index="$(curl -fsSL --max-time 20 "$BASE/ar/tools")"
 
           printf '%s' "$home" | grep -q 'google-adsense-account'
-          printf '%s' "$home" | grep -q 'adsense-quality-2026-08-29-v2'
+          printf '%s' "$home" | grep -q 'adsense-quality-2026-08-29-v3'
           printf '%s' "$home" | grep -q '>12<'
           ! printf '%s' "$home" | grep -q '99.9%'
           ! printf '%s' "$home" | grep -q '10,000'

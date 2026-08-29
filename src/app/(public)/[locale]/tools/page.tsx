@@ -9,7 +9,6 @@ import type { ToolExplorerItem } from "@/components/tools/tool-card";
 import { getActiveLocales, getLocaleByCode } from "@/localization/repository";
 import { isReviewedPublicToolSlug } from "@/lib/reviewed-tools";
 import { absoluteUrl, breadcrumbJsonLd, SEO_LOGO_PATH } from "@/lib/seo";
-import { isEditoriallyIndexableTool } from "@/lib/tool-editorial-content";
 import { getActiveCategories, getActiveTools } from "@/repositories/catalog";
 
 const metadataCopy = {
@@ -103,8 +102,8 @@ export default async function ToolsPage({
   // Public discovery is intentionally limited to calculators that have been
   // reviewed individually. Other active tools can remain operational without
   // being promoted to search engines until their pages receive the same review.
-  const publicTools = tools.filter(
-    (tool) => isEditoriallyIndexableTool(tool) && isReviewedPublicToolSlug(tool.slug),
+  const publicTools = tools.filter((tool) =>
+    isReviewedPublicToolSlug(tool.slug),
   );
   const publicCategoryIds = new Set(publicTools.map((tool) => tool.category_id));
   const publicCategories = categories.filter((category) => publicCategoryIds.has(category.id));

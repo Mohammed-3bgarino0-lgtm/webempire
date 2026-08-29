@@ -24,7 +24,7 @@ import {
   getUiMessages,
 } from "@/localization/repository";
 
-const CONTENT_REVISION = "adsense-quality-2026-08-29-v2";
+const CONTENT_REVISION = "adsense-quality-2026-08-29-v3";
 
 const inter = Inter({
   subsets: ["latin"],

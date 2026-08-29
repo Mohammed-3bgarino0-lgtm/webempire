@@ -6,7 +6,6 @@ import { translate } from "@/localization/messages";
 import { getActiveLocales, getLocaleByCode, getUiMessages } from "@/localization/repository";
 import { isReviewedPublicToolSlug } from "@/lib/reviewed-tools";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
-import { isEditoriallyIndexableTool } from "@/lib/tool-editorial-content";
 import { getActiveCategories, getActiveTools } from "@/repositories/catalog";
 
 import styles from "./home-quality.module.css";
@@ -68,8 +67,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
   const t = locale.code === "ar" ? copy.ar : copy.en;
   const prefix = `/${locale.code}`;
-  const publicTools = tools.filter(
-    (tool) => isEditoriallyIndexableTool(tool) && isReviewedPublicToolSlug(tool.slug),
+  const publicTools = tools.filter((tool) =>
+    isReviewedPublicToolSlug(tool.slug),
   );
   const featuredCandidates = publicTools.filter((tool) => tool.is_featured);
   const featured = (featuredCandidates.length ? featuredCandidates : publicTools).slice(0, 6);

@@ -13,7 +13,7 @@ import {
   getUiMessages,
 } from "@/localization/repository";
 import { getEnhancedToolEditorialContent } from "@/lib/tool-editorial-enhancements";
-import { isEditoriallyIndexableTool } from "@/lib/tool-editorial-content";
+import { isReviewedPublicToolSlug } from "@/lib/reviewed-tools";
 import { absoluteUrl, breadcrumbJsonLd } from "@/lib/seo";
 import { getToolBySlug } from "@/repositories/catalog";
 
@@ -117,7 +117,7 @@ export async function generateMetadata({
   if (!tool) return {};
 
   const canonical = `/${locale}/tools/${slug}`;
-  const indexable = isEditoriallyIndexableTool(tool);
+  const indexable = isReviewedPublicToolSlug(slug);
 
   return {
     title: tool.seoTitle,
