@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { webEmpireLightAssets as assets } from "@/brand/web-empire-light-assets";
 import { translate } from "@/localization/messages";
 import { getActiveLocales, getLocaleByCode, getUiMessages } from "@/localization/repository";
+import { isReviewedPublicToolSlug } from "@/lib/reviewed-tools";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { isEditoriallyIndexableTool } from "@/lib/tool-editorial-content";
 import { getActiveCategories, getActiveTools } from "@/repositories/catalog";
@@ -14,40 +15,40 @@ const copy = {
   ar: {
     h1a: "حاسبات وأدوات رقمية.",
     h1b: "في منصة واحدة.",
-    body: "استخدم حاسبات وأدوات تحويل ونصوص وإنتاجية متعددة اللغات. تعرض كل أداة منشورة وصفًا لعملها ومدخلاتها المتاحة.",
-    start: "استكشف الأدوات مجانًا",
-    explore: "كل الأدوات",
-    search: "ابحث عن حاسبة أو أداة...",
+    body: "استخدم حاسبات مراجعة يدويًا للحساب والتحويل. كل صفحة عامة تشرح ما تحسبه الأداة، والمعادلة المستخدمة، ومثالًا محلولًا، وطريقة للتحقق من النتيجة.",
+    start: "استكشف الحاسبات",
+    explore: "كل الحاسبات",
+    search: "ابحث عن حاسبة...",
     searchButton: "بحث",
-    stats: ["أداة عامة متاحة", "لغات نشطة", "أدوات مميزة معروضة", "تصنيفات ظاهرة"],
-    featured: "أدوات مميزة",
+    stats: ["حاسبة مراجعة يدويًا", "لغات نشطة", "حاسبات مميزة", "تصنيفات ظاهرة"],
+    featured: "حاسبات مميزة",
     categories: "تصفح حسب التصنيف",
-    groupsTitle: "أدوات مباشرة حسب التصنيف",
-    groupsBody: "روابط مباشرة إلى مجموعة من الحاسبات والأدوات المنشورة حاليًا، مرتبة حسب التصنيف لتصل إلى المهمة المطلوبة بسرعة.",
+    groupsTitle: "حاسبات مباشرة حسب التصنيف",
+    groupsBody: "روابط مباشرة إلى الحاسبات التي تمت مراجعة صفحاتها ومحتواها يدويًا قبل إدراجها في المكتبة العامة.",
     viewCategory: "عرض التصنيف",
     libraryTitle: "عن مكتبة إمبراطورية الويب",
-    libraryBody1: "تركز المكتبة العامة على الحاسبات والتحويلات والأدوات العملية التي يمكن فتحها من المتصفح مباشرة. صفحات الأدوات المؤهلة للفهرسة تعرض وصف الأداة ومدخلاتها وطريقة الحساب أو المعالجة ومثالًا أو إرشادات تساعد على مراجعة النتيجة.",
-    libraryBody2: "نفضّل نشر صفحات واضحة وقابلة للتحقق بدل عرض أرقام تسويقية أو وعود غير موثقة. الأدوات والمحتوى يتغيران مع المراجعة، لذلك تعرض الصفحة الأعداد الحالية من بيانات الموقع نفسها.",
-    cta: "استكشف الأدوات المتاحة حاليًا",
+    libraryBody1: "نركز في المكتبة العامة على عدد محدود من الحاسبات التي راجعنا منطقها وشرحها بدل نشر مئات الصفحات المتشابهة. كل حاسبة عامة تتضمن وصفًا واضحًا، وطريقة الحساب، ومثالًا، ونقاط تحقق وأسئلة شائعة مرتبطة بموضوعها.",
+    libraryBody2: "الأدوات الأخرى قد تبقى متاحة داخل المشروع، لكنها لا تدخل الفهرسة العامة حتى تُراجع صفحة كل أداة بصورة مستقلة. بهذه الطريقة تكون الأرقام والروابط الظاهرة هنا انعكاسًا للمحتوى الذي راجعناه فعلًا.",
+    cta: "ابدأ بحاسبة تمت مراجعتها",
   },
   en: {
     h1a: "Calculators and digital tools.",
     h1b: "In one platform.",
-    body: "Use multilingual calculators, converters, text utilities, and productivity tools. Each published tool includes a description of its purpose and available inputs.",
-    start: "Explore free tools",
-    explore: "All tools",
-    search: "Search for a calculator or tool...",
+    body: "Use manually reviewed calculators and converters. Every public calculator page explains what it calculates, the formula used, a worked example, and ways to verify the result.",
+    start: "Explore calculators",
+    explore: "All calculators",
+    search: "Search for a calculator...",
     searchButton: "Search",
-    stats: ["public tools available", "active languages", "featured tools shown", "visible categories"],
-    featured: "Featured tools",
+    stats: ["manually reviewed calculators", "active languages", "featured calculators", "visible categories"],
+    featured: "Featured calculators",
     categories: "Browse by category",
-    groupsTitle: "Direct tools by category",
-    groupsBody: "Open currently published calculators and tools directly from clear categories so you can get to the task you need quickly.",
+    groupsTitle: "Direct calculators by category",
+    groupsBody: "Open calculators whose pages and explanatory content have been reviewed individually before inclusion in the public library.",
     viewCategory: "View category",
     libraryTitle: "About the Web Empire library",
-    libraryBody1: "The public library focuses on practical calculators, converters, and browser-based utilities. Tool pages eligible for indexing explain the purpose, inputs, calculation or processing method, and include examples or result-checking guidance.",
-    libraryBody2: "We prefer clear, verifiable pages over unsupported marketing numbers or claims. Tool and content coverage changes as reviews continue, so the homepage uses current site data for its counts.",
-    cta: "Explore the tools currently available",
+    libraryBody1: "The public library deliberately focuses on a smaller set of calculators whose logic and explanatory pages have been reviewed instead of publishing hundreds of near-identical pages. Each public calculator includes a clear description, calculation method, worked example, checks, and topic-specific questions.",
+    libraryBody2: "Other tools may remain available inside the project, but they are kept out of the public index until each page receives its own review. The counts and links shown here therefore reflect content we have actually reviewed.",
+    cta: "Start with a reviewed calculator",
   },
 } as const;
 
@@ -67,7 +68,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
   const t = locale.code === "ar" ? copy.ar : copy.en;
   const prefix = `/${locale.code}`;
-  const publicTools = tools.filter(isEditoriallyIndexableTool);
+  const publicTools = tools.filter(
+    (tool) => isEditoriallyIndexableTool(tool) && isReviewedPublicToolSlug(tool.slug),
+  );
   const featuredCandidates = publicTools.filter((tool) => tool.is_featured);
   const featured = (featuredCandidates.length ? featuredCandidates : publicTools).slice(0, 6);
   const publicCategoryIds = new Set(publicTools.map((tool) => tool.category_id));
@@ -94,13 +97,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <span className="we-brand-orbit we-brand-orbit-a" />
             <span className="we-brand-orbit we-brand-orbit-b" />
             <span className="we-brand-orbit we-brand-orbit-c" />
-            <img
-              src={assets.mark}
-              alt=""
-              className="we-hero-brand-mark"
-              width="768"
-              height="682"
-            />
+            <img src={assets.mark} alt="" className="we-hero-brand-mark" width="768" height="682" />
           </div>
           <div className="we-hero-copy">
             <h1>{t.h1a}<br /><span className="we-gradient-text">{t.h1b}</span></h1>
@@ -137,7 +134,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <div className="we-icon">{glyphs[index % glyphs.length]}</div>
               <h3>{tool.title}</h3>
               <p>{tool.localizedDescription}</p>
-              <span className="we-card-link">{locale.code === "ar" ? "استخدم الأداة" : "Use tool"} ←</span>
+              <span className="we-card-link">{locale.code === "ar" ? "استخدم الحاسبة" : "Use calculator"} ←</span>
             </Link>
           ))}
         </div>
@@ -160,14 +157,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className={styles.categoryGrid}>
           {categoryGroups.map(({ category, tools: categoryTools }) => (
             <article className={styles.categoryGroup} key={category.id}>
-              <h3>
-                <Link href={`${prefix}/tools?category=${category.slug}`}>{category.name}</Link>
-              </h3>
+              <h3><Link href={`${prefix}/tools?category=${category.slug}`}>{category.name}</Link></h3>
               <ul>
                 {categoryTools.map((tool) => (
-                  <li key={tool.slug}>
-                    <Link href={`${prefix}/tools/${tool.slug}`}>{tool.title}</Link>
-                  </li>
+                  <li key={tool.slug}><Link href={`${prefix}/tools/${tool.slug}`}>{tool.title}</Link></li>
                 ))}
               </ul>
               <Link className={styles.moreLink} href={`${prefix}/tools?category=${category.slug}`}>
