@@ -3,6 +3,7 @@ import {
   getToolEditorialContent,
   type ToolEditorialContent,
 } from "@/lib/tool-editorial-content";
+import { getReviewedToolEditorialOverride } from "@/lib/reviewed-tool-editorial";
 
 function searchable(tool: LocalizedToolRecord) {
   return `${tool.slug} ${tool.title} ${tool.seoTitle}`.toLowerCase();
@@ -26,6 +27,11 @@ export function getEnhancedToolEditorialContent(
   tool: LocalizedToolRecord,
 ): ToolEditorialContent {
   const base = getToolEditorialContent(tool);
+  const reviewedOverride = getReviewedToolEditorialOverride(tool);
+  if (reviewedOverride) {
+    return { ...base, ...reviewedOverride };
+  }
+
   const text = searchable(tool);
   const isArabic = tool.locale === "ar";
 
