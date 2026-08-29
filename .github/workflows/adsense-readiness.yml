@@ -5,10 +5,14 @@ on:
     paths:
       - ".github/workflows/adsense-readiness.yml"
       - "public/ads.txt"
+      - "proxy.ts"
+      - "src/components/adsense-runtime.tsx"
       - "src/app/(public)/**"
       - "src/app/robots.txt/**"
       - "src/app/sitemap.xml/**"
       - "src/repositories/blog.ts"
+      - "src/lib/reviewed-tools.ts"
+      - "src/lib/reviewed-tool-editorial.ts"
       - "src/lib/tool-editorial-*.ts"
       - "src/content/blog/**"
       - "scripts/verify-adsense-readiness.mts"
@@ -19,10 +23,14 @@ on:
     paths:
       - ".github/workflows/adsense-readiness.yml"
       - "public/ads.txt"
+      - "proxy.ts"
+      - "src/components/adsense-runtime.tsx"
       - "src/app/(public)/**"
       - "src/app/robots.txt/**"
       - "src/app/sitemap.xml/**"
       - "src/repositories/blog.ts"
+      - "src/lib/reviewed-tools.ts"
+      - "src/lib/reviewed-tool-editorial.ts"
       - "src/lib/tool-editorial-*.ts"
       - "src/content/blog/**"
       - "scripts/verify-adsense-readiness.mts"
@@ -72,7 +80,7 @@ jobs:
         run: |
           set -euo pipefail
           BASE="https://webempire.site"
-          REVISION="adsense-ready-2026-08-10-v1"
+          REVISION="adsense-quality-2026-08-29-v2"
           found=""
           for attempt in $(seq 1 30); do
             body="$(curl -fsSL --max-time 20 "$BASE/ar?content_revision=$REVISION&attempt=$attempt" || true)"
@@ -98,12 +106,23 @@ jobs:
           ads="$(curl -fsSL --max-time 20 "$BASE/ads.txt" | tr -d '\r')"
           robots="$(curl -fsSL --max-time 20 "$BASE/robots.txt")"
           sitemap="$(curl -fsSL --max-time 20 "$BASE/sitemap.xml")"
+          unreviewed_headers="$(curl -fsSI --max-time 20 "$BASE/ar/tools/loan-payment-calculator")"
+          reviewed_headers="$(curl -fsSI --max-time 20 "$BASE/ar/tools/vat-calculator")"
+          tools_index="$(curl -fsSL --max-time 20 "$BASE/ar/tools")"
 
           printf '%s' "$home" | grep -q 'google-adsense-account'
-          printf '%s' "$home" | grep -q 'ca-pub-4001237202734263'
+          printf '%s' "$home" | grep -q 'adsense-quality-2026-08-29-v2'
+          printf '%s' "$home" | grep -q '>12<'
           ! printf '%s' "$home" | grep -q '99.9%'
           ! printf '%s' "$home" | grep -q '10,000'
           ! printf '%s' "$home" | grep -q 'موثوق من قبل آلاف المستخدمين'
+
+          tool_url_count="$(printf '%s' "$sitemap" | grep -oE 'https://webempire.site/(ar|en)/tools/[^<]+' | wc -l | tr -d ' ')"
+          test "$tool_url_count" = '24'
+
+          printf '%s' "$unreviewed_headers" | grep -qi '^x-robots-tag: noindex, follow'
+          ! printf '%s' "$reviewed_headers" | grep -qi '^x-robots-tag: noindex'
+          ! printf '%s' "$tools_index" | grep -q 'pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
 
           printf '%s' "$blog" | grep -q 'مدونة إمبراطورية الويب'
           ! printf '%s' "$blog" | grep -q '>قريبًا<'
