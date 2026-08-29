@@ -39,20 +39,28 @@ requireText("src/app/(public)/[locale]/layout.tsx", [
 requireText("src/app/(public)/[locale]/page.tsx", [
   "websiteJsonLd",
   "organizationJsonLd",
+  "isReviewedPublicToolSlug",
 ]);
 
 requireText("src/app/(public)/[locale]/tools/page.tsx", [
   "hasFilter",
   "CollectionPage",
   "breadcrumbJsonLd",
-  "isEditoriallyIndexableTool",
+  "isReviewedPublicToolSlug",
 ]);
 
 requireText("src/app/(public)/[locale]/tools/[slug]/page.tsx", [
-  "isEditoriallyIndexableTool",
+  "isReviewedPublicToolSlug",
   "SoftwareApplication",
   "breadcrumbJsonLd",
   "isAccessibleForFree",
+]);
+
+requireText("src/proxy.ts", [
+  "X-Robots-Tag",
+  "isReviewedPublicToolSlug",
+  'section === "auth"',
+  'section === "dashboard"',
 ]);
 
 requireText("src/app/(public)/[locale]/blog/page.tsx", [
@@ -72,14 +80,17 @@ requireText("src/app/(public)/[locale]/blog/[slug]/page.tsx", [
 ]);
 
 requireText("src/app/sitemap.xml/route.ts", [
-  "isEditoriallyIndexableTool",
+  "isReviewedPublicToolSlug",
   "getActiveTools",
   "getBlogPosts",
 ]);
 
 const sitemap = read("src/app/sitemap.xml/route.ts");
 if (sitemap.includes("isPriorityToolSlug")) {
-  errors.push("Sitemap must use the same editorial indexability rule as tool metadata.");
+  errors.push("Sitemap must use the reviewed calculator allowlist, not the legacy priority-tool rule.");
+}
+if (sitemap.includes("isEditoriallyIndexableTool")) {
+  errors.push("Sitemap must use the manually reviewed calculator allowlist as its single public tool indexing rule.");
 }
 
 for (const route of ["privacy", "terms", "contact", "support"]) {
