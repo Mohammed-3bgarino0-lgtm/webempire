@@ -20,8 +20,10 @@ async function exists(relativePath: string) {
   }
 }
 
-const [home, layout, robots, sitemap, blogRepository, blogPage, adsTxt] = await Promise.all([
+const [home, header, privacy, layout, robots, sitemap, blogRepository, blogPage, adsTxt] = await Promise.all([
   read("src/app/(public)/[locale]/page.tsx"),
+  read("src/components/site-header.tsx"),
+  read("src/app/(public)/[locale]/privacy/page.tsx"),
   read("src/app/(public)/[locale]/layout.tsx"),
   read("src/app/robots.txt/route.ts"),
   read("src/app/sitemap.xml/route.ts"),
@@ -45,6 +47,15 @@ for (const claim of forbiddenHomeClaims) {
   assert(!home.includes(claim), `Unverified homepage claim is still present: ${claim}`);
 }
 
+assert(home.includes('role="search"'), "Homepage must expose a real search form, not a decorative search box.");
+assert(home.includes('name="q"'), "Homepage search must submit the q query to the tools library.");
+assert(home.includes("categoryGroups"), "Homepage must expose direct tool discovery by category.");
+assert(!header.includes("/companies"), "Unfinished companies page must not be linked from public navigation.");
+assert(
+  !(await exists("src/app/(public)/[locale]/companies/page.tsx")),
+  "Unfinished companies placeholder should not be part of the public site during AdSense review.",
+);
+
 assert(
   adsTxt.trim() === "google.com, pub-4001237202734263, DIRECT, f08c47fec0942fa0",
   "public/ads.txt must contain the authorized Google seller declaration for the Web Empire publisher ID.",
@@ -56,6 +67,10 @@ assert(layout.includes('process.env.NODE_ENV === "production"'), "Ad runtime mus
 assert(layout.includes('webempire-content-revision'), "Production content revision marker is missing.");
 assert(layout.includes('factual-public-content-2026-08-29-v1'), "Unexpected public-content revision marker.");
 
+assert(privacy.includes("Google"), "Privacy policy must disclose Google advertising/analytics usage.");
+assert(privacy.includes("ملفات تعريف الارتباط") || privacy.includes("cookies"), "Privacy policy must disclose cookie usage.");
+assert(privacy.includes("تخصيص الإعلانات") || privacy.includes("ad personalization"), "Privacy policy must explain ad-personalization choices.");
+
 assert(robots.includes('"Allow: /"'), "robots.txt must allow public crawling.");
 assert(!robots.includes("Disallow: /ads"), "robots.txt must not block ads.txt.");
 assert(robots.includes("/sitemap.xml"), "robots.txt must advertise the sitemap.");
@@ -63,6 +78,7 @@ assert(robots.includes("/sitemap.xml"), "robots.txt must advertise the sitemap."
 for (const route of ["about", "editorial-policy", "privacy", "terms", "contact", "support"]) {
   assert(sitemap.includes(`/${route}`), `Sitemap is missing trust route: ${route}`);
 }
+assert(!sitemap.includes("/companies"), "Sitemap must not include unfinished placeholder pages.");
 assert(sitemap.includes("isEditoriallyIndexableTool"), "Sitemap tool filtering must use the editorial indexability policy.");
 
 const approvedMatch = blogRepository.match(/editorialApprovedIds\s*=\s*\[([^\]]+)\]/s);
@@ -84,4 +100,6 @@ for (const route of ["about", "editorial-policy", "privacy", "terms", "contact",
 
 assert(await exists("src/app/(public)/[locale]/auth/layout.tsx"), "Auth noindex layout is missing.");
 
-console.log(`AdSense readiness verification: PASS (${approvedIds.length} reviewed articles, ads.txt present, trust and crawl signals validated).`);
+console.log(
+  `AdSense readiness verification: PASS (${approvedIds.length} reviewed articles, ads.txt present, privacy disclosures present, unfinished placeholders removed, trust and crawl signals validated).`,
+);
