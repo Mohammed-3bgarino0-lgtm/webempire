@@ -1,7 +1,7 @@
 "use client";
 
 import Script from "next/script";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import { isReviewedPublicToolSlug } from "@/lib/reviewed-tools";
 
@@ -10,7 +10,7 @@ type AdSenseRuntimeProps = {
   enabled: boolean;
 };
 
-function shouldLoadAds(pathname: string, hasSearchParams: boolean) {
+function shouldLoadAds(pathname: string) {
   const parts = pathname.split("/").filter(Boolean);
   const section = parts[1] ?? "";
 
@@ -18,8 +18,8 @@ function shouldLoadAds(pathname: string, hasSearchParams: boolean) {
 
   if (section === "tools") {
     const slug = parts[2];
-    if (hasSearchParams) return false;
-    if (slug && !isReviewedPublicToolSlug(slug)) return false;
+    if (!slug) return false;
+    if (!isReviewedPublicToolSlug(slug)) return false;
   }
 
   return true;
@@ -27,9 +27,8 @@ function shouldLoadAds(pathname: string, hasSearchParams: boolean) {
 
 export function AdSenseRuntime({ clientId, enabled }: AdSenseRuntimeProps) {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
-  if (!enabled || !shouldLoadAds(pathname, searchParams.size > 0)) return null;
+  if (!enabled || !shouldLoadAds(pathname)) return null;
 
   return (
     <Script
