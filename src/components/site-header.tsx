@@ -16,18 +16,16 @@ const labels = {
   ar: {
     sectors: "التصنيفات",
     blog: "المدونة",
-    companies: "الشركات",
     login: "تسجيل الدخول",
-    start: "ابدأ الآن",
+    start: "استكشف الأدوات",
     dashboard: "لوحة التحكم",
     menu: "فتح قائمة التنقل",
   },
   en: {
     sectors: "Categories",
     blog: "Blog",
-    companies: "Companies",
     login: "Login",
-    start: "Start now",
+    start: "Explore tools",
     dashboard: "Dashboard",
     menu: "Open navigation menu",
   },
@@ -63,7 +61,6 @@ export function SiteHeader({
     { href: `${prefix}/tools`, label: translate(messages, "nav.tools") },
     { href: `${prefix}/tools#categories`, label: t.sectors },
     { href: `${prefix}/blog`, label: t.blog },
-    { href: `${prefix}/companies`, label: t.companies },
   ];
 
   return (
@@ -117,7 +114,7 @@ export function SiteHeader({
                 {t.login}
               </Link>
               <Link
-                href={`${prefix}/auth/register`}
+                href={`${prefix}/tools`}
                 className="light-empire-start"
               >
                 ✧ {t.start}
@@ -176,7 +173,7 @@ export function SiteHeader({
                     {t.login}
                   </Link>
                   <Link
-                    href={`${prefix}/auth/register`}
+                    href={`${prefix}/tools`}
                     className="light-empire-start"
                   >
                     ✧ {t.start}
