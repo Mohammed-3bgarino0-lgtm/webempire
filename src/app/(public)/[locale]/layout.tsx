@@ -11,6 +11,7 @@ import "@/app/empire-command.css";
 import "@/app/web-empire-light.css";
 import "@/app/apple-inspired.css";
 import { appearanceCssVariables, getAppearanceSettings } from "@/appearance/repository";
+import { AdSenseRuntime } from "@/components/adsense-runtime";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { publicEnv } from "@/lib/env";
@@ -23,7 +24,7 @@ import {
   getUiMessages,
 } from "@/localization/repository";
 
-const CONTENT_REVISION = "factual-public-content-2026-08-29-v1";
+const CONTENT_REVISION = "adsense-quality-2026-08-29-v2";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -156,16 +157,9 @@ export default async function LocaleLayout({
       <head>
         <meta name="google-adsense-account" content={adsenseClient} />
         <meta name="webempire-content-revision" content={CONTENT_REVISION} />
-        {adsRuntimeEnabled ? (
-          <Script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
-            crossOrigin="anonymous"
-            strategy="beforeInteractive"
-          />
-        ) : null}
       </head>
       <body>
+        <AdSenseRuntime clientId={adsenseClient} enabled={adsRuntimeEnabled} />
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-2H0DD95M9W"
@@ -186,7 +180,7 @@ gtag('config', 'G-2H0DD95M9W');`}
           data-density={appearance.uiDensity}
           data-font-preset={appearance.fontPreset}
           data-color-mode={appearance.defaultColorMode}
-          data-ads-runtime={adsRuntimeEnabled ? "live" : "preview"}
+          data-ads-runtime={adsRuntimeEnabled ? "controlled" : "preview"}
         >
           <SiteHeader
             locale={locale}
