@@ -23,6 +23,7 @@ async function exists(relativePath: string) {
 const [
   home,
   toolsPage,
+  toolDetailPage,
   header,
   privacy,
   layout,
@@ -38,6 +39,7 @@ const [
 ] = await Promise.all([
   read("src/app/(public)/[locale]/page.tsx"),
   read("src/app/(public)/[locale]/tools/page.tsx"),
+  read("src/app/(public)/[locale]/tools/[slug]/page.tsx"),
   read("src/components/site-header.tsx"),
   read("src/app/(public)/[locale]/privacy/page.tsx"),
   read("src/app/(public)/[locale]/layout.tsx"),
@@ -72,6 +74,7 @@ assert(home.includes('name="q"'), "Homepage search must submit the q query to th
 assert(home.includes("categoryGroups"), "Homepage must expose direct calculator discovery by category.");
 assert(home.includes("isReviewedPublicToolSlug"), "Homepage must only promote manually reviewed calculators.");
 assert(toolsPage.includes("isReviewedPublicToolSlug"), "Public tools library must only list manually reviewed calculators.");
+assert(toolDetailPage.includes("isReviewedPublicToolSlug"), "Tool metadata must use the reviewed calculator allowlist for indexability.");
 assert(!header.includes("/companies"), "Unfinished companies page must not be linked from public navigation.");
 assert(
   !(await exists("src/app/(public)/[locale]/companies/page.tsx")),
@@ -120,8 +123,8 @@ for (const route of ["about", "editorial-policy", "privacy", "terms", "contact",
   assert(sitemap.includes(`/${route}`), `Sitemap is missing trust route: ${route}`);
 }
 assert(!sitemap.includes("/companies"), "Sitemap must not include unfinished placeholder pages.");
-assert(sitemap.includes("isEditoriallyIndexableTool"), "Sitemap must retain baseline editorial eligibility checks.");
 assert(sitemap.includes("isReviewedPublicToolSlug"), "Sitemap must include only manually reviewed calculators.");
+assert(!sitemap.includes("isEditoriallyIndexableTool"), "Sitemap should use the reviewed calculator allowlist as its single public indexing gate.");
 
 const approvedMatch = blogRepository.match(/editorialApprovedIds\s*=\s*\[([^\]]+)\]/s);
 assert(approvedMatch, "Could not find the reviewed blog allowlist.");
