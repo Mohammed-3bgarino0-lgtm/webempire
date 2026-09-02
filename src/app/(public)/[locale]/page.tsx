@@ -12,6 +12,7 @@ import styles from "./home-quality.module.css";
 
 const copy = {
   ar: {
+    kicker: "مكتبة أدوات عربية موثوقة",
     h1a: "حاسبات وأدوات رقمية.",
     h1b: "في منصة واحدة.",
     body: "استخدم حاسبات مراجعة يدويًا للحساب والتحويل. كل صفحة عامة تشرح ما تحسبه الأداة، والمعادلة المستخدمة، ومثالًا محلولًا، وطريقة للتحقق من النتيجة.",
@@ -29,8 +30,10 @@ const copy = {
     libraryBody1: "نركز في المكتبة العامة على عدد محدود من الحاسبات التي راجعنا منطقها وشرحها بدل نشر مئات الصفحات المتشابهة. كل حاسبة عامة تتضمن وصفًا واضحًا، وطريقة الحساب، ومثالًا، ونقاط تحقق وأسئلة شائعة مرتبطة بموضوعها.",
     libraryBody2: "الأدوات الأخرى قد تبقى متاحة داخل المشروع، لكنها لا تدخل الفهرسة العامة حتى تُراجع صفحة كل أداة بصورة مستقلة. بهذه الطريقة تكون الأرقام والروابط الظاهرة هنا انعكاسًا للمحتوى الذي راجعناه فعلًا.",
     cta: "ابدأ بحاسبة تمت مراجعتها",
+    trust: ["نتائج فورية", "شرح واضح للمعادلة", "يعمل على جميع الأجهزة"],
   },
   en: {
+    kicker: "A trusted digital tools library",
     h1a: "Calculators and digital tools.",
     h1b: "In one platform.",
     body: "Use manually reviewed calculators and converters. Every public calculator page explains what it calculates, the formula used, a worked example, and ways to verify the result.",
@@ -48,6 +51,7 @@ const copy = {
     libraryBody1: "The public library deliberately focuses on a smaller set of calculators whose logic and explanatory pages have been reviewed instead of publishing hundreds of near-identical pages. Each public calculator includes a clear description, calculation method, worked example, checks, and topic-specific questions.",
     libraryBody2: "Other tools may remain available inside the project, but they are kept out of the public index until each page receives its own review. The counts and links shown here therefore reflect content we have actually reviewed.",
     cta: "Start with a reviewed calculator",
+    trust: ["Instant results", "Clearly explained formulas", "Works on every device"],
   },
 } as const;
 
@@ -99,12 +103,16 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <img src={assets.mark} alt="" className="we-hero-brand-mark" width="768" height="682" />
           </div>
           <div className="we-hero-copy">
+            <p className={styles.kicker}><span aria-hidden="true">✦</span>{t.kicker}</p>
             <h1>{t.h1a}<br /><span className="we-gradient-text">{t.h1b}</span></h1>
             <p>{t.body}</p>
             <div className="we-hero-actions">
               <Link href={`${prefix}/tools`} className="we-button-primary">✧ {t.start}</Link>
               <Link href={`${prefix}/tools`} className="we-button-ghost">← {t.explore}</Link>
             </div>
+            <ul className={styles.trustList} aria-label={locale.code === "ar" ? "مميزات المنصة" : "Platform highlights"}>
+              {t.trust.map((item) => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}
+            </ul>
           </div>
         </div>
 
