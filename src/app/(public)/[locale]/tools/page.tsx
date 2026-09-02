@@ -7,7 +7,6 @@ import {
 } from "@/components/tools/tools-explorer";
 import type { ToolExplorerItem } from "@/components/tools/tool-card";
 import { getActiveLocales, getLocaleByCode } from "@/localization/repository";
-import { isReviewedPublicToolSlug } from "@/lib/reviewed-tools";
 import { absoluteUrl, breadcrumbJsonLd, SEO_LOGO_PATH } from "@/lib/seo";
 import { getActiveCategories, getActiveTools } from "@/repositories/catalog";
 
@@ -99,12 +98,9 @@ export default async function ToolsPage({
     getActiveCategories(locale.code),
   ]);
 
-  // Public discovery is intentionally limited to calculators that have been
-  // reviewed individually. Other active tools can remain operational without
-  // being promoted to search engines until their pages receive the same review.
-  const publicTools = tools.filter((tool) =>
-    isReviewedPublicToolSlug(tool.slug),
-  );
+  // Every active tool is discoverable in the public library. Search-engine
+  // indexing remains controlled independently by each tool page.
+  const publicTools = tools;
   const publicCategoryIds = new Set(publicTools.map((tool) => tool.category_id));
   const publicCategories = categories.filter((category) => publicCategoryIds.has(category.id));
 
