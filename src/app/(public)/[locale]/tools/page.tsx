@@ -10,6 +10,8 @@ import { getActiveLocales, getLocaleByCode } from "@/localization/repository";
 import { absoluteUrl, breadcrumbJsonLd, SEO_LOGO_PATH } from "@/lib/seo";
 import { getActiveCategories, getActiveTools } from "@/repositories/catalog";
 
+export const dynamic = "force-dynamic";
+
 const metadataCopy = {
   ar: {
     title: "مكتبة الحاسبات المراجعة",
