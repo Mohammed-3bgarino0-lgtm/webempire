@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { webEmpireLightAssets as assets } from "@/brand/web-empire-light-assets";
 import { translate } from "@/localization/messages";
 import { getActiveLocales, getLocaleByCode, getUiMessages } from "@/localization/repository";
-import { isReviewedPublicToolSlug } from "@/lib/reviewed-tools";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { getActiveCategories, getActiveTools } from "@/repositories/catalog";
 
@@ -15,42 +14,42 @@ const copy = {
     kicker: "مكتبة أدوات عربية موثوقة",
     h1a: "حاسبات وأدوات رقمية.",
     h1b: "في منصة واحدة.",
-    body: "استخدم حاسبات مراجعة يدويًا للحساب والتحويل. كل صفحة عامة تشرح ما تحسبه الأداة، والمعادلة المستخدمة، ومثالًا محلولًا، وطريقة للتحقق من النتيجة.",
+    body: "اكتشف أدوات رقمية جاهزة للحساب والتحويل والإنتاجية. تظهر الأدوات النشطة فور نشرها، مع تجربة سريعة وواضحة على جميع الأجهزة.",
     start: "استكشف الحاسبات",
     explore: "كل الحاسبات",
     search: "ابحث عن حاسبة...",
     searchButton: "بحث",
-    stats: ["حاسبة مراجعة يدويًا", "لغات نشطة", "حاسبات مميزة", "تصنيفات ظاهرة"],
+    stats: ["أداة نشطة", "لغات نشطة", "أدوات مميزة", "تصنيفات متاحة"],
     featured: "حاسبات مميزة",
     categories: "تصفح حسب التصنيف",
     groupsTitle: "حاسبات مباشرة حسب التصنيف",
-    groupsBody: "روابط مباشرة إلى الحاسبات التي تمت مراجعة صفحاتها ومحتواها يدويًا قبل إدراجها في المكتبة العامة.",
+    groupsBody: "وصول مباشر إلى جميع الأدوات النشطة، مرتبة حسب التصنيف لتصل إلى ما تحتاجه بسرعة.",
     viewCategory: "عرض التصنيف",
     libraryTitle: "عن مكتبة إمبراطورية الويب",
-    libraryBody1: "نركز في المكتبة العامة على عدد محدود من الحاسبات التي راجعنا منطقها وشرحها بدل نشر مئات الصفحات المتشابهة. كل حاسبة عامة تتضمن وصفًا واضحًا، وطريقة الحساب، ومثالًا، ونقاط تحقق وأسئلة شائعة مرتبطة بموضوعها.",
-    libraryBody2: "الأدوات الأخرى قد تبقى متاحة داخل المشروع، لكنها لا تدخل الفهرسة العامة حتى تُراجع صفحة كل أداة بصورة مستقلة. بهذه الطريقة تكون الأرقام والروابط الظاهرة هنا انعكاسًا للمحتوى الذي راجعناه فعلًا.",
-    cta: "ابدأ بحاسبة تمت مراجعتها",
+    libraryBody1: "تجمع إمبراطورية الويب أدوات رقمية متنوعة في مكان واحد، من الحاسبات والمحولات إلى أدوات النص والإنتاجية، مع تصنيفات واضحة وبحث سريع.",
+    libraryBody2: "كل أداة يتم تفعيلها من لوحة الإدارة تظهر تلقائيًا في المكتبة، بينما تبقى الأدوات غير النشطة مخفية حتى تصبح جاهزة للنشر.",
+    cta: "ابدأ باستخدام أدوات إمبراطورية الويب",
     trust: ["نتائج فورية", "شرح واضح للمعادلة", "يعمل على جميع الأجهزة"],
   },
   en: {
     kicker: "A trusted digital tools library",
     h1a: "Calculators and digital tools.",
     h1b: "In one platform.",
-    body: "Use manually reviewed calculators and converters. Every public calculator page explains what it calculates, the formula used, a worked example, and ways to verify the result.",
+    body: "Discover ready-to-use digital tools for calculation, conversion, and productivity. Active tools appear as soon as they are published, with a fast and clear experience on every device.",
     start: "Explore calculators",
     explore: "All calculators",
     search: "Search for a calculator...",
     searchButton: "Search",
-    stats: ["manually reviewed calculators", "active languages", "featured calculators", "visible categories"],
+    stats: ["active tools", "active languages", "featured tools", "available categories"],
     featured: "Featured calculators",
     categories: "Browse by category",
     groupsTitle: "Direct calculators by category",
-    groupsBody: "Open calculators whose pages and explanatory content have been reviewed individually before inclusion in the public library.",
+    groupsBody: "Direct access to every active tool, organized by category so you can reach what you need quickly.",
     viewCategory: "View category",
     libraryTitle: "About the Web Empire library",
-    libraryBody1: "The public library deliberately focuses on a smaller set of calculators whose logic and explanatory pages have been reviewed instead of publishing hundreds of near-identical pages. Each public calculator includes a clear description, calculation method, worked example, checks, and topic-specific questions.",
-    libraryBody2: "Other tools may remain available inside the project, but they are kept out of the public index until each page receives its own review. The counts and links shown here therefore reflect content we have actually reviewed.",
-    cta: "Start with a reviewed calculator",
+    libraryBody1: "Web Empire brings together a wide range of digital tools in one place, from calculators and converters to text and productivity tools, with clear categories and fast search.",
+    libraryBody2: "Every tool enabled in the admin panel appears automatically in the library, while inactive tools remain hidden until they are ready to publish.",
+    cta: "Start using Web Empire tools",
     trust: ["Instant results", "Clearly explained formulas", "Works on every device"],
   },
 } as const;
@@ -71,9 +70,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
   const t = locale.code === "ar" ? copy.ar : copy.en;
   const prefix = `/${locale.code}`;
-  const publicTools = tools.filter((tool) =>
-    isReviewedPublicToolSlug(tool.slug),
-  );
+  const publicTools = tools;
   const featuredCandidates = publicTools.filter((tool) => tool.is_featured);
   const featured = (featuredCandidates.length ? featuredCandidates : publicTools).slice(0, 6);
   const publicCategoryIds = new Set(publicTools.map((tool) => tool.category_id));
