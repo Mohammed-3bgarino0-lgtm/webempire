@@ -55,8 +55,7 @@ where t.engine_type = 'workflow'
 -- this migration; secret lifecycle can be handled separately in the provider
 -- vault without making this migration destructive.
 update public.ai_models
-set is_active = false,
-    updated_at = now()
+set is_active = false
 where is_active = true;
 
 update public.ai_providers
