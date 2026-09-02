@@ -44,6 +44,7 @@ const copy = {
     suggestBody: "اقترح أداة جديدة تساعدك في عملك اليومي.",
     suggest: "اقترح أداة",
     searchHint: "اضغط / للبحث",
+    more: "عرض المزيد من الأدوات",
   },
   en: {
     title: "Tools Library",
@@ -63,6 +64,7 @@ const copy = {
     suggestBody: "Suggest a new tool for your daily workflow.",
     suggest: "Suggest tool",
     searchHint: "Press / to search",
+    more: "Show more tools",
   },
 };
 
@@ -108,6 +110,7 @@ export function ToolsExplorer({
   const [category, setCategory] = useState(initialCategory);
   const [sort, setSort] = useState<SortMode>("featured");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(48);
 
   const categoryCounts = useMemo(() => {
     const counts = new Map<string, number>();
@@ -161,6 +164,10 @@ export function ToolsExplorer({
       return Number(b.isFeatured) - Number(a.isFeatured) || a.order - b.order;
     });
   }, [category, locale, query, selectedCategory?.id, sort, tools]);
+
+  useEffect(() => {
+    setVisibleCount(48);
+  }, [category, query, sort]);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -356,7 +363,7 @@ export function ToolsExplorer({
 
         {visibleTools.length ? (
           <div className={styles.grid}>
-            {visibleTools.map((tool) => (
+            {visibleTools.slice(0, visibleCount).map((tool) => (
               <ToolCard
                 key={tool.slug}
                 locale={locale}
@@ -375,6 +382,15 @@ export function ToolsExplorer({
             </button>
           </div>
         )}
+        {visibleTools.length > visibleCount ? (
+          <button
+            className={styles.loadMore}
+            onClick={() => setVisibleCount((count) => count + 48)}
+            type="button"
+          >
+            {t.more} ({visibleTools.length - visibleCount})
+          </button>
+        ) : null}
       </section>
     </div>
   );
