@@ -584,6 +584,28 @@
   }
 }
 
+.loadMore {
+  min-height: 50px;
+  margin: 28px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 28px;
+  border: 1px solid rgba(18, 104, 232, .22);
+  border-radius: 14px;
+  color: #0b5fcc;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(7, 26, 61, .07);
+  font: inherit;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.loadMore:hover {
+  color: #fff;
+  background: linear-gradient(135deg, #1268e8, #074bb5);
+}
+
 /* TOOLS EXPERIENCE V2 — STAGE 1.1 VISUAL FIX */
 
 .shell {
