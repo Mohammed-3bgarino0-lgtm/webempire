@@ -9,6 +9,8 @@ import { getActiveCategories, getActiveTools } from "@/repositories/catalog";
 
 import styles from "./home-quality.module.css";
 
+export const dynamic = "force-dynamic";
+
 const copy = {
   ar: {
     kicker: "مكتبة أدوات عربية موثوقة",
