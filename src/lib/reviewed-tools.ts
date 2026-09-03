@@ -20,13 +20,18 @@ export const INDEXABLE_PUBLIC_TOOL_SLUGS = [
   ...INDEXING_WAVE_1_TOOL_SLUGS,
 ] as const;
 
-const reviewedPublicToolSlugs = new Set<string>(REVIEWED_PUBLIC_TOOL_SLUGS);
+const adReviewedPublicToolSlugs = new Set<string>(REVIEWED_PUBLIC_TOOL_SLUGS);
 const indexablePublicToolSlugs = new Set<string>(INDEXABLE_PUBLIC_TOOL_SLUGS);
 
+// Kept for existing SEO call sites. This now means reviewed for public indexing.
 export function isReviewedPublicToolSlug(slug: string) {
-  return reviewedPublicToolSlugs.has(slug);
+  return indexablePublicToolSlugs.has(slug);
 }
 
 export function isIndexablePublicToolSlug(slug: string) {
   return indexablePublicToolSlugs.has(slug);
+}
+
+export function isAdReviewedPublicToolSlug(slug: string) {
+  return adReviewedPublicToolSlugs.has(slug);
 }
