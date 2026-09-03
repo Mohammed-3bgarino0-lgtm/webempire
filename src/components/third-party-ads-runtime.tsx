@@ -4,7 +4,7 @@ import Script from "next/script";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
-import { isReviewedPublicToolSlug } from "@/lib/reviewed-tools";
+import { isAdReviewedPublicToolSlug } from "@/lib/reviewed-tools";
 
 function shouldLoadThirdPartyAds(pathname: string) {
   const parts = pathname.split("/").filter(Boolean);
@@ -15,7 +15,7 @@ function shouldLoadThirdPartyAds(pathname: string) {
   if (section === "tools") {
     const slug = parts[2];
     if (!slug) return false;
-    if (!isReviewedPublicToolSlug(slug)) return false;
+    if (!isAdReviewedPublicToolSlug(slug)) return false;
   }
 
   return true;
