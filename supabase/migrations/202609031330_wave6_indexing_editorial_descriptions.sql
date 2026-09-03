@@ -36,10 +36,10 @@ set seo_description = case
   else tt.seo_description
 end,
 updated_at = now()
-from public.tools t
-join public.categories c on c.id = t.category_id
-join public.locales l on l.id = tt.locale_id
+from public.tools t, public.categories c, public.locales l
 where tt.tool_id = t.id
+  and c.id = t.category_id
+  and l.id = tt.locale_id
   and l.code in ('ar','en')
   and t.slug in (
     'break-even-calculator','business-customer-acquisition-cost-calculator','business-markup-percentage-calculator','capacity-utilization-calculator','cash-conversion-cycle-calculator','contribution-margin-per-unit','contribution-margin-ratio-calculator','customer-churn-rate-calculator','customer-concentration-calculator','customer-retention-rate-calculator',
