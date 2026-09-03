@@ -1,4 +1,5 @@
 import { INDEXING_WAVE_1_TOOL_SLUGS } from "@/lib/indexing-wave1-tools";
+import { INDEXING_WAVE_2_TOOL_SLUGS } from "@/lib/indexing-wave2-tools";
 
 export const REVIEWED_PUBLIC_TOOL_SLUGS = [
   "average-calculator",
@@ -18,12 +19,13 @@ export const REVIEWED_PUBLIC_TOOL_SLUGS = [
 export const INDEXABLE_PUBLIC_TOOL_SLUGS = [
   ...REVIEWED_PUBLIC_TOOL_SLUGS,
   ...INDEXING_WAVE_1_TOOL_SLUGS,
+  ...INDEXING_WAVE_2_TOOL_SLUGS,
 ] as const;
 
 const adReviewedPublicToolSlugs = new Set<string>(REVIEWED_PUBLIC_TOOL_SLUGS);
 const indexablePublicToolSlugs = new Set<string>(INDEXABLE_PUBLIC_TOOL_SLUGS);
 
-// Kept for existing SEO call sites. This now means reviewed for public indexing.
+// Kept for existing SEO call sites. This means reviewed for public indexing.
 export function isReviewedPublicToolSlug(slug: string) {
   return indexablePublicToolSlugs.has(slug);
 }
