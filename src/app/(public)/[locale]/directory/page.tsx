@@ -19,6 +19,7 @@ const copy = {
       "استخدم هذا الدليل للوصول المباشر إلى الأدوات الجاهزة للفهرسة. كل رابط أدناه يقود إلى صفحة أداة مستقلة مع الحاسبة وشرح الاستخدام والمعادلة والأسئلة الشائعة.",
     tools: "أداة قابلة للفهرسة",
     categories: "تصنيف",
+    categoryPage: "عرض صفحة التصنيف",
     home: "الرئيسية",
     directory: "دليل الأدوات",
   },
@@ -31,6 +32,7 @@ const copy = {
       "Use this directory to reach tools that are ready for public indexing. Every link below opens a standalone tool page with the calculator, usage guidance, formula explanation, and FAQs.",
     tools: "indexable tools",
     categories: "categories",
+    categoryPage: "View category page",
     home: "Home",
     directory: "Tools directory",
   },
@@ -91,7 +93,6 @@ export default async function DirectoryPage({
   ]);
 
   const indexableTools = tools.filter((tool) => isIndexablePublicToolSlug(tool.slug));
-  const categoryMap = new Map(categories.map((category) => [category.id, category]));
   const groups = categories
     .map((category) => ({
       category,
@@ -153,9 +154,14 @@ export default async function DirectoryPage({
           <section className="we-section" key={category.id} aria-labelledby={`directory-${category.slug}`}>
             <div className="we-section-head">
               <span>{categoryTools.length}</span>
-              <h2 id={`directory-${category.slug}`}>{category.name}</h2>
+              <h2 id={`directory-${category.slug}`}>
+                <Link href={`${prefix}/tools/category/${category.slug}`}>{category.name}</Link>
+              </h2>
             </div>
             {category.description ? <p>{category.description}</p> : null}
+            <p>
+              <Link href={`${prefix}/tools/category/${category.slug}`}>{t.categoryPage} ←</Link>
+            </p>
             <ul
               style={{
                 display: "grid",
