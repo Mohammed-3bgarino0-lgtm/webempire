@@ -12,6 +12,7 @@ const footerLabels = {
     terms: "الشروط والأحكام",
     help: "الدعم والمساعدة",
     contact: "تواصل معنا",
+    directory: "دليل الأدوات",
   },
   en: {
     rights: "All rights reserved.",
@@ -21,6 +22,7 @@ const footerLabels = {
     terms: "Terms",
     help: "Support",
     contact: "Contact",
+    directory: "Tools directory",
   },
 };
 
@@ -42,6 +44,7 @@ export function SiteFooter({
       <footer className="we-footer">
         <div className="we-container we-footer-inner">
           <nav className="we-footer-links" aria-label="Footer">
+            <Link href={`${prefix}/directory`}>{t.directory}</Link>
             <Link href={`${prefix}/about`}>{t.about}</Link>
             <Link href={`${prefix}/editorial-policy`}>{t.editorial}</Link>
             <Link href={`${prefix}/terms`}>{t.terms}</Link>
