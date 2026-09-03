@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { ThirdPartyAdsRuntime } from "@/components/third-party-ads-runtime";
 import type { LocaleRecord, SiteIdentity, UiMessages } from "@/localization/types";
 
 const footerLabels = {
@@ -36,22 +37,25 @@ export function SiteFooter({
   const prefix = `/${localeCode}`;
 
   return (
-    <footer className="we-footer">
-      <div className="we-container we-footer-inner">
-        <nav className="we-footer-links" aria-label="Footer">
-          <Link href={`${prefix}/about`}>{t.about}</Link>
-          <Link href={`${prefix}/editorial-policy`}>{t.editorial}</Link>
-          <Link href={`${prefix}/terms`}>{t.terms}</Link>
-          <Link href={`${prefix}/privacy`}>{t.privacy}</Link>
-          <Link href={`${prefix}/contact`}>{t.contact}</Link>
-          <Link href={`${prefix}/support`}>{t.help}</Link>
-        </nav>
+    <>
+      <ThirdPartyAdsRuntime />
+      <footer className="we-footer">
+        <div className="we-container we-footer-inner">
+          <nav className="we-footer-links" aria-label="Footer">
+            <Link href={`${prefix}/about`}>{t.about}</Link>
+            <Link href={`${prefix}/editorial-policy`}>{t.editorial}</Link>
+            <Link href={`${prefix}/terms`}>{t.terms}</Link>
+            <Link href={`${prefix}/privacy`}>{t.privacy}</Link>
+            <Link href={`${prefix}/contact`}>{t.contact}</Link>
+            <Link href={`${prefix}/support`}>{t.help}</Link>
+          </nav>
 
-        <div className="we-footer-brand">
-          <span>© 2026 {identity.siteName || "Web Empire"}. {t.rights}</span>
-          <img src="/brand/v1.2/web-empire-mark-v1.2.png" alt="" width="48" height="48" />
+          <div className="we-footer-brand">
+            <span>© 2026 {identity.siteName || "Web Empire"}. {t.rights}</span>
+            <img src="/brand/v1.2/web-empire-mark-v1.2.png" alt="" width="48" height="48" />
+          </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </>
   );
 }
