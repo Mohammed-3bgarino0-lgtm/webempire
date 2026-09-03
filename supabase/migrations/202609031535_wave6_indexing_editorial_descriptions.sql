@@ -150,7 +150,8 @@ set
         when 'project-management-tools' then 'a project metric comparing plan, execution, cost, or earned progress. Make sure all values refer to the same project status date so earned-value and variance results remain meaningful.'
         when 'sales-tools' then 'a sales metric tied to deals, opportunities, leads, or sales-cycle activity. Keep definitions of lead, opportunity, deal, and reporting period consistent so conversion and pipeline measures can be compared.'
         else 'an operational metric using clearly defined inputs. Check the measurement unit and reporting period before relying on the result.'
-      end,
+      end
+  end,
   seo_description = case
     when x.locale_code = 'ar' then
       'استخدم ' || x.title || ' لحساب المؤشر بسرعة مع شرح عملي للمدخلات وطريقة قراءة النتيجة. مناسبة للمقارنة بين الفترات واتخاذ قرارات تشغيلية مبنية على أرقام متسقة.'
