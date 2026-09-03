@@ -3,6 +3,7 @@ import { INDEXING_WAVE_2_TOOL_SLUGS } from "@/lib/indexing-wave2-tools";
 import { INDEXING_WAVE_3_TOOL_SLUGS } from "@/lib/indexing-wave3-tools";
 import { INDEXING_WAVE_4_TOOL_SLUGS } from "@/lib/indexing-wave4-tools";
 import { INDEXING_WAVE_5_TOOL_SLUGS } from "@/lib/indexing-wave5-tools";
+import { INDEXING_WAVE_6_TOOL_SLUGS } from "@/lib/indexing-wave6-tools";
 
 export const REVIEWED_PUBLIC_TOOL_SLUGS = [
   "average-calculator",
@@ -26,6 +27,7 @@ export const INDEXABLE_PUBLIC_TOOL_SLUGS = [
   ...INDEXING_WAVE_3_TOOL_SLUGS,
   ...INDEXING_WAVE_4_TOOL_SLUGS,
   ...INDEXING_WAVE_5_TOOL_SLUGS,
+  ...INDEXING_WAVE_6_TOOL_SLUGS,
 ] as const;
 
 const adReviewedPublicToolSlugs = new Set<string>(REVIEWED_PUBLIC_TOOL_SLUGS);
