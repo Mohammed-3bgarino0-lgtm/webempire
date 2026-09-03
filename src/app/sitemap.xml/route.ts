@@ -2,7 +2,7 @@ import { publicEnv } from "@/lib/env";
 import { getActiveLocales } from "@/localization/repository";
 import { isIndexablePublicToolSlug } from "@/lib/reviewed-tools";
 import { getBlogPosts } from "@/repositories/blog";
-import { getActiveTools } from "@/repositories/catalog";
+import { getActiveCategories, getActiveTools } from "@/repositories/catalog";
 
 function escapeXml(value: string): string {
   return value
@@ -33,10 +33,19 @@ export async function GET() {
     entries.push({ url: `${prefix}/contact` });
     entries.push({ url: `${prefix}/support` });
 
-    const localizedTools = await getActiveTools(locale.code);
+    const [localizedTools, categories] = await Promise.all([
+      getActiveTools(locale.code),
+      getActiveCategories(locale.code),
+    ]);
     const indexableTools = localizedTools.filter((tool) =>
       isIndexablePublicToolSlug(tool.slug),
     );
+    const indexableCategoryIds = new Set(indexableTools.map((tool) => tool.category_id));
+
+    for (const category of categories) {
+      if (!indexableCategoryIds.has(category.id)) continue;
+      entries.push({ url: `${prefix}/tools/category/${category.slug}` });
+    }
 
     for (const tool of indexableTools) {
       entries.push({ url: `${prefix}/tools/${tool.slug}` });
