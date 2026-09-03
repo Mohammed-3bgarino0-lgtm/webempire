@@ -25,6 +25,7 @@ export async function GET() {
     const prefix = `${publicEnv.siteUrl}/${locale.code}`;
     entries.push({ url: prefix });
     entries.push({ url: `${prefix}/tools` });
+    entries.push({ url: `${prefix}/directory` });
     entries.push({ url: `${prefix}/about` });
     entries.push({ url: `${prefix}/editorial-policy` });
     entries.push({ url: `${prefix}/privacy` });
