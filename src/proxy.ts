@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 
-import { isReviewedPublicToolSlug } from "@/lib/reviewed-tools";
+import { isIndexablePublicToolSlug } from "@/lib/reviewed-tools";
 import { updateSupabaseSession } from "@/lib/supabase/proxy";
 
 export async function proxy(request: NextRequest) {
@@ -16,7 +16,7 @@ export async function proxy(request: NextRequest) {
 
   if (section === "tools") {
     const slug = parts[2];
-    if (slug && !isReviewedPublicToolSlug(slug)) {
+    if (slug && !isIndexablePublicToolSlug(slug)) {
       response.headers.set("X-Robots-Tag", "noindex, follow");
     }
   }
