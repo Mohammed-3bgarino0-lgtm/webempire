@@ -3,8 +3,6 @@
 import Script from "next/script";
 import { usePathname } from "next/navigation";
 
-import { isAdReviewedPublicToolSlug } from "@/lib/reviewed-tools";
-
 type AdSenseRuntimeProps = {
   clientId: string;
   enabled: boolean;
@@ -19,7 +17,6 @@ function shouldLoadAds(pathname: string) {
   if (section === "tools") {
     const slug = parts[2];
     if (!slug) return false;
-    if (!isAdReviewedPublicToolSlug(slug)) return false;
   }
 
   return true;
