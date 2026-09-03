@@ -50,7 +50,8 @@ set
       when 'travel-tools' then 'estimate a travel cost, per-person share, or trip fee. Use prices, taxes, traveler counts, and days from the same trip and avoid mixing currencies without conversion.'
       when 'web-tools' then 'measure a website or server metric such as speed, requests, bandwidth, cost, or availability. Keep time and data-size units consistent and distinguish average load from peak traffic.'
       else 'calculate an operational metric with clearly defined inputs.'
-    end,
+    end
+  end,
   seo_description = case
     when x.locale_code = 'ar' then 'استخدم ' || x.title || ' لحساب المؤشر بسرعة مع شرح واضح للمدخلات وطريقة تفسير النتيجة ومقارنتها على أساس بيانات متسقة.'
     else 'Use ' || x.title || ' to calculate the metric quickly with clear input guidance, result interpretation, and consistent comparison principles.'
